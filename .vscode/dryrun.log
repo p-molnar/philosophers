@@ -1,0 +1,13 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory `/Users/pmolnar/Documents/codam/42cursus/philosophers'
+mkdir -p obj
+gcc -I include  src/main.c -c -o obj/main.o
+ 
+mkdir -p obj
+gcc -I include  src/input.c -c -o obj/input.o
+mkdir -p obj
+gcc -I include  src/input_util.c -c -o obj/input_util.o
+gcc -I include  obj/main.o obj/input.o obj/input_util.o -o philo
+echo "philo is built"
+make: Leaving directory `/Users/pmolnar/Documents/codam/42cursus/philosophers'
+ 
