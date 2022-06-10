@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   error_handling.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/06/06 22:40:26 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/10 23:27:31 by pmolnar       ########   odam.nl         */
+/*   Created: 2022/06/08 14:03:44 by pmolnar       #+#    #+#                 */
+/*   Updated: 2022/06/10 12:15:58 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
 
-int	main(int argc, char *argv[])
+int	error_handling(int err_code)
 {
-	t_sim_attr	attr;
-	t_philo		*philo_arr;
-
-	philo_arr = NULL;
-	if (argc < 5 || parse_input(argc, argv, &attr))
-		return (error_handling(INVALID_INPUT));
-	if (set_up_sim_vars(&philo_arr, &attr))
-		return (error_handling(MEM_ERROR));
-	create_threads(philo_arr, &attr);
-
-	return (EXIT_SUCCESS);
+	if (err_code == INVALID_INPUT)
+	{
+		printf("usage: ./philo ");
+		printf("<number of philosophers> <time to die> <time to eat> ");
+		printf("<time to sleep> [<number of times each philosopher must eat>]\n");
+	}
+	else if (err_code == MEM_ERROR)
+	{
+		printf ("Memory allocation failed, please try again\n");
+		error_handling (INVALID_INPUT);
+	}
+	return (EXIT_FAILURE);
 }

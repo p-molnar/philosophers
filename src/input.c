@@ -6,13 +6,38 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:54:06 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/07 17:46:26 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/10 18:17:53 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
 
-int	parse_input(int	argc, char *argv[], t_data *data)
+static bool	validate_input(int argc, t_sim_attr *attr)
 {
-		
+	if (argc <= 6)
+	{
+		if (attr->philo_count < 0 ||
+			attr->die_duration < 0 ||
+			attr->eat_duration < 0 ||
+			attr->sleep_duration < 0)
+		{
+			return (1);
+		}
+		if (argc == 6 && attr->required_eat_count < 0)
+			return (1);
+	}
+	return (0);
+}
+
+bool	parse_input(int	argc, char *argv[], t_sim_attr *attr)
+{	
+	attr->philo_count = ft_atoi(argv[1]);
+	attr->die_duration = 1000 * ft_atoi(argv[2]);
+	attr->eat_duration = 1000 * ft_atoi(argv[3]);
+	attr->sleep_duration = 1000 * ft_atoi(argv[4]);
+	if (argc == 6)
+		attr->required_eat_count = 1000 * ft_atoi(argv[5]);
+	if (validate_input(argc, attr))
+		return (1);
+	return (0);
 }

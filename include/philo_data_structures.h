@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/07 17:41:28 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/11 00:02:22 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,32 @@
 # include <stddef.h>
 # include <philo_consts.h>
 # include <sys/time.h>
+# include <pthread.h>
+# include <stdbool.h>
 
+
+typedef struct s_sim_attr
+{
+	int		philo_count;
+	int		die_duration;
+	int		eat_duration;
+	int		sleep_duration;
+	int		required_eat_count;
+	int		*fork_arr;
+	struct timeval	start_time;
+	pthread_mutex_t	mutex;
+}	t_sim_attr;
 
 typedef struct s_philo
 {
-	size_t	id;
-	int		state;
+	size_t		id;
+	int			state;
+	int			*left_fork;
+	int			*right_fork;
+	int			eat_count;	
+	pthread_t	thread;
+	t_sim_attr	*sim_attr;
 }	t_philo;
-
-typedef struct s_data
-{
-	t_philo	*philo_arr;
-	size_t	philo_count;
-	size_t	die_duration;
-	size_t	eat_duration;
-	size_t	sleep_duration;
-	size_t	required_eat_count;
-	struct timeval	start_time;
-	struct timeval	curr_time;
-}	t_data;
 
 
 #endif

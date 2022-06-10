@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 17:46:43 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/07 18:06:21 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/08 12:53:06 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	ft_atoi(char *str)
 	sign = 1;
 	while (*str && ft_isspace(*str))
 		str++;
-	if (*str && (*str == "-" || *str == "+"))
-		sign = coeff[(*str++ == "-")];
+	if (*str && (*str == '-' || *str == '+'))
+		sign = coeff[(*str++ == '-')];
 	while (*str && ft_isdigit(*str))
-		num = 10 * num + (*str++ - "0");
+		num = 10 * num + (*str++ - '0');
 	return (sign * num);
 }

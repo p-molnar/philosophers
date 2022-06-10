@@ -1,14 +1,16 @@
 CC 		=	gcc
-CFLAGS 	=	-I $(INCLUDE) -Wall -Wextra -Werror
+CFLAGS 	=	-I $(INCLUDE) -Wall -Wextra -Werror -fsanitize=address -g 
 # CFLAGS 	=	-I $(INCLUDE) 
 
 NAME 	=	philo
 
 INCLUDE	=	include
-SRC 	=	main.c		\
-			input.c		\
-			input_util.c\
-
+SRC 	=	main.c				\
+			input.c				\
+			input_util.c		\
+			error_handling.c	\
+			util.c				\
+			philosopher.c		\
 
 OBJ		= $(addprefix obj/, $(SRC:.c=.o))
 
@@ -32,7 +34,7 @@ re: fclean
 	make all
 
 norm:
-	norminette $(addprefix src/, $(SRC))
+	norminette $(addprefix src/, $(SRC)) | grep "Error"
 
 run:
 	@make all
