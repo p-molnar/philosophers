@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:30:53 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/10 23:23:42 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/14 00:08:42 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ int	set_up_sim_vars(t_philo **philo_arr, t_sim_attr *attr);
 int	create_threads(t_philo *philo_arr, t_sim_attr *attr);
 
 // philosopher.c
-void	simulate_philo_life_circle(t_philo *philo);
+void	run(t_philo *philo);
 
 #endif

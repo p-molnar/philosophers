@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/10 11:44:19 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/11 00:26:15 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/14 00:08:42 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	thinking(t_philo *philo)
 	gettimeofday(&curr_time, NULL);
 	diff = (curr_time.tv_sec * 1000 + curr_time.tv_usec / 1000) - \
 			(start_time.tv_sec * 1000 + start_time.tv_usec / 1000);
-	printf("%-6.0d Philosopher %zu is thinking\n", diff, philo->id);
+	printf("%-6d Philosopher %zu is thinking\n", diff, philo->id);
 }
 
 void	sleeping(t_philo *philo)
@@ -39,7 +39,7 @@ void	sleeping(t_philo *philo)
 	usleep(philo->sim_attr->sleep_duration);
 	diff = (curr_time.tv_sec * 1000 + curr_time.tv_usec / 1000) - \
 			(start_time.tv_sec * 1000 + start_time.tv_usec / 1000);
-	printf("%-6.0d Philosopher %zu is sleeping\n", diff, philo->id);
+	printf("%-6d Philosopher %zu is sleeping\n", diff, philo->id);
 }
 
 void	pick_up_fork(int *fork)
@@ -65,17 +65,20 @@ void	eating(t_philo *philo)
 	pick_up_fork(philo->left_fork);
 	pick_up_fork(philo->right_fork);
 	philo->state = EATING;
+	philo->eat_count++;
 	gettimeofday(&curr_time, NULL);
 	usleep(philo->sim_attr->eat_duration);
 	diff = (curr_time.tv_sec * 1000 + curr_time.tv_usec / 1000) - \
 			(start_time.tv_sec * 1000 + start_time.tv_usec / 1000);
-	printf("%-6.0d Philosopher %zu is eating\n", diff, philo->id);
+	printf("%-6d Philosopher %zu is eating\n", diff, philo->id);
 	put_down_fork(philo->left_fork);
-	put_down_fork(philo->right_fork);	
+	put_down_fork(philo->right_fork);
+	if (philo->eat_count == philo->sim_attr->required_eat_count)
+		return ;
 	pthread_mutex_unlock(&philo->sim_attr->mutex);
 }
 
-void	simulate_philo_life_circle(t_philo *philo)
+void	run(t_philo *philo)
 {
 	while (true)
 	{

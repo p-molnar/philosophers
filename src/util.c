@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 14:40:24 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/11 00:02:31 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/14 00:08:42 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	create_threads(t_philo *philo_arr, t_sim_attr *attr)
 	gettimeofday(&attr->start_time, NULL);
 	while (i < (size_t) attr->philo_count)
 	{
-		pthread_create(&(philo_arr[i].thread), NULL, (void *) &simulate_philo_life_circle,
+		pthread_create(&(philo_arr[i].thread), NULL, (void *) &run,
 						(void *) &philo_arr[i]);
 		i++;
 	}
