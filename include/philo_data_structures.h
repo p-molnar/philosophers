@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/11 00:02:22 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/15 00:02:00 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_philo
 	int			*left_fork;
 	int			*right_fork;
 	int			eat_count;	
+	int			last_time_eaten;
 	pthread_t	thread;
 	t_sim_attr	*sim_attr;
 }	t_philo;

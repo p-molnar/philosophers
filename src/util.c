@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 14:40:24 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/14 00:08:42 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/15 00:08:11 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	set_up_sim_vars(t_philo **philo, t_sim_attr *attr)
 		(*philo)[i].state= UNDEFINED;
 		(*philo)[i].eat_count = 0;
 		(*philo)[i].sim_attr = attr;
+		(*philo)[i].last_time_eaten = 0;
 		assign_forks(philo, attr, i);
 		i++;
 	}
@@ -70,7 +71,7 @@ int	create_threads(t_philo *philo_arr, t_sim_attr *attr)
 	gettimeofday(&attr->start_time, NULL);
 	while (i < (size_t) attr->philo_count)
 	{
-		pthread_create(&(philo_arr[i].thread), NULL, (void *) &run,
+		pthread_create(&(philo_arr[i].thread), NULL, (void *) &run_philo_life_cycle,
 						(void *) &philo_arr[i]);
 		i++;
 	}

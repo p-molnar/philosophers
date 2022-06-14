@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/10 11:44:19 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/14 00:08:42 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/15 00:13:55 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	put_down_fork(int *fork)
 		*fork = AVAILABLE;
 }
 
-void	eating(t_philo *philo)
+int	eating(t_philo *philo)
 {
 	struct timeval	curr_time;
 	struct timeval	start_time;
@@ -65,8 +65,16 @@ void	eating(t_philo *philo)
 	pick_up_fork(philo->left_fork);
 	pick_up_fork(philo->right_fork);
 	philo->state = EATING;
-	philo->eat_count++;
 	gettimeofday(&curr_time, NULL);
+	philo->eat_count++;
+	diff = (curr_time.tv_sec * 1000 + curr_time.tv_usec / 1000) - \
+				(start_time.tv_sec * 1000 + start_time.tv_usec / 1000);
+	if (diff - philo->last_time_eaten > philo->sim_attr->die_duration)
+	{	
+		printf("%-6d Philosopher %zu died\n", diff, philo->id);
+		return (1);		
+	}
+	philo->last_time_eaten = curr_time.tv_usec * 1000;
 	usleep(philo->sim_attr->eat_duration);
 	diff = (curr_time.tv_sec * 1000 + curr_time.tv_usec / 1000) - \
 			(start_time.tv_sec * 1000 + start_time.tv_usec / 1000);
@@ -74,15 +82,17 @@ void	eating(t_philo *philo)
 	put_down_fork(philo->left_fork);
 	put_down_fork(philo->right_fork);
 	if (philo->eat_count == philo->sim_attr->required_eat_count)
-		return ;
+		return (1);
 	pthread_mutex_unlock(&philo->sim_attr->mutex);
+	return (0);
 }
 
-void	run(t_philo *philo)
+void	run_philo_life_cycle(t_philo *philo)
 {
 	while (true)
 	{
-		eating(philo);
+		if (eating(philo))
+			break ;
 		thinking(philo);
 		sleeping(philo);
 	}
