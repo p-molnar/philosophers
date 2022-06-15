@@ -1,18 +1,8 @@
-make --dry-run --always-make --keep-going --print-directory
+make --dry-run --keep-going --print-directory
 make: Entering directory `/Users/pmolnar/Documents/codam/42cursus/philosophers'
 mkdir -p obj
-gcc -I include -Wall -Wextra -Werror -fsanitize=address -g  src/main.c -c -o obj/main.o
-mkdir -p obj
-gcc -I include -Wall -Wextra -Werror -fsanitize=address -g  src/input.c -c -o obj/input.o
-mkdir -p obj
-gcc -I include -Wall -Wextra -Werror -fsanitize=address -g  src/input_util.c -c -o obj/input_util.o
-mkdir -p obj
-gcc -I include -Wall -Wextra -Werror -fsanitize=address -g  src/error_handling.c -c -o obj/error_handling.o
-mkdir -p obj
-gcc -I include -Wall -Wextra -Werror -fsanitize=address -g  src/util.c -c -o obj/util.o
-mkdir -p obj
 gcc -I include -Wall -Wextra -Werror -fsanitize=address -g  src/philosopher.c -c -o obj/philosopher.o
-gcc -I include -Wall -Wextra -Werror -fsanitize=address -g  obj/main.o obj/input.o obj/input_util.o obj/error_handling.o obj/util.o obj/philosopher.o -o philo
-echo "philo is built"
 make: Leaving directory `/Users/pmolnar/Documents/codam/42cursus/philosophers'
  
+make: *** No rule to make target `obj/philosopher_util.o', needed by `philo'.
+

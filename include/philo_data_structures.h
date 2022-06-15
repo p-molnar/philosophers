@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/15 00:02:00 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/16 01:06:40 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,22 @@
 # include <pthread.h>
 # include <stdbool.h>
 
+typedef struct timeval	t_time;
+typedef pthread_mutex_t	t_mutex;
+typedef size_t			t_timestamp;
 
-typedef struct s_sim_attr
+typedef struct s_attr
 {
-	int		philo_count;
-	int		die_duration;
-	int		eat_duration;
-	int		sleep_duration;
-	int		required_eat_count;
+	size_t	philo_count;
+	size_t	die_duration;
+	size_t	eat_duration;
+	size_t	sleep_duration;
+	size_t	required_eat_count;
 	int		*fork_arr;
-	struct timeval	start_time;
-	pthread_mutex_t	mutex;
-}	t_sim_attr;
+	char	**status_msg;
+	t_time	start_time;
+	t_mutex	mutex;
+}	t_attr;
 
 typedef struct s_philo
 {
@@ -38,10 +42,10 @@ typedef struct s_philo
 	int			state;
 	int			*left_fork;
 	int			*right_fork;
-	int			eat_count;	
-	int			last_time_eaten;
+	size_t	eat_count;	
+	size_t		last_time_eaten;
 	pthread_t	thread;
-	t_sim_attr	*sim_attr;
+	t_attr		*g_attr;
 }	t_philo;
 
 

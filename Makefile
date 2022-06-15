@@ -11,6 +11,7 @@ SRC 	=	main.c				\
 			error_handling.c	\
 			util.c				\
 			philosopher.c		\
+			philosopher_util.c	\
 
 OBJ		= $(addprefix obj/, $(SRC:.c=.o))
 
