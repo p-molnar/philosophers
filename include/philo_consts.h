@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 16:40:19 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/16 00:07:38 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/19 18:19:11 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,22 @@ enum e_status {
 	EATING,
 	SLEEPING,
 	THINKING,
+	DIED,
+	EATEN_ENOUGH,
+	EXIT_DIED,
 	UNDEFINED,
 };
 
-enum {
+enum e_error_msg {
 	INVALID_INPUT=1,
-	MEM_ERROR=2,
+	MALLOC_ERROR,
+	MUTEX_ERROR,
+	THREAD_ERROR,
 };
 
-enum {
-	AVAILABLE=0,
-	IN_USE=1,
+enum e_fork_status {
+	AVAILABLE,
+	TAKEN,
 };
+
 #endif

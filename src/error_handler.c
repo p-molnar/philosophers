@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   error_handling.c                                   :+:    :+:            */
+/*   error_handler.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 14:03:44 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/10 12:15:58 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/20 10:53:21 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
 
-int	error_handling(int err_code)
+int	error_handler(int err_code)
 {
 	if (err_code == INVALID_INPUT)
 	{
 		printf("usage: ./philo ");
-		printf("<number of philosophers> <time to die> <time to eat> ");
-		printf("<time to sleep> [<number of times each philosopher must eat>]\n");
+		printf("<philosopher count> <die duration> <eat duration> ");
+		printf("<sleep duration> [<minimum eat count by each philosopher>]\n");
 	}
-	else if (err_code == MEM_ERROR)
+	else if (err_code == MALLOC_ERROR)
 	{
-		printf ("Memory allocation failed, please try again\n");
-		error_handling (INVALID_INPUT);
+		printf ("Memory allocation failed, launch the program again\n");
+		error_handler (INVALID_INPUT);
+	}
+	else if (err_code == MUTEX_ERROR)
+	{
+		printf ("Mutex error, launch the program again\n");
+		error_handler (INVALID_INPUT);
+	}
+	else if (err_code == THREAD_ERROR)
+	{
+		printf ("thread error, launch the program again\n");
+		error_handler (INVALID_INPUT);
 	}
 	return (EXIT_FAILURE);
 }

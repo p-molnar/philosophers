@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/16 01:06:40 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/20 13:12:02 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,32 @@
 
 typedef struct timeval	t_time;
 typedef pthread_mutex_t	t_mutex;
-typedef size_t			t_timestamp;
 
 typedef struct s_attr
 {
-	size_t	philo_count;
-	size_t	die_duration;
-	size_t	eat_duration;
-	size_t	sleep_duration;
-	size_t	required_eat_count;
-	int		*fork_arr;
+	int		philo_count;
+	int		die_duration;
+	int		eat_duration;
+	int		sleep_duration;
+	int		min_eat_count;
+	t_mutex	**fork_arr;
+	t_mutex	**eat_lock_arr;
 	char	**status_msg;
+	bool	all_philo_alive;
 	t_time	start_time;
-	t_mutex	mutex;
 }	t_attr;
 
 typedef struct s_philo
 {
 	size_t		id;
-	int			state;
-	int			*left_fork;
-	int			*right_fork;
-	size_t	eat_count;	
-	size_t		last_time_eaten;
+	t_time		last_time_eaten;
+	int			status;
+	t_mutex		*left_fork;
+	t_mutex		*right_fork;
+	t_mutex		*eat_lock;
+	int			eat_count;	
 	pthread_t	thread;
 	t_attr		*g_attr;
 }	t_philo;
-
 
 #endif

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   input_util.c                                       :+:    :+:            */
+/*   ft_atoi.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/06/07 17:46:43 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/08 12:53:06 by pmolnar       ########   odam.nl         */
+/*   Created: 2022/06/16 19:00:19 by pmolnar       #+#    #+#                 */
+/*   Updated: 2022/06/16 19:01:39 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <philo.h>
+#include <philo.h>
 
 static int	ft_isspace(int c)
 {

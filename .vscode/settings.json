@@ -2,6 +2,8 @@
 	"makefile.extensionOutputFolder": "./.vscode",
 	"files.associations": {
 		"philo.h": "c",
-		"philo_data_structures.h": "c"
+		"philo_data_structures.h": "c",
+		"__config": "c",
+		"pthread.h": "c"
 	}
 }

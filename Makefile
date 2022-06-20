@@ -6,10 +6,11 @@ NAME 	=	philo
 
 INCLUDE	=	include
 SRC 	=	main.c				\
-			input.c				\
-			input_util.c		\
-			error_handling.c	\
-			util.c				\
+			parse.c				\
+			ft_atoi.c			\
+			error_handler.c		\
+			initialise.c		\
+			simulation.c		\
 			philosopher.c		\
 			philosopher_util.c	\
 
@@ -35,7 +36,7 @@ re: fclean
 	make all
 
 norm:
-	norminette $(addprefix src/, $(SRC)) | grep "Error"
+	norminette $(addprefix src/, $(SRC))
 
 run:
 	@make all
