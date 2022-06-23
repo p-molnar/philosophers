@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:30:53 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/20 12:44:16 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/23 15:59:25 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int		set_up_simulation(t_philo **philo_arr, t_attr *attr);
 int		launch_simulation(t_philo *philo_arr, t_attr *attr);
 
 // philosopher.c
-int	eat(t_philo *philo);
-int	think(t_philo *philo);
-int	sleeping(t_philo *philo);
+int	philo_eat(t_philo *philo);
+int	philo_think(t_philo *philo);
+int	philo_sleep(t_philo *philo);
 
 // philosopher_util.c
 void	pick_up_fork(t_philo *philo, t_mutex *fork);
@@ -46,5 +46,8 @@ void	put_down_fork(t_mutex *fork);
 void	print_status(t_philo *philo);
 t_time	gen_timestamp(void);
 long	time_delta_usec(t_time t1, t_time t2);
+
+// die_checker.c
+void	philo_checker(t_philo *philo_arr);
 
 #endif

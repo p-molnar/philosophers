@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/15 13:23:48 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/22 10:59:14 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/23 17:50:26 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,17 @@ void	print_status(t_philo *philo)
 	long		timestamp;
 	const char	*status_msg[5] = {"has taken a fork", "is eating",
 		"is sleeping", "is thinking", "died"};
-
-	pthread_mutex_lock(&philo->g_attr->print_lock);
-	timestamp = time_delta_usec(philo->g_attr->start_time, gen_timestamp());
-	status = philo->status;
-	if (status == EATING)
-		timestamp = time_delta_usec(philo->g_attr->start_time, philo->last_time_eaten);
-	printf("%-8zu %zu %s\n", timestamp, philo->id, status_msg[status]);
-	pthread_mutex_unlock(&philo->g_attr->print_lock);
+	
+	if (philo->g_attr->all_philo_alive == true)
+	{
+		pthread_mutex_lock(&philo->g_attr->print_lock);
+		timestamp = time_delta_usec(philo->g_attr->start_time, gen_timestamp());
+		status = philo->status;
+		if (status == EATING)
+			timestamp = time_delta_usec(philo->g_attr->start_time, philo->last_time_eaten);
+		printf("%-8zu %zu %s\n", timestamp / 1000, philo->id, status_msg[status]);
+		pthread_mutex_unlock(&philo->g_attr->print_lock);
+	}
 }
 
 long	time_delta_usec(t_time t1, t_time t2)

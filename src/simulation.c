@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 14:40:24 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/22 11:00:05 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/23 17:54:03 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void static	run_philo_life_cycle(t_philo *philo)
 	philo->last_time_eaten = philo->g_attr->start_time;
 	while (philo->g_attr->all_philo_alive)
 	{
-		if (think(philo))
+		if (philo_think(philo))
 			break ;
-		if (eat(philo))
+		if (philo_eat(philo))
 			break ;
-		if (sleeping(philo))
+		if (philo_sleep(philo))
 			break ;
 	}
 	return ;
@@ -46,12 +46,15 @@ static int	join_threads(t_philo *philo)
 
 int	launch_simulation(t_philo *philo_arr, t_attr *attr)
 {
-	size_t	i;
+	size_t		i;
+	pthread_t	status;
 
 	i = 0;
 	gettimeofday(&attr->start_time, NULL);
 	if (pthread_mutex_init(&attr->print_lock, NULL))
 		return (error_handler(MUTEX_ERROR));
+	if (pthread_create(&status, NULL, (void *) &philo_checker, (void *)philo_arr))
+		return (error_handler(THREAD_ERROR));
 	while (i < (size_t)attr->philo_count)
 	{
 		if (pthread_mutex_init(attr->fork_arr[i], NULL))
@@ -69,6 +72,8 @@ int	launch_simulation(t_philo *philo_arr, t_attr *attr)
 			return (error_handler(MUTEX_ERROR));
 		i++;
 	}
+	if (pthread_join(status, NULL))	
+		return (error_handler(THREAD_ERROR));
 	if (pthread_mutex_destroy(&attr->print_lock))
 		return (error_handler(MUTEX_ERROR));
 	return (EXIT_SUCCESS);

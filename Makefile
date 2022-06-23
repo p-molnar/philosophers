@@ -13,6 +13,7 @@ SRC 	=	main.c				\
 			simulation.c		\
 			philosopher.c		\
 			philosopher_util.c	\
+			die_checker.c		\
 
 OBJ		= $(addprefix obj/, $(SRC:.c=.o))
 
