@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/20 13:12:02 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/22 10:59:00 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_attr
 	int		min_eat_count;
 	t_mutex	**fork_arr;
 	t_mutex	**eat_lock_arr;
+	t_mutex	print_lock;
 	char	**status_msg;
 	bool	all_philo_alive;
 	t_time	start_time;

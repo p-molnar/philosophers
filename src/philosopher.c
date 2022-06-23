@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/10 11:44:19 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/20 12:44:46 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/22 10:36:38 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,21 @@ static void	die(t_philo *philo)
 {
 	philo->g_attr->all_philo_alive = false;
 	philo->status = DIED;
-	print_status(philo);	
+	print_status(philo);
+}
+
+void	pick_up_forks(t_philo *philo)
+{
+	if ((philo->id - 1) % 2)
+	{
+		pick_up_fork(philo, philo->left_fork);
+		pick_up_fork(philo, philo->right_fork);
+	}
+	else
+	{
+		pick_up_fork(philo, philo->right_fork);
+		pick_up_fork(philo, philo->left_fork);
+	}
 }
 
 int	eat(t_philo *philo)
@@ -52,8 +66,7 @@ int	eat(t_philo *philo)
 		die(philo);
 		return (1);
 	}
-	pick_up_fork(philo, philo->left_fork);
-	pick_up_fork(philo, philo->right_fork);
+	pick_up_forks(philo);
 	philo->status = EATING;
 	philo->last_time_eaten = gen_timestamp();
 	print_status(philo);

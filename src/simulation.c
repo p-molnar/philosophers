@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 14:40:24 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/20 14:16:51 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/22 11:00:05 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	launch_simulation(t_philo *philo_arr, t_attr *attr)
 
 	i = 0;
 	gettimeofday(&attr->start_time, NULL);
+	if (pthread_mutex_init(&attr->print_lock, NULL))
+		return (error_handler(MUTEX_ERROR));
 	while (i < (size_t)attr->philo_count)
 	{
 		if (pthread_mutex_init(attr->fork_arr[i], NULL))
@@ -67,5 +69,7 @@ int	launch_simulation(t_philo *philo_arr, t_attr *attr)
 			return (error_handler(MUTEX_ERROR));
 		i++;
 	}
+	if (pthread_mutex_destroy(&attr->print_lock))
+		return (error_handler(MUTEX_ERROR));
 	return (EXIT_SUCCESS);
 }

@@ -1,8 +1,16 @@
-make --dry-run --keep-going --print-directory
+make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/pmolnar/Documents/codam/42cursus/philosophers'
 mkdir -p obj
-gcc -I include -Wall -Wextra -Werror -fsanitize=address -g  src/initialise.c -c -o obj/initialise.o
+gcc -I include -Wall -Wextra -Werror -fsanitize=address -g  src/main.c -c -o obj/main.o
+mkdir -p obj
+gcc -I include -Wall -Wextra -Werror -fsanitize=address -g  src/parse.c -c -o obj/parse.o
  
+mkdir -p obj
+gcc -I include -Wall -Wextra -Werror -fsanitize=address -g  src/ft_atoi.c -c -o obj/ft_atoi.o
+mkdir -p obj
+gcc -I include -Wall -Wextra -Werror -fsanitize=address -g  src/error_handler.c -c -o obj/error_handler.o
+mkdir -p obj
+gcc -I include -Wall -Wextra -Werror -fsanitize=address -g  src/initialise.c -c -o obj/initialise.o
 mkdir -p obj
 gcc -I include -Wall -Wextra -Werror -fsanitize=address -g  src/simulation.c -c -o obj/simulation.o
 mkdir -p obj
