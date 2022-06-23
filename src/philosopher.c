@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/10 11:44:19 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/23 15:45:41 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/23 23:09:43 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	philo_sleep(t_philo *philo)
 		return (1);
 	philo->status = SLEEPING;
 	print_status(philo);
-	usleep(philo->g_attr->sleep_duration);
+	psleep(philo->g_attr->sleep_duration);
 	return (0);
 }
 
@@ -52,9 +52,9 @@ int	philo_eat(t_philo *philo)
 		return (1);
 	pick_up_forks(philo);
 	philo->status = EATING;
-	philo->last_time_eaten = gen_timestamp();
+	philo->last_time_eaten = get_time();
 	print_status(philo);
-	usleep(philo->g_attr->eat_duration);
+	psleep(philo->g_attr->eat_duration);
 	put_down_fork(philo->right_fork);
 	put_down_fork(philo->left_fork);
 	philo->eat_count++;
