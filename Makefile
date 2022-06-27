@@ -1,6 +1,5 @@
 CC 		=	gcc
-CFLAGS 	=	-I $(INCLUDE) -Wall -Wextra -Werror -fsanitize=address -g 
-# CFLAGS 	=	-I $(INCLUDE) 
+CFLAGS 	=	-I $(INCLUDE) -Wall -Wextra -Werror -fsanitize=address
 
 NAME 	=	philo
 
@@ -11,12 +10,17 @@ SRC 	=	main.c				\
 			error_handler.c		\
 			initialise.c		\
 			simulation.c		\
-			philosopher.c		\
+			philosopher_actions.c\
 			philosopher_util.c	\
-			die_checker.c		\
+			monitoring.c		\
 			time.c				\
+			printing.c			\
 
 OBJ		= $(addprefix obj/, $(SRC:.c=.o))
+
+ifeq ($(PRETTY_PRINT), 1)
+	CFLAGS += -D PRINT_STR="%-8zu %8zu %s\n"
+endif
 
 all:	$(NAME)
 
@@ -25,7 +29,7 @@ $(NAME):	$(INCLUDE) $(OBJ)
 	@echo "$(NAME) is built"
 
 obj/%.o:	src/%.c
-	mkdir -p obj
+	@mkdir -p obj
 	$(CC) $(CFLAGS) $^ -c -o $@
 
 clean:

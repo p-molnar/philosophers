@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 14:40:24 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/23 17:54:03 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/27 14:56:57 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,17 @@ int	launch_simulation(t_philo *philo_arr, t_attr *attr)
 {
 	size_t		i;
 	pthread_t	status;
-
+	pthread_t	print;
+	
 	i = 0;
 	gettimeofday(&attr->start_time, NULL);
-	if (pthread_mutex_init(&attr->print_lock, NULL))
-		return (error_handler(MUTEX_ERROR));
 	if (pthread_create(&status, NULL, (void *) &philo_checker, (void *)philo_arr))
 		return (error_handler(THREAD_ERROR));
-	while (i < (size_t)attr->philo_count)
+	if (pthread_create(&print, NULL, (void *) &print_queue, (void *)attr))
+		return (error_handler(THREAD_ERROR));	
+	if (pthread_mutex_init(&attr->queue_lock, NULL))
+		return (error_handler(MUTEX_ERROR));
+	while (i < (size_t)attr->n_philo)
 	{
 		if (pthread_mutex_init(attr->fork_arr[i], NULL))
 			return (error_handler(MUTEX_ERROR));
@@ -64,7 +67,7 @@ int	launch_simulation(t_philo *philo_arr, t_attr *attr)
 		i++;
 	}
 	i = 0;
-	while (i < (size_t)attr->philo_count)
+	while (i < (size_t)attr->n_philo)
 	{
 		if (join_threads(&philo_arr[i]))
 			return (error_handler(THREAD_ERROR));
@@ -72,9 +75,11 @@ int	launch_simulation(t_philo *philo_arr, t_attr *attr)
 			return (error_handler(MUTEX_ERROR));
 		i++;
 	}
-	if (pthread_join(status, NULL))	
+	if (pthread_join(status, NULL))
 		return (error_handler(THREAD_ERROR));
-	if (pthread_mutex_destroy(&attr->print_lock))
+	if (pthread_join(print, NULL))
+		return (error_handler(THREAD_ERROR));
+	if (pthread_mutex_destroy(&attr->queue_lock))
 		return (error_handler(MUTEX_ERROR));
 	return (EXIT_SUCCESS);
 }

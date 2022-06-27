@@ -6,39 +6,49 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/15 13:23:48 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/23 22:57:24 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/27 15:14:57 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
 
-void	print_status(t_philo *philo)
+void	create_log(t_philo *philo, t_log *log, int status)
 {
-	int			status;
-	long		timestamp;
-	const char	*status_msg[5] = {"has taken a fork", "is eating",
-		"is sleeping", "is thinking", "died"};
-	
-	if (philo->g_attr->all_philo_alive == true)
-	{
-		pthread_mutex_lock(&philo->g_attr->print_lock);
-		timestamp = time_delta_usec(philo->g_attr->start_time, get_time());
-		status = philo->status;
-		if (status == EATING)
-			timestamp = time_delta_usec(philo->g_attr->start_time, philo->last_time_eaten);
-		printf("%-8zu %zu %s\n", timestamp / 1000, philo->id, status_msg[status]);
-		pthread_mutex_unlock(&philo->g_attr->print_lock);
-	}
+	log->status = status;
+	log->philo_id = philo->id;
+	log->time = get_time();
 }
 
 void	pick_up_fork(t_philo *philo, t_mutex *fork)
 {
+	t_log	*log = malloc(sizeof(t_log) * 1);
+
 	pthread_mutex_lock(fork);
-	philo->status = TAKING_FORK;
-	print_status(philo);
+	create_log(philo, log, TAKING_FORK);
+	add_log_to_queue(philo->g_attr, log);
 }
 
 void	put_down_fork(t_mutex *fork)
 {
 	pthread_mutex_unlock(fork);
+}
+
+void	pick_up_forks(t_philo *philo)
+{
+	if ((philo->id - 1) % 2 == 0)
+	{
+		pick_up_fork(philo, philo->left_fork);
+		pick_up_fork(philo, philo->right_fork);
+	}
+	else
+	{
+		pick_up_fork(philo, philo->right_fork);
+		pick_up_fork(philo, philo->left_fork);
+	}
+}
+
+void	put_down_forks(t_philo *philo)
+{
+	put_down_fork(philo->right_fork);
+	put_down_fork(philo->left_fork);
 }

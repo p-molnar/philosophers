@@ -1,13 +1,6 @@
 make --dry-run --keep-going --print-directory
 make: Entering directory `/Users/pmolnar/Documents/codam/42cursus/philosophers'
-mkdir -p obj
-gcc -I include -Wall -Wextra -Werror -fsanitize=address -g  src/philosopher.c -c -o obj/philosopher.o
+make: Nothing to be done for `all'.
  
-mkdir -p obj
-gcc -I include -Wall -Wextra -Werror -fsanitize=address -g  src/philosopher_util.c -c -o obj/philosopher_util.o
-mkdir -p obj
-gcc -I include -Wall -Wextra -Werror -fsanitize=address -g  src/time.c -c -o obj/time.o
-gcc -I include -Wall -Wextra -Werror -fsanitize=address -g  obj/main.o obj/parse.o obj/ft_atoi.o obj/error_handler.o obj/initialise.o obj/simulation.o obj/philosopher.o obj/philosopher_util.o obj/die_checker.o obj/time.o -o philo
-echo "philo is built"
 make: Leaving directory `/Users/pmolnar/Documents/codam/42cursus/philosophers'
  
