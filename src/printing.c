@@ -2,12 +2,9 @@
 
 void	add_log_to_queue(t_attr *attr, t_log *log)
 {
-	static size_t i;
-
+	static size_t;
 	pthread_mutex_lock(&attr->queue_lock);
-	attr->queue[i] = log;
-	if (++i == (size_t) (attr->n_philo * 64 - 1))
-		i = 0;
+	attr->queue[log->status][log->philo_id - 1] = *log;
 	pthread_mutex_unlock(&attr->queue_lock);
 }
 
@@ -21,27 +18,19 @@ void	print_queue_item(t_log *queue, t_time start_time, int item)
 	printf("item :%d, %zu philo %zu %s\n", item, ts, queue->philo_id, status_msg[queue->status]);
 }
 
-void	print_queue(t_attr *sim_attr)
+void	print_queue(t_attr *attr)
 {
 	size_t	i;
 	size_t	n_philo;
-	t_log	**queue;
 
 	n_philo = sim_attr->n_philo;
-	queue = sim_attr->queue;
 	i = 0;
 	while (true)
 	{
-		usleep(500);
-		if (queue != NULL)
-		{
-			if (queue[i] != NULL)
-			{
 				print_queue_item(queue[i], sim_attr->start_time, i);
-				free(queue[i]);
-				queue[i] = NULL;
-			}
-			if (++i == n_philo * 64 - 1)
+				queue[i]
+				i++;
+			if (i == n_philo * 64)
 				i = 0;
 		}
 		else
