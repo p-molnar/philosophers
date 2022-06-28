@@ -6,26 +6,35 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/15 13:23:48 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/27 15:14:57 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/28 12:20:16 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
 
-void	create_log(t_philo *philo, t_log *log, int status)
+t_log	*create_log(t_philo *philo, int status)
 {
+	t_log	*log;
+	
+	log = malloc(sizeof(t_log));
+	if (log == NULL)
+		return (NULL);
 	log->status = status;
 	log->philo_id = philo->id;
 	log->time = get_time();
+	return (log);
 }
 
-void	pick_up_fork(t_philo *philo, t_mutex *fork)
+int	pick_up_fork(t_philo *philo, t_mutex *fork)
 {
-	t_log	*log = malloc(sizeof(t_log) * 1);
+	t_log	*log;
 
 	pthread_mutex_lock(fork);
-	create_log(philo, log, TAKING_FORK);
-	add_log_to_queue(philo->g_attr, log);
+	log = create_log(philo, TAKING_FORK);
+	if (log == NULL)
+		return (EXIT_FAILURE);
+	queue_log(philo->g_attr, log);
+	return (0);
 }
 
 void	put_down_fork(t_mutex *fork)
@@ -33,19 +42,6 @@ void	put_down_fork(t_mutex *fork)
 	pthread_mutex_unlock(fork);
 }
 
-void	pick_up_forks(t_philo *philo)
-{
-	if ((philo->id - 1) % 2 == 0)
-	{
-		pick_up_fork(philo, philo->left_fork);
-		pick_up_fork(philo, philo->right_fork);
-	}
-	else
-	{
-		pick_up_fork(philo, philo->right_fork);
-		pick_up_fork(philo, philo->left_fork);
-	}
-}
 
 void	put_down_forks(t_philo *philo)
 {

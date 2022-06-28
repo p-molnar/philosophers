@@ -8,7 +8,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Mon Jun 27 23:08:26 2022
+# Make data base, printed on Tue Jun 28 12:23:59 2022
+ 
 
 # Variables
 
@@ -37,7 +38,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupp
 # environment
 _ = /usr/bin/make
 # makefile (from `Makefile', line 2)
-CFLAGS = -I $(INCLUDE) -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -I $(INCLUDE) -Wall -Wextra -Werror -fsanitize=address -g
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # environment
@@ -47,7 +48,7 @@ __CFBundleIdentifier = com.microsoft.VSCode
 # environment
 INFOPATH = /opt/homebrew/share/info:
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/41/5z70ggx558l9v83mywsr5rpw0000gn/T/vscode-ipc-ed309156-65ab-40e1-986c-158b3795e964.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/41/5z70ggx558l9v83mywsr5rpw0000gn/T/vscode-ipc-cbb4b3a7-14dc-4239-834b-15f5584bf304.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -211,7 +212,8 @@ obj/%.o: src/%.c
 obj/philosopher_util.o: src/philosopher_util.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `philosopher_util'
-#  Last modified 2022-06-27 15:15:01
+ 
+#  Last modified 2022-06-28 12:23:54
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -224,7 +226,7 @@ obj/philosopher_util.o: src/philosopher_util.c
 obj/parse.o: src/parse.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `parse'
-#  Last modified 2022-06-27 15:15:01
+#  Last modified 2022-06-28 12:23:54
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -246,7 +248,7 @@ all: philo
 
 philo: include obj/main.o obj/parse.o obj/ft_atoi.o obj/error_handler.o obj/initialise.o obj/simulation.o obj/philosopher_actions.o obj/philosopher_util.o obj/monitoring.o obj/time.o obj/printing.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-06-27 15:22:41
+#  Last modified 2022-06-28 12:23:55
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -264,7 +266,7 @@ philo: include obj/main.o obj/parse.o obj/ft_atoi.o obj/error_handler.o obj/init
 obj/main.o: src/main.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `main'
-#  Last modified 2022-06-27 15:15:01
+#  Last modified 2022-06-28 12:23:54
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -277,7 +279,7 @@ obj/main.o: src/main.c
 # Not a target:
 src/philosopher_util.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-27 15:14:57
+#  Last modified 2022-06-28 12:20:16
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -292,7 +294,7 @@ src/philosopher_util.c:
 obj/ft_atoi.o: src/ft_atoi.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `ft_atoi'
-#  Last modified 2022-06-27 15:15:01
+#  Last modified 2022-06-28 12:23:54
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -305,10 +307,9 @@ obj/ft_atoi.o: src/ft_atoi.c
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-27 15:09:28
+#  Last modified 2022-06-28 12:23:52
 #  File has been updated.
 #  Successfully updated.
- 
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
@@ -324,7 +325,7 @@ include:
 obj/initialise.o: src/initialise.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `initialise'
-#  Last modified 2022-06-27 15:15:01
+#  Last modified 2022-06-28 12:23:54
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -337,7 +338,7 @@ obj/initialise.o: src/initialise.c
 obj/monitoring.o: src/monitoring.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `monitoring'
-#  Last modified 2022-06-27 15:15:01
+#  Last modified 2022-06-28 12:23:54
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -359,7 +360,7 @@ fclean: clean
 obj/printing.o: src/printing.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `printing'
-#  Last modified 2022-06-27 15:22:41
+#  Last modified 2022-06-28 12:23:55
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -399,7 +400,7 @@ norm:
 obj/simulation.o: src/simulation.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `simulation'
-#  Last modified 2022-06-27 15:15:01
+#  Last modified 2022-06-28 12:23:54
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -412,7 +413,7 @@ obj/simulation.o: src/simulation.c
 # Not a target:
 src/initialise.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-27 14:37:31
+#  Last modified 2022-06-28 12:22:27
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -421,10 +422,11 @@ src/initialise.c:
 obj/philosopher_actions.o: src/philosopher_actions.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `philosopher_actions'
-#  Last modified 2022-06-27 15:15:01
+#  Last modified 2022-06-28 12:23:54
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
+ 
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 32):
 	@mkdir -p obj
@@ -440,7 +442,7 @@ obj/philosopher_actions.o: src/philosopher_actions.c
 # Not a target:
 src/monitoring.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-27 14:28:55
+#  Last modified 2022-06-28 12:02:20
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -477,7 +479,7 @@ clean:
 obj/time.o: src/time.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `time'
-#  Last modified 2022-06-27 15:15:01
+#  Last modified 2022-06-28 12:23:54
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -490,7 +492,7 @@ obj/time.o: src/time.c
 obj/error_handler.o: src/error_handler.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `error_handler'
-#  Last modified 2022-06-27 15:15:01
+#  Last modified 2022-06-28 12:23:54
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -503,7 +505,7 @@ obj/error_handler.o: src/error_handler.c
 # Not a target:
 src/printing.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-27 15:22:39
+#  Last modified 2022-06-28 12:22:48
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -512,7 +514,7 @@ src/printing.c:
 # Not a target:
 src/simulation.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-27 14:56:57
+#  Last modified 2022-06-28 12:19:37
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -521,7 +523,7 @@ src/simulation.c:
 # Not a target:
 src/philosopher_actions.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-27 15:14:06
+#  Last modified 2022-06-28 12:10:20
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -539,7 +541,7 @@ src/parse.c:
 # Not a target:
 src/time.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-27 11:51:24
+#  Last modified 2022-06-28 11:09:51
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -567,6 +569,6 @@ src/error_handler.c:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Mon Jun 27 23:08:26 2022
+# Finished Make data base on Tue Jun 28 12:23:59 2022
 
  

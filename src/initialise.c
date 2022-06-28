@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/20 09:46:18 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/28 00:14:57 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/28 12:47:13 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,28 +59,17 @@ static int	set_up_philos(t_philo **philo, t_attr *attr)
 
 int	set_up_queue(t_attr *attr)
 {
+	size_t	n_philo;
 	size_t	i;
-	size_t	j;
 
+	n_philo = attr->n_philo;
+	attr->queue_arr = malloc(QUEUE_SIZE * n_philo * sizeof(t_log *));
+	if (attr->queue_arr == NULL)
+		return (EXIT_SUCCESS);
 	i = 0;
-	while (i < 5)
-	{
-		attr->queue[i] = malloc(attr->n_philo * sizeof(t_log));
-		if (attr->queue[i] == NULL)
-		{
-			j = 0;
-			while (j < i)
-				free(attr->queue[i++]);
-			return (EXIT_FAILURE);
-		}
-	}
-	i = 0;
-	while (i < 5)
-	{
-		j = 0;
-		while (j < attr->n_philo)
-	}
-	return (EXIT_SUCCESS);
+	while (i < QUEUE_SIZE * n_philo)
+		attr->queue_arr[i++] = NULL;
+	return (0);
 }
 
 int	set_up_simulation(t_philo **philo, t_attr *attr)

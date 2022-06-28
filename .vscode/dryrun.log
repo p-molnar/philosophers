@@ -1,28 +1,5 @@
-make --dry-run --always-make --keep-going --print-directory
+make --dry-run --keep-going --print-directory
 make: Entering directory `/Users/pmolnar/Documents/codam/42cursus/philosophers'
-mkdir -p obj
-gcc -I include -Wall -Wextra -Werror -fsanitize=address src/main.c -c -o obj/main.o
-mkdir -p obj
-gcc -I include -Wall -Wextra -Werror -fsanitize=address src/parse.c -c -o obj/parse.o
-mkdir -p obj
-gcc -I include -Wall -Wextra -Werror -fsanitize=address src/ft_atoi.c -c -o obj/ft_atoi.o
-mkdir -p obj
-gcc -I include -Wall -Wextra -Werror -fsanitize=address src/error_handler.c -c -o obj/error_handler.o
-mkdir -p obj
-gcc -I include -Wall -Wextra -Werror -fsanitize=address src/initialise.c -c -o obj/initialise.o
-mkdir -p obj
-gcc -I include -Wall -Wextra -Werror -fsanitize=address src/simulation.c -c -o obj/simulation.o
-mkdir -p obj
-gcc -I include -Wall -Wextra -Werror -fsanitize=address src/philosopher_actions.c -c -o obj/philosopher_actions.o
-mkdir -p obj
-gcc -I include -Wall -Wextra -Werror -fsanitize=address src/philosopher_util.c -c -o obj/philosopher_util.o
-mkdir -p obj
-gcc -I include -Wall -Wextra -Werror -fsanitize=address src/monitoring.c -c -o obj/monitoring.o
-mkdir -p obj
-gcc -I include -Wall -Wextra -Werror -fsanitize=address src/time.c -c -o obj/time.o
-mkdir -p obj
-gcc -I include -Wall -Wextra -Werror -fsanitize=address src/printing.c -c -o obj/printing.o
-gcc -I include -Wall -Wextra -Werror -fsanitize=address obj/main.o obj/parse.o obj/ft_atoi.o obj/error_handler.o obj/initialise.o obj/simulation.o obj/philosopher_actions.o obj/philosopher_util.o obj/monitoring.o obj/time.o obj/printing.o -o philo
-echo "philo is built"
+make: Nothing to be done for `all'.
 make: Leaving directory `/Users/pmolnar/Documents/codam/42cursus/philosophers'
  

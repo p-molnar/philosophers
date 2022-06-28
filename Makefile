@@ -1,5 +1,5 @@
 CC 		=	gcc
-CFLAGS 	=	-I $(INCLUDE) -Wall -Wextra -Werror -fsanitize=address
+CFLAGS 	=	-I $(INCLUDE) -Wall -Wextra -Werror -fsanitize=address -g
 
 NAME 	=	philo
 

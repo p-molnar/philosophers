@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/28 00:03:01 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/28 11:33:23 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_attr
 	int		t_sleep;
 	int		min_n_eat;
 	bool	all_philo_alive;
-	t_log	*queue[5];
+	t_log	**queue_arr;
 	t_time	start_time;
 	t_mutex	print_lock;
 	t_mutex	queue_lock;

@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 14:40:24 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/27 14:56:57 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/28 14:03:16 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 void static	run_philo_life_cycle(t_philo *philo)
 {
 	philo->last_time_eaten = philo->g_attr->start_time;
+
+	if ((philo->id - 1) == 0)
+		usleep (philo->g_attr->n_philo * 2);
 	while (philo->g_attr->all_philo_alive)
 	{
 		if (philo_think(philo))
@@ -52,10 +55,6 @@ int	launch_simulation(t_philo *philo_arr, t_attr *attr)
 	
 	i = 0;
 	gettimeofday(&attr->start_time, NULL);
-	if (pthread_create(&status, NULL, (void *) &philo_checker, (void *)philo_arr))
-		return (error_handler(THREAD_ERROR));
-	if (pthread_create(&print, NULL, (void *) &print_queue, (void *)attr))
-		return (error_handler(THREAD_ERROR));	
 	if (pthread_mutex_init(&attr->queue_lock, NULL))
 		return (error_handler(MUTEX_ERROR));
 	while (i < (size_t)attr->n_philo)
@@ -66,6 +65,10 @@ int	launch_simulation(t_philo *philo_arr, t_attr *attr)
 			return (error_handler(THREAD_ERROR));
 		i++;
 	}
+	if (pthread_create(&status, NULL, (void *) &philo_checker, (void *)philo_arr))
+		return (error_handler(THREAD_ERROR));
+	if (pthread_create(&print, NULL, (void *) &print_queue, (void *)attr))
+		return (error_handler(THREAD_ERROR));	
 	i = 0;
 	while (i < (size_t)attr->n_philo)
 	{

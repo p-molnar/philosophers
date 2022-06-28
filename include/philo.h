@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:30:53 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/27 14:46:22 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/28 12:00:26 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ int		philo_think(t_philo *philo);
 int		philo_sleep(t_philo *philo);
 
 // philosopher_util.c
-void	pick_up_forks(t_philo *philo);
+int		pick_up_forks(t_philo *philo);
+int		pick_up_fork(t_philo *philo, t_mutex *fork);
 void	put_down_forks(t_philo *philo);
 void	print_status(t_philo *philo);
-void	create_log(t_philo *philo, t_log *log, int status);
+t_log	*create_log(t_philo *philo, int status);
 
 // monitoring.c
 void	philo_checker(t_philo *philo_arr);
@@ -59,7 +60,7 @@ long	time_delta_msec(t_time t1, t_time t2);
 void	psleep(long duration);
 
 // printing.c
-void	add_log_to_queue(t_attr *attr, t_log *log);
-void	print_queue(t_attr *sim_attr);
+void	queue_log(t_attr *attr, t_log *log);
+void	print_queue(t_attr *attr);
 
 #endif

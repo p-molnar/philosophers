@@ -1,41 +1,49 @@
 #include <philo.h>
 
-void	add_log_to_queue(t_attr *attr, t_log *log)
+void	queue_log(t_attr *attr, t_log *log)
 {
-	static size_t;
 	pthread_mutex_lock(&attr->queue_lock);
-	attr->queue[log->status][log->philo_id - 1] = *log;
+	static size_t i;
+	size_t queue_size;
+
+	queue_size = attr->n_philo * QUEUE_SIZE;
+	attr->queue_arr[i++] = log;
+	if (i == queue_size)
+		i = 0;
 	pthread_mutex_unlock(&attr->queue_lock);
 }
 
-void	print_queue_item(t_log *queue, t_time start_time, int item)
+void	print_queue_item(t_log *queue, t_time start_time)
 {
 	const char	*status_msg[5] = {"has taken a fork", "is eating", \
 								"is sleeping", "is thinking", "died"};
 	long	ts;
 
 	ts = time_delta_msec(start_time, queue->time);	
-	printf("item :%d, %zu philo %zu %s\n", item, ts, queue->philo_id, status_msg[queue->status]);
+	printf(FORMAT_STR, ts, queue->philo_id, status_msg[queue->status]);
 }
 
 void	print_queue(t_attr *attr)
 {
 	size_t	i;
-	size_t	n_philo;
+	size_t	queue_size;
+	t_log	**queue_arr;
+	t_time	start_time;
 
-	n_philo = sim_attr->n_philo;
+	queue_arr = attr->queue_arr;
+	queue_size = attr->n_philo * QUEUE_SIZE;
+	start_time = attr->start_time;
 	i = 0;
-	while (true)
+	while (attr->all_philo_alive == true)
 	{
-				print_queue_item(queue[i], sim_attr->start_time, i);
-				queue[i]
-				i++;
-			if (i == n_philo * 64)
+		if (queue_arr[i] != NULL)
+		{
+			print_queue_item(queue_arr[i], start_time);
+			free(queue_arr[i]);
+			queue_arr[i] = NULL;
+			if (++i == queue_size)
 				i = 0;
 		}
-		else
-		{
-			break;
-		}
+		usleep(20);
 	}
 }

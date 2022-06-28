@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/10 11:44:19 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/27 15:14:06 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/28 13:59:59 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,45 @@
 
 int	philo_think(t_philo *philo)
 {
-	t_log	*log = malloc(sizeof(t_log) * 1);
+	t_log	*log;
 
-	create_log(philo, log, THINKING);
-	add_log_to_queue(philo->g_attr, log);
+	log = create_log(philo, THINKING);
+	if (log == NULL)
+		return (EXIT_FAILURE);
+	queue_log(philo->g_attr, log);
+	return (0);
+}
+
+int	pick_up_forks(t_philo *philo)
+{
+	if ((philo->id - 1) % 2 == 0)
+	{
+		if (pick_up_fork(philo, philo->left_fork))
+			return (EXIT_FAILURE);
+		if (pick_up_fork(philo, philo->right_fork))
+			return (EXIT_FAILURE);
+	}
+	else
+	{
+		if (pick_up_fork(philo, philo->right_fork))
+			return (EXIT_FAILURE);
+		if (pick_up_fork(philo, philo->left_fork))
+			return (EXIT_FAILURE);
+	}
 	return (0);
 }
 
 int	philo_eat(t_philo *philo)
 {
-	t_time	time_of_eat;
-	t_log	*log = malloc(sizeof(t_log) * 1);
+	t_log	*log;
 
-	pick_up_forks(philo);
-	create_log(philo, log, EATING);
-	add_log_to_queue(philo->g_attr, log);
-	time_of_eat = get_time();
-	philo->last_time_eaten = time_of_eat; 
+	if (pick_up_forks(philo))
+		return (EXIT_FAILURE);
+	log = create_log(philo, EATING);
+	if (log == NULL)
+		return (EXIT_FAILURE);
+	queue_log(philo->g_attr, log);
+	philo->last_time_eaten = get_time(); 
 	psleep(philo->g_attr->t_eat);
 	put_down_forks(philo);
 	philo->n_eat++;
@@ -40,10 +62,12 @@ int	philo_eat(t_philo *philo)
 
 int	philo_sleep(t_philo *philo)
 {	
-	t_log	*log = malloc(sizeof(t_log) * 1);
+	t_log	*log;
 
-	create_log(philo, log, SLEEPING);
-	add_log_to_queue(philo->g_attr, log);
+	log = create_log(philo, SLEEPING);
+	if (log == NULL)
+		return (EXIT_FAILURE);
+	queue_log(philo->g_attr, log);
 	psleep(philo->g_attr->t_sleep);
 	return (0);
 }
