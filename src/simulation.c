@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 14:40:24 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/28 14:03:16 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/28 23:25:55 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void static	run_philo_life_cycle(t_philo *philo)
 {
 	philo->last_time_eaten = philo->g_attr->start_time;
 
-	if ((philo->id - 1) == 0)
-		usleep (philo->g_attr->n_philo * 2);
+	if (philo->id == (size_t)philo->g_attr->n_philo)
+		usleep (philo->id * 5);
 	while (philo->g_attr->all_philo_alive)
 	{
 		if (philo_think(philo))

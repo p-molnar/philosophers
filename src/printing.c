@@ -34,7 +34,7 @@ void	print_queue(t_attr *attr)
 	queue_size = attr->n_philo * QUEUE_SIZE;
 	start_time = attr->start_time;
 	i = 0;
-	while (attr->all_philo_alive == true)
+	while (true)
 	{
 		if (queue_arr[i] != NULL)
 		{
@@ -42,7 +42,9 @@ void	print_queue(t_attr *attr)
 			free(queue_arr[i]);
 			queue_arr[i] = NULL;
 			if (++i == queue_size)
-				i = 0;
+			 	i = 0;
+			if (attr->all_philo_alive == false)
+				break ;
 		}
 		usleep(20);
 	}
