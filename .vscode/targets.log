@@ -8,8 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Tue Jun 28 12:23:59 2022
- 
+# Make data base, printed on Wed Jun 29 13:18:23 2022
 
 # Variables
 
@@ -20,7 +19,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # makefile (from `Makefile', line 19)
 OBJ = $(addprefix obj/, $(SRC:.c=.o))
 # makefile (from `Makefile', line 7)
-SRC = main.c parse.c ft_atoi.c error_handler.c initialise.c simulation.c philosopher_actions.c philosopher_util.c monitoring.c time.c printing.c 
+SRC = main.c parse.c ft_atoi.c error_handler.c initialise.c simulation.c philosopher_actions.c philosopher_util.c monitoring.c time.c log_printer.c 
 # environment
 VSCODE_LOG_NATIVE = false
 # automatic
@@ -48,7 +47,7 @@ __CFBundleIdentifier = com.microsoft.VSCode
 # environment
 INFOPATH = /opt/homebrew/share/info:
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/41/5z70ggx558l9v83mywsr5rpw0000gn/T/vscode-ipc-cbb4b3a7-14dc-4239-834b-15f5584bf304.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/41/5z70ggx558l9v83mywsr5rpw0000gn/T/vscode-ipc-4d231814-feff-4905-b7a7-cf7dc0ee97d9.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -184,7 +183,7 @@ _CE_CONDA =
 # environment
 LANG = C
 # variable set hash-table stats:
-# Load=85/1024=8%, Rehash=0, Collisions=6/115=5%
+# Load=85/1024=8%, Rehash=0, Collisions=7/120=6%
 
 # Pattern-specific Variable Values
 
@@ -192,10 +191,10 @@ LANG = C
 
 # Directories
 
-# . (device 16777231, inode 23827622): 11 files, no impossibilities.
-# src (device 16777231, inode 23828355): 13 files, no impossibilities so far.
+# . (device 16777231, inode 23827622): 12 files, no impossibilities.
+# src (device 16777231, inode 23828355): 7 files, no impossibilities so far.
 
-# 24 files, no impossibilities in 2 directories.
+# 19 files, no impossibilities in 2 directories.
 
 # Implicit Rules
 
@@ -209,32 +208,17 @@ obj/%.o: src/%.c
 
 # Files
 
-obj/philosopher_util.o: src/philosopher_util.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `philosopher_util'
- 
-#  Last modified 2022-06-28 12:23:54
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 32):
-	@mkdir -p obj
-	$(CC) $(CFLAGS) $^ -c -o $@
-	
+# Not a target:
+obj/philosopher_util.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
-obj/parse.o: src/parse.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `parse'
-#  Last modified 2022-06-28 12:23:54
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 32):
-	@mkdir -p obj
-	$(CC) $(CFLAGS) $^ -c -o $@
-	
+# Not a target:
+obj/parse.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 all: philo
 #  Phony target (prerequisite of .PHONY).
@@ -242,17 +226,17 @@ all: philo
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
 
-philo: include obj/main.o obj/parse.o obj/ft_atoi.o obj/error_handler.o obj/initialise.o obj/simulation.o obj/philosopher_actions.o obj/philosopher_util.o obj/monitoring.o obj/time.o obj/printing.o
+philo: include obj/main.o obj/parse.o obj/ft_atoi.o obj/error_handler.o obj/initialise.o obj/simulation.o obj/philosopher_actions.o obj/philosopher_util.o obj/monitoring.o obj/time.o obj/log_printer.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-06-28 12:23:55
+#  Last modified 2022-06-29 13:17:57
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
 #  commands to execute (from `Makefile', line 28):
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 	@echo "$(NAME) is built"
@@ -266,24 +250,31 @@ philo: include obj/main.o obj/parse.o obj/ft_atoi.o obj/error_handler.o obj/init
 obj/main.o: src/main.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `main'
-#  Last modified 2022-06-28 12:23:54
+#  Last modified 2022-06-29 13:17:57
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := obj/main.o
+# automatic
+# % := 
+# automatic
+# * := main
+# automatic
+# + := src/main.c
+# automatic
+# | := 
+# automatic
+# < := src/main.c
+# automatic
+# ^ := src/main.c
+# automatic
+# ? := src/main.c
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+# Load=8/32=25%, Rehash=0, Collisions=2/15=13%
 #  commands to execute (from `Makefile', line 32):
 	@mkdir -p obj
 	$(CC) $(CFLAGS) $^ -c -o $@
 	
-
-# Not a target:
-src/philosopher_util.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-06-28 12:20:16
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
 .SUFFIXES:
@@ -291,23 +282,16 @@ src/philosopher_util.c:
 #  Modification time never checked.
 #  File has not been updated.
 
-obj/ft_atoi.o: src/ft_atoi.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `ft_atoi'
-#  Last modified 2022-06-28 12:23:54
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 32):
-	@mkdir -p obj
-	$(CC) $(CFLAGS) $^ -c -o $@
-	
+# Not a target:
+obj/ft_atoi.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-28 12:23:52
+#  Last modified 2022-06-29 12:52:08
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -322,67 +306,32 @@ include:
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-obj/initialise.o: src/initialise.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `initialise'
-#  Last modified 2022-06-28 12:23:54
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 32):
-	@mkdir -p obj
-	$(CC) $(CFLAGS) $^ -c -o $@
-	
+# Not a target:
+obj/initialise.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
-obj/monitoring.o: src/monitoring.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `monitoring'
-#  Last modified 2022-06-28 12:23:54
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 32):
-	@mkdir -p obj
-	$(CC) $(CFLAGS) $^ -c -o $@
-	
+# Not a target:
+obj/monitoring.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 fclean: clean
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
+ 
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 39):
 	rm -rf $(NAME)
 	
 
-obj/printing.o: src/printing.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `printing'
-#  Last modified 2022-06-28 12:23:55
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 32):
-	@mkdir -p obj
-	$(CC) $(CFLAGS) $^ -c -o $@
-	
-
 # Not a target:
 src/main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-20 09:42:57
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-src/ft_atoi.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-06-16 19:01:39
+#  Last modified 2022-06-29 13:18:16
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -397,56 +346,23 @@ norm:
 	norminette $(addprefix src/, $(SRC))
 	
 
-obj/simulation.o: src/simulation.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `simulation'
-#  Last modified 2022-06-28 12:23:54
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 32):
-	@mkdir -p obj
-	$(CC) $(CFLAGS) $^ -c -o $@
-	
+# Not a target:
+obj/simulation.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
-src/initialise.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-06-28 12:22:27
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-obj/philosopher_actions.o: src/philosopher_actions.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `philosopher_actions'
-#  Last modified 2022-06-28 12:23:54
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
- 
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 32):
-	@mkdir -p obj
-	$(CC) $(CFLAGS) $^ -c -o $@
-	
+obj/philosopher_actions.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 .DEFAULT:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-
-# Not a target:
-src/monitoring.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-06-28 12:02:20
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 re: fclean
 #  Phony target (prerequisite of .PHONY).
@@ -476,88 +392,26 @@ clean:
 	rm -rf obj
 	
 
-obj/time.o: src/time.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `time'
-#  Last modified 2022-06-28 12:23:54
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 32):
-	@mkdir -p obj
-	$(CC) $(CFLAGS) $^ -c -o $@
-	
-
-obj/error_handler.o: src/error_handler.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `error_handler'
-#  Last modified 2022-06-28 12:23:54
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 32):
-	@mkdir -p obj
-	$(CC) $(CFLAGS) $^ -c -o $@
-	
+# Not a target:
+obj/time.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
-src/printing.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-06-28 12:22:48
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+obj/log_printer.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
-src/simulation.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-06-28 12:19:37
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-src/philosopher_actions.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-06-28 12:10:20
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-src/parse.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-06-27 10:58:54
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-src/time.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-06-28 11:09:51
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-src/error_handler.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-06-20 10:53:21
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+obj/error_handler.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # files hash-table stats:
-# Load=34/1024=3%, Rehash=0, Collisions=2/101=2%
+# Load=24/1024=2%, Rehash=0, Collisions=2/61=3%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -569,6 +423,6 @@ src/error_handler.c:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Tue Jun 28 12:23:59 2022
+# Finished Make data base on Wed Jun 29 13:18:23 2022
 
  

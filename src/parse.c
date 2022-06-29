@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:54:06 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/27 10:58:54 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/29 10:49:33 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static int	validate_args(int argc, t_attr *attr)
 	if (attr->n_philo < 2 || attr->t_die < 0 || \
 		attr->t_eat < 0 || attr->t_sleep < 0)
 	{
-		return (error_handler(INVALID_INPUT));
+		return (error_handler(INVALID_INPUT, NULL));
 	}
 	if (argc == 6 && attr->min_n_eat < 0)
-		return (error_handler(INVALID_INPUT));
+		return (error_handler(INVALID_INPUT, NULL));
 	return (EXIT_SUCCESS);
 }
 

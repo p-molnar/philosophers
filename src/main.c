@@ -6,11 +6,30 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/06 22:40:26 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/20 09:42:57 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/29 13:40:24 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
+
+int	clean_up(t_attr *attr)
+{
+	size_t	i;
+
+	if (pthread_mutex_destroy(&attr->queue_lock))
+		return (error_handler(MUTEX_ERROR, "clean_up, m_destroy"));
+	i = 0;
+	while (i < (size_t)attr->n_philo)
+	{
+		// if (pthread_mutex_destroy(attr->forks[i]))
+		// 	return (error_handler(MUTEX_ERROR, "clean_up, m_destroy"));
+		free(attr->forks[i]);
+		i++;
+	}
+	free(attr->forks);
+	free(attr->log_queue);
+	return (EXIT_SUCCESS);
+}
 
 int	main(int argc, char *argv[])
 {
@@ -26,9 +45,10 @@ int	main(int argc, char *argv[])
 			return (EXIT_FAILURE);
 		if (launch_simulation(philo_arr, &attr))
 			return (EXIT_FAILURE);
+		clean_up(&attr);
 		// system("leaks philo");
 	}
 	else
-		return (error_handler(INVALID_INPUT));
+		return (error_handler(INVALID_INPUT, NULL));
 	return (EXIT_SUCCESS);
 }

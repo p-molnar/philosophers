@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/20 09:46:18 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/28 12:47:13 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/29 12:49:28 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,24 @@ static void	init_philo(t_philo *philo, t_attr *attr, size_t i)
 	philo->id = i + 1;
 	philo->status = UNDEFINED;
 	philo->n_eat = 0;
-	philo->g_attr = attr;
-	philo->left_fork = attr->fork_arr[i % attr->n_philo];
-	philo->right_fork = attr->fork_arr[(i + 1) % attr->n_philo];
+	philo->sim_attr = attr;
+	philo->left_fork = attr->forks[i % attr->n_philo];
+	philo->right_fork = attr->forks[(i + 1) % attr->n_philo];
 	i++;
 }
 
 int	init_simulation_attributes(t_attr **attr)
 {
-	t_mutex	**mutex_arr;
+	t_mutex	**fork_arr;
 	size_t	i;
 
-	mutex_arr = malloc((*attr)->n_philo * sizeof(t_mutex *));
-	if (mutex_arr == NULL)
-		return (error_handler(MALLOC_ERROR));
+	fork_arr = malloc((*attr)->n_philo * sizeof(t_mutex *));
+	if (fork_arr == NULL)
+		return (error_handler(MALLOC_ERROR, "init_simulation_attributes"));
 	i = 0;
 	while (i < (size_t)(*attr)->n_philo)
-		mutex_arr[i++] = malloc(sizeof(t_mutex));
-	(*attr)->fork_arr = mutex_arr;
+		fork_arr[i++] = malloc(sizeof(t_mutex));
+	(*attr)->forks = fork_arr;
 	(*attr)->all_philo_alive = true;
 	return (EXIT_SUCCESS);
 }
@@ -46,7 +46,7 @@ static int	set_up_philos(t_philo **philo, t_attr *attr)
 
 	philo_arr = malloc(attr->n_philo * sizeof(t_philo));
 	if (philo_arr == NULL)
-		return (error_handler(MALLOC_ERROR));
+		return (error_handler(MALLOC_ERROR, "set_up_philos"));
 	i = 0;
 	while (i < (size_t) attr->n_philo)
 	{
@@ -63,12 +63,12 @@ int	set_up_queue(t_attr *attr)
 	size_t	i;
 
 	n_philo = attr->n_philo;
-	attr->queue_arr = malloc(QUEUE_SIZE * n_philo * sizeof(t_log *));
-	if (attr->queue_arr == NULL)
-		return (EXIT_SUCCESS);
+	attr->log_queue = malloc(QUEUE_SIZE * n_philo * sizeof(t_log));
+	if (attr->log_queue == NULL)
+		return (EXIT_FAILURE);
 	i = 0;
 	while (i < QUEUE_SIZE * n_philo)
-		attr->queue_arr[i++] = NULL;
+		attr->log_queue[i++].log_status = NO_CONTENT;
 	return (0);
 }
 
@@ -78,12 +78,12 @@ int	set_up_simulation(t_philo **philo, t_attr *attr)
 		return (EXIT_FAILURE);
 	if (set_up_philos(philo, attr))
 	{
-		free (attr->fork_arr);
+		free (attr->forks);
 		return (EXIT_FAILURE);
 	}
 	if (set_up_queue(attr))
 	{
-		free (attr->fork_arr);
+		free (attr->forks);
 		free (philo);
 		return (EXIT_FAILURE);
 	}

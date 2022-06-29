@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/28 11:33:23 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/29 13:23:38 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ typedef pthread_mutex_t	t_mutex;
 
 typedef struct s_log
 {
-	int		status;
+	int		log_status;
+	t_time	log_time;
+	int		philo_status;
 	size_t	philo_id;
-	t_time	time;
 }	t_log;
 
 typedef struct s_attr
@@ -37,12 +38,12 @@ typedef struct s_attr
 	int		t_sleep;
 	int		min_n_eat;
 	bool	all_philo_alive;
-	t_log	**queue_arr;
+	pthread_t	monitoring_thread;
+	pthread_t	printer_thread;
+	t_log	*log_queue;
 	t_time	start_time;
-	t_mutex	print_lock;
 	t_mutex	queue_lock;
-	t_mutex	**fork_arr;
-	char	**status_msg;
+	t_mutex	**forks;
 }	t_attr;
 
 typedef struct s_philo
@@ -51,11 +52,11 @@ typedef struct s_philo
 	int			status;
 	int			n_eat;	
 	t_time		last_time_eaten;
+	t_time		last_action_time;
 	t_mutex		*left_fork;
 	t_mutex		*right_fork;
-	t_mutex		*eat_lock;
-	pthread_t	thread;
-	t_attr		*g_attr;
+	pthread_t	philo_thread;
+	t_attr		*sim_attr;
 }	t_philo;
 
 #endif

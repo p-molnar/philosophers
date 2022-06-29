@@ -9,12 +9,12 @@ SRC 	=	main.c				\
 			ft_atoi.c			\
 			error_handler.c		\
 			initialise.c		\
-			simulation.c		\
+			simulation.c	\
 			philosopher_actions.c\
 			philosopher_util.c	\
 			monitoring.c		\
 			time.c				\
-			printing.c			\
+			log_printer.c			\
 
 OBJ		= $(addprefix obj/, $(SRC:.c=.o))
 
