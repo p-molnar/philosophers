@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/15 13:23:48 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/29 12:06:04 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/29 18:26:31 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	pick_up_fork(t_philo *philo, t_mutex *fork)
 {
+	if ((philo->id - 1) % 2 == 0)
+		usleep(10);
 	if (pthread_mutex_lock(fork))
 		return (error_handler(MUTEX_ERROR, "pick_up_fork"));
 	philo->status = TAKING_FORK;

@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/06 22:40:26 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/29 13:40:24 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/29 13:57:20 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	clean_up(t_attr *attr)
 	i = 0;
 	while (i < (size_t)attr->n_philo)
 	{
-		// if (pthread_mutex_destroy(attr->forks[i]))
-		// 	return (error_handler(MUTEX_ERROR, "clean_up, m_destroy"));
+		if (pthread_mutex_destroy(attr->forks[i]))
+			return (error_handler(MUTEX_ERROR, "clean_up, m_destroy"));
 		free(attr->forks[i]);
 		i++;
 	}

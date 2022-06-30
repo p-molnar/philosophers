@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/23 15:37:41 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/29 13:20:40 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/29 13:45:22 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ void	status_monitoring(t_philo *philo_arr)
 {
 	size_t	i;
 	t_attr	*sim_attr;
+	t_time	curr_time;
 
 	sim_attr = philo_arr[0].sim_attr;
 	i = 0;
 	while (true)
 	{
+		curr_time = get_time();
 		if (all_philos_eaten(philo_arr, sim_attr) == true)
 		{
 			philo_arr[i].status = ALL_EATEN;
@@ -45,7 +47,7 @@ void	status_monitoring(t_philo *philo_arr)
 			sim_attr->all_philo_alive = false;
 			break ;
 		}
-		if (time_delta_msec(philo_arr[i].last_time_eaten, get_time()) > sim_attr->t_die)
+		if (time_delta_msec(philo_arr[i].last_time_eaten, curr_time) > sim_attr->t_die)
 		{
 			philo_arr[i].status = DIED;
 			philo_arr[i].last_action_time = get_time();

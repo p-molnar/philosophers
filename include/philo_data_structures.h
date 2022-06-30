@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/29 13:23:38 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/29 15:18:22 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_attr
 	t_log	*log_queue;
 	t_time	start_time;
 	t_mutex	queue_lock;
+	t_mutex	start_lock;
 	t_mutex	**forks;
 }	t_attr;
 
