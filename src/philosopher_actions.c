@@ -6,66 +6,81 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/10 11:44:19 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/29 11:50:12 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/30 14:55:30 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
 #include <philo_consts.h>
 
-int	philo_think(t_philo *philo)
+void	philo_think(t_philo *philo)
 {
 	philo->status = THINKING;
 	philo->last_action_time = get_time();
-	if (queue_log(philo->sim_attr, philo))
-		return (EXIT_FAILURE);
-	return (0);
+	queue_log(philo->sim_attr, philo);
 }
 
-int	pick_up_forks(t_philo *philo)
+void	put_down_forks(t_philo *philo)
 {
 	if ((philo->id - 1) % 2 == 0)
 	{
-		if (pick_up_fork(philo, philo->right_fork))
-			return (EXIT_FAILURE);
-		if (pick_up_fork(philo, philo->left_fork))
-			return (EXIT_FAILURE);
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
 	}
 	else
 	{
-		if (pick_up_fork(philo, philo->left_fork))
-			return (EXIT_FAILURE);
-		if (pick_up_fork(philo, philo->right_fork))
-			return (EXIT_FAILURE);
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(philo->right_fork);
 	}
-	return (0);
 }
 
-int	philo_eat(t_philo *philo)
+void	pick_up_forks(t_philo *philo)
+{
+	if ((philo->sim_attr->n_philo % 2 != 0) && ((philo->id - 1) % 2 != 0))
+		usleep(5);
+	if ((philo->id - 1) % 2 == 0)
+	{
+		pthread_mutex_lock(philo->right_fork);
+		philo->status = TAKING_FORK;
+		philo->last_action_time = get_time();
+		queue_log(philo->sim_attr, philo);
+		pthread_mutex_lock(philo->left_fork);
+		philo->status = TAKING_FORK;
+		philo->last_action_time = get_time();
+		queue_log(philo->sim_attr, philo);
+	}
+	else
+	{
+		pthread_mutex_lock(philo->left_fork);
+		philo->status = TAKING_FORK;
+		philo->last_action_time = get_time();
+		queue_log(philo->sim_attr, philo);
+		pthread_mutex_lock(philo->right_fork);
+		philo->status = TAKING_FORK;
+		philo->last_action_time = get_time();
+		queue_log(philo->sim_attr, philo);
+	}
+}
+
+void	philo_eat(t_philo *philo)
 {
 	t_time	eat_time;
 
-	if (pick_up_forks(philo))
-		return (EXIT_FAILURE);
+	pick_up_forks(philo);
 	eat_time = get_time();
 	philo->status = EATING;
 	philo->last_action_time = eat_time;
-	if (queue_log(philo->sim_attr, philo))
-		return (EXIT_FAILURE);
-	philo->last_time_eaten = eat_time; 
+	queue_log(philo->sim_attr, philo);
+	philo->last_time_eaten = eat_time;
 	precise_sleep(philo->sim_attr->t_eat);
-	if (put_down_forks(philo))
-		return (EXIT_FAILURE);
+	put_down_forks(philo);
 	philo->n_eat++;
-	return (0);
 }
 
-int	philo_sleep(t_philo *philo)
+void	philo_sleep(t_philo *philo)
 {	
 	philo->status = SLEEPING;
 	philo->last_action_time = get_time();
-	if (queue_log(philo->sim_attr, philo))
-		return (EXIT_FAILURE);
+	queue_log(philo->sim_attr, philo);
 	precise_sleep(philo->sim_attr->t_sleep);
-	return (0);
 }

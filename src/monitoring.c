@@ -6,13 +6,13 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/23 15:37:41 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/29 13:45:22 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/30 15:08:00 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
 
-int	all_philos_eaten(t_philo *philo_arr, t_attr *sim_attr)
+int	all_philos_eaten(t_philo *philo_arr, t_sim_data *sim_attr)
 {
 	size_t	i;
 
@@ -28,11 +28,32 @@ int	all_philos_eaten(t_philo *philo_arr, t_attr *sim_attr)
 	return (true);
 }
 
-void	status_monitoring(t_philo *philo_arr)
+void	drop_forks(t_philo *philo_arr)
 {
 	size_t	i;
-	t_attr	*sim_attr;
-	t_time	curr_time;
+	size_t	n_philo;
+
+	i = 0;
+	n_philo = philo_arr[0].sim_attr->n_philo;
+	while(i < n_philo)
+	{
+		if ((philo_arr[i].id - 1) % 2)
+		{
+			put_down_forks(&philo_arr[i]);
+		}
+		else
+		{
+			put_down_forks(&philo_arr[i]);
+		}
+		i++;
+	}
+}
+
+void	check_status(t_philo *philo_arr)
+{
+	size_t		i;
+	t_sim_data	*sim_attr;
+	t_time		curr_time;
 
 	sim_attr = philo_arr[0].sim_attr;
 	i = 0;
@@ -53,11 +74,11 @@ void	status_monitoring(t_philo *philo_arr)
 			philo_arr[i].last_action_time = get_time();
 			queue_log(sim_attr, &philo_arr[i]);
 			sim_attr->all_philo_alive = false;
+			drop_forks(philo_arr);
 			break ;
 		}
-		if (i == (size_t)(sim_attr->n_philo - 1))
+		if (++i >= (size_t)(sim_attr->n_philo - 1))
 			i = 0;
-		i++;
 		usleep(500);
 	}
 }

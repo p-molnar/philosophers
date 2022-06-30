@@ -6,13 +6,13 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/20 09:46:18 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/29 12:49:28 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/06/30 12:22:12 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
 
-static void	init_philo(t_philo *philo, t_attr *attr, size_t i)
+static void	init_philo(t_philo *philo, t_sim_data *attr, size_t i)
 {
 	philo->id = i + 1;
 	philo->status = UNDEFINED;
@@ -23,7 +23,7 @@ static void	init_philo(t_philo *philo, t_attr *attr, size_t i)
 	i++;
 }
 
-int	init_simulation_attributes(t_attr **attr)
+int	init_simulation_attributes(t_sim_data **attr)
 {
 	t_mutex	**fork_arr;
 	size_t	i;
@@ -39,7 +39,7 @@ int	init_simulation_attributes(t_attr **attr)
 	return (EXIT_SUCCESS);
 }
 
-static int	set_up_philos(t_philo **philo, t_attr *attr)
+static int	set_up_philos(t_philo **philo, t_sim_data *attr)
 {
 	t_philo	*philo_arr;
 	size_t	i;
@@ -57,7 +57,7 @@ static int	set_up_philos(t_philo **philo, t_attr *attr)
 	return (EXIT_SUCCESS);
 }
 
-int	set_up_queue(t_attr *attr)
+int	set_up_queue(t_sim_data *attr)
 {
 	size_t	n_philo;
 	size_t	i;
@@ -72,7 +72,7 @@ int	set_up_queue(t_attr *attr)
 	return (0);
 }
 
-int	set_up_simulation(t_philo **philo, t_attr *attr)
+int	set_up_simulation(t_philo **philo, t_sim_data *attr)
 {
 	if (init_simulation_attributes(&attr))
 		return (EXIT_FAILURE);

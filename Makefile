@@ -1,32 +1,36 @@
 CC 		=	gcc
-CFLAGS 	=	-I $(INCLUDE) -Wall -Wextra -Werror -fsanitize=address -g
-
-NAME 	=	philo
-
-INCLUDE	=	include
-SRC 	=	main.c				\
-			parse.c				\
-			ft_atoi.c			\
-			error_handler.c		\
-			initialise.c		\
-			simulation.c	\
-			philosopher_actions.c\
-			philosopher_util.c	\
-			monitoring.c		\
-			time.c				\
-			log_printer.c			\
-
-OBJ		= $(addprefix obj/, $(SRC:.c=.o))
+CFLAGS 	=	-I $(INCLUDE) -Wall -Wextra -Werror -g
 
 ifeq ($(PRETTY_PRINT), 1)
 	CFLAGS += -D PRINT_STR="%-8zu %8zu %s\n"
 endif
 
+NAME 	=	philo
+
+INCLUDE	=	include
+SRC 	=	main.c					\
+			parse.c					\
+			ft_atoi.c				\
+			error_handler.c			\
+			initialise.c			\
+			simulation.c			\
+			philosopher_actions.c	\
+			monitoring.c			\
+			time.c					\
+			log_printer.c			\
+
+OBJ		= $(addprefix obj/, $(SRC:.c=.o))
+
+RED		=	\033[0;31m
+GREEN	=	\033[0;32m
+YELLOW	=	\033[1;33m
+DEF		=	\033[0m
+
 all:	$(NAME)
 
 $(NAME):	$(INCLUDE) $(OBJ) 
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
-	@echo "$(NAME) is built"
+	@echo "$(GREEN)$(NAME) is built$(DEF)"
 
 obj/%.o:	src/%.c
 	@mkdir -p obj
