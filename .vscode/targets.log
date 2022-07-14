@@ -10,7 +10,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Tue Jul 12 22:16:42 2022
+# Make data base, printed on Thu Jul 14 23:00:28 2022
 
 # Variables
 
@@ -19,9 +19,9 @@ make: *** No rule to make target `all'.  Stop.
 # automatic
 ?F = $(notdir $?)
 # environment
+ 
 VSCODE_LOG_NATIVE = false
 # automatic
- 
 ?D = $(patsubst %/,%,$(dir $?))
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
@@ -176,7 +176,6 @@ LANG = C
 # variable set hash-table stats:
 # Load=79/1024=8%, Rehash=0, Collisions=2/100=2%
 
- 
 # Pattern-specific Variable Values
 
 # No pattern-specific variable values.
@@ -257,6 +256,6 @@ GNUmakefile:
 # strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
 # strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
-# Finished Make data base on Tue Jul 12 22:16:42 2022
+# Finished Make data base on Thu Jul 14 23:00:28 2022
 
  
