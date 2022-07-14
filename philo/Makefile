@@ -1,12 +1,30 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: pmolnar <pmolnar@student.codam.nl>           +#+                      #
+#                                                    +#+                       #
+#    Created: 2022/07/14 22:59:51 by pmolnar       #+#    #+#                  #
+#    Updated: 2022/07/14 23:10:26 by pmolnar       ########   odam.nl          #
+#                                                                              #
+# **************************************************************************** #
+
+# COMPILER CONFIG
 CC 			=	gcc
 CFLAGS 		=	-Wall -Wextra -Werror
 CFLAGS		+=	-I $(INCLD)
 CFLAGS		+=	-g
 
-RED			=	\033[0;31m
-GREEN		=	\033[0;32m
-YELLOW		=	\033[1;33m
-DEF			=	\033[0m
+# PRINT FORMATTING
+RED				=	\033[0;31m
+GREEN			=	\033[0;32m
+YELLOW			=	\033[1;33m
+BOLD			=	\033[1m
+DEF				=	\033[0m
+SPACE_W 		= 	%-40s
+STATUS_W		=	%-10s
+STATUS_FMT		=	$(BOLD)$(STATUS_W)$(DEF) $(SPACE_W)
 
 ifeq ($(PRETTY_PRINT), 1)
 	CFLAGS += -D PRINT_STR="%-8zu %8zu %s\n"
@@ -14,7 +32,6 @@ endif
 
 NAME 		=	philo
 INCLD		=	include
-
 SRC_DIR		=	src/
 SRC 		=	main.c					\
 				parse.c					\
@@ -36,21 +53,26 @@ P_OBJ		=	$(addprefix $(OBJ_DIR), $(OBJ))
 all:	$(NAME) $(NAME_B)
 
 $(NAME):	$(P_OBJ) $(INCLD) 
+	@printf "$(STATUS_FMT)" "building" "$(NAME)"
 	@$(CC) $(CFLAGS) $(P_OBJ) -o $(NAME)
-	@echo "$(GREEN)$(NAME) compiled: $(shell pwd)$(DEF)"
+	@printf "[$(GREEN)DONE$(DEF)]\n"
+	@printf "$(GREEN)$(NAME) is created at $(shell pwd)$(DEF)\n"
 
 $(OBJ_DIR)%.o:	$(SRC_DIR)%.c
 	@mkdir -p $(dir $@)
+	@printf "$(STATUS_FMT)" "compiling" "$<"
 	@$(CC) $(CFLAGS) $^ -c -o $@
-	@echo "compiling: $<"
+	@printf "[$(GREEN)DONE$(DEF)]\n"
 
 clean:
+	@printf "$(STATUS_FMT)" "removing" "$(OBJ_DIR)"
 	@rm -rf $(OBJ_DIR)
-	@echo "$(GREEN)removed: $(OBJ_DIR)$(DEF)"
+	@printf "[$(GREEN)DONE$(DEF)]\n"
 
 fclean: clean
+	@printf "$(STATUS_FMT)" "removing" "$(NAME)"
 	@rm -f $(NAME)
-	@echo "$(GREEN)removed: $(NAME)$(DEF)"
+	@printf "[$(GREEN)DONE$(DEF)]\n"
 
 re: fclean
 	@make all
