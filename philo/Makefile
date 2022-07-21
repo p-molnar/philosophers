@@ -6,7 +6,7 @@
 #    By: pmolnar <pmolnar@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/07/14 22:59:51 by pmolnar       #+#    #+#                  #
-#    Updated: 2022/07/14 23:10:26 by pmolnar       ########   odam.nl          #
+#    Updated: 2022/07/21 19:20:51 by pmolnar       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ CC 			=	gcc
 CFLAGS 		=	-Wall -Wextra -Werror
 CFLAGS		+=	-I $(INCLD)
 CFLAGS		+=	-g
+CFLAGS 		+=	-fsanitize=thread
+INCLD		=	include
 
 # PRINT FORMATTING
 RED				=	\033[0;31m
@@ -23,26 +25,23 @@ YELLOW			=	\033[1;33m
 BOLD			=	\033[1m
 DEF				=	\033[0m
 SPACE_W 		= 	%-40s
-STATUS_W		=	%-10s
-STATUS_FMT		=	$(BOLD)$(STATUS_W)$(DEF) $(SPACE_W)
+STATUS_W		=	%-12s
+STATUS_FMT		=	$(BOLD)$(STATUS_W)$(DEF)$(SPACE_W)
 
 ifeq ($(PRETTY_PRINT), 1)
 	CFLAGS += -D PRINT_STR="%-8zu %8zu %s\n"
 endif
 
 NAME 		=	philo
-INCLD		=	include
+OUT_DIR		=	$(shell pwd)
+P_OUT		=	$(addprefix $(OUT_DIR)/, $(NAME))
+
 SRC_DIR		=	src/
 SRC 		=	main.c					\
 				parse.c					\
 				ft_atoi.c				\
 				error_handler.c			\
-				initialise.c			\
-				simulation.c			\
-				philosopher_actions.c	\
-				monitoring.c			\
 				time.c					\
-				log_printer.c			\
 
 P_SRC		=	$(addprefix $(SRC_DIR), $(SRC))
 
@@ -51,16 +50,16 @@ OBJ			=	$(SRC:.c=.o)
 P_OBJ		=	$(addprefix $(OBJ_DIR), $(OBJ))
 
 all:	$(NAME) $(NAME_B)
+	@printf "$(GREEN)$(NAME) binary is compiled at $(OUT_DIR)$(DEF)\n"
 
 $(NAME):	$(P_OBJ) $(INCLD) 
-	@printf "$(STATUS_FMT)" "building" "$(NAME)"
-	@$(CC) $(CFLAGS) $(P_OBJ) -o $(NAME)
+	@printf "$(BOLD)%-52s$(DEF)" "compiling object files"
+	@$(CC) $(CFLAGS) $(P_OBJ) -o $(P_OUT)
 	@printf "[$(GREEN)DONE$(DEF)]\n"
-	@printf "$(GREEN)$(NAME) is created at $(shell pwd)$(DEF)\n"
 
 $(OBJ_DIR)%.o:	$(SRC_DIR)%.c
 	@mkdir -p $(dir $@)
-	@printf "$(STATUS_FMT)" "compiling" "$<"
+	@printf "$(STATUS_FMT)" "generating" "$@"
 	@$(CC) $(CFLAGS) $^ -c -o $@
 	@printf "[$(GREEN)DONE$(DEF)]\n"
 

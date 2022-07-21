@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/23 22:56:41 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/30 13:58:00 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/21 19:21:24 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ void	precise_sleep(long duration)
 	}
 }
 
-long	time_delta_msec(t_time t1, t_time t2)
+long	time_delta_msec(t_time t_old, t_time t_new)
 {
-	long	t1_msec;
-	long	t2_msec;
+	long	t_new_msec;
+	long	t_old_msec;
 	long	delta;
 
-	t1_msec = t1.tv_sec * 1000 + t1.tv_usec / 1000;
-	t2_msec = t2.tv_sec * 1000 + t2.tv_usec / 1000;
-	delta = t2_msec - t1_msec;
+	t_old_msec = t_old.tv_sec * 1000 + t_old.tv_usec / 1000;
+	t_new_msec = t_new.tv_sec * 1000 + t_new.tv_usec / 1000;
+	delta = t_new_msec - t_old_msec;
 	return (delta);
 }
 

@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/29 10:46:56 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/30 14:52:54 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/21 19:13:42 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ void	print_queue_item(t_log queue, t_time start_time)
 	long		ts;
 
 	ts = time_delta_msec(start_time, queue.log_time);
-	if (queue.philo_status != ALL_EATEN)
-		printf(FORMAT_STR, ts, queue.philo_id, status_msg[queue.philo_status]);
-	else
-		printf("%s\n", status_msg[queue.philo_status]);
+	// if (queue.philo_status != ALL_EATEN)
+	printf(FORMAT_STR, ts, queue.philo_id, status_msg[queue.philo_status]);
 }
 
 void	print_queue(t_sim_data *attr)
