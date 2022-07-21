@@ -6,13 +6,13 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 14:03:44 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/14 23:01:04 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/22 00:52:37 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
 
-int	error_handler(int err_code, char *func_name)
+int	error_handler(int err_code, char *caller_name)
 {
 	if (err_code == INVALID_INPUT)
 	{
@@ -22,12 +22,12 @@ int	error_handler(int err_code, char *func_name)
 	}
 	else if (err_code == MALLOC_ERROR)
 	{
-		printf("Memory allocation failed in: %s\n", func_name);
+		printf("Memory allocation failed in: %s\n", caller_name);
 		error_handler (INVALID_INPUT, NULL);
 	}
 	else if (err_code == MUTEX_ERROR)
 	{
-		printf("Mutex error in: %s\n", func_name);
+		printf("Mutex error in: %s\n", caller_name);
 		error_handler (INVALID_INPUT, NULL);
 	}
 	else if (err_code == THREAD_ERROR)
