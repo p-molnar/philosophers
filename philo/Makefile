@@ -6,7 +6,7 @@
 #    By: pmolnar <pmolnar@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/07/14 22:59:51 by pmolnar       #+#    #+#                  #
-#    Updated: 2022/07/21 19:20:51 by pmolnar       ########   odam.nl          #
+#    Updated: 2022/07/22 00:53:55 by pmolnar       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC 			=	gcc
 CFLAGS 		=	-Wall -Wextra -Werror
 CFLAGS		+=	-I $(INCLD)
 CFLAGS		+=	-g
-CFLAGS 		+=	-fsanitize=thread
+CFLAGS 		+=	-fsanitize=address
 INCLD		=	include
 
 # PRINT FORMATTING
