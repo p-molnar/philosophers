@@ -6,32 +6,38 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:54:06 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/30 12:22:12 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/22 01:21:18 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
 
-static int	validate_args(int argc, t_sim_data *attr)
+int	validate_arg(int argc, t_data *data)
 {
-	if (attr->n_philo < 1 || attr->t_die < 0 || \
-		attr->t_eat < 0 || attr->t_sleep < 0)
+	uint16_t	i;
+
+	i = 0;
+	while (i < argc - 1)
 	{
-		return (error_handler(INVALID_INPUT, NULL));
+		if (data->arg[i] < 0)
+			return (error_handler(INVALID_INPUT, "validate_arg"));
+		i++;
 	}
-	if (argc == 6 && attr->min_n_eat < 0)
-		return (error_handler(INVALID_INPUT, NULL));
 	return (EXIT_SUCCESS);
 }
 
-int	parse_args(int argc, char *argv[], t_sim_data *attr)
+int	parse_args(int argc, char *argv[], t_data *data)
 {	
-	attr->n_philo = ft_atoi(argv[1]);
-	attr->t_die = ft_atoi(argv[2]);
-	attr->t_eat = ft_atoi(argv[3]);
-	attr->t_sleep = ft_atoi(argv[4]);
-	attr->min_n_eat = -1;
-	if (argc == 6)
-		attr->min_n_eat = ft_atoi(argv[5]);
-	return (validate_args(argc, attr));
+	uint16_t	i;
+
+	if (argc < 5 || argc > 6)
+		return (error_handler(INVALID_INPUT, "parse_args"));
+	i = 1;
+	while (i < argc)
+	{
+		data->arg[i - 1] = ft_atoi(argv[i]);
+		data->arg[i] = 0;
+		i++;
+	}
+	return (validate_arg(argc, data));
 }

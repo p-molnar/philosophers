@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/06 22:40:26 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/21 19:19:03 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/22 01:22:04 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 int	main(int argc, char *argv[])
 {
-	t_sim_data	attr;
-	t_philo		*philo_arr;
+	t_data	data;
 
-	philo_arr = NULL;
-	if (argc == 5 || argc == 6)
-	{
-		if (parse_args(argc, argv, &attr))
-			return (EXIT_FAILURE);
-	}
-	else
-		return (error_handler(INVALID_INPUT, NULL));
+	if (parse_args(argc, argv, &data))
+		return (EXIT_FAILURE);
+	if ()
+	printf("n_philo: %i\n", data.arg[N_PHILO]);
+	printf("t_die: %i\n", data.arg[T_DIE]);
+	printf("t_eat: %i\n", data.arg[T_EAT]);
+	printf("t_sleep: %i\n", data.arg[T_SLEEP]);
+	printf("n_eat: %i\n", data.arg[N_EAT]);
 	return (EXIT_SUCCESS);
 }
