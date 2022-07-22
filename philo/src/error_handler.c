@@ -6,34 +6,15 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 14:03:44 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/22 00:52:37 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/22 20:23:08 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
 
-int	error_handler(int err_code, char *caller_name)
+int	error_handler(char *err_msg, char *err_file, int err_line)
 {
-	if (err_code == INVALID_INPUT)
-	{
-		printf("usage: ./philo ");
-		printf("<philosopher count> <die duration> <eat duration> ");
-		printf("<sleep duration> [<minimum eat count by each philosopher>]\n");
-	}
-	else if (err_code == MALLOC_ERROR)
-	{
-		printf("Memory allocation failed in: %s\n", caller_name);
-		error_handler (INVALID_INPUT, NULL);
-	}
-	else if (err_code == MUTEX_ERROR)
-	{
-		printf("Mutex error in: %s\n", caller_name);
-		error_handler (INVALID_INPUT, NULL);
-	}
-	else if (err_code == THREAD_ERROR)
-	{
-		printf ("thread error, launch the program again\n");
-		error_handler (INVALID_INPUT, NULL);
-	}
+	printf("%s:	%s:%d\n", err_msg, err_file, err_line);
+	printf(USAGE_MSG);
 	return (EXIT_FAILURE);
 }
