@@ -6,7 +6,7 @@
 #    By: pmolnar <pmolnar@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/07/14 22:59:51 by pmolnar       #+#    #+#                  #
-#    Updated: 2022/07/22 17:34:48 by pmolnar       ########   odam.nl          #
+#    Updated: 2022/07/22 23:22:33 by pmolnar       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@
 CC 			=	gcc
 CFLAGS 		=	-Wall -Wextra -Werror
 CFLAGS		+=	-I $(INCLD)
+CFLAGS		+=	-fsanitize=address
 CFLAGS		+=	-g
 INCLD		=	include
 
@@ -28,13 +29,13 @@ STATUS_W		=	%-12s
 STATUS_FMT		=	$(BOLD)$(STATUS_W)$(DEF)$(SPACE_W)
 
 #	PRETTIER FORMATTING
-ifeq ($(PRETTY_PRINT), 1)
-	CFLAGS += -D PRINT_STR="%-8zu %8zu %s\n"
-endif
-#	ADDRESS SANITIZER 
-ifeq ($(ADDRESS_SANIT), 1)
-	CFLAGS += -fsanitize=address
-endif
+# ifeq ($(PRETTY_PRINT), 1)
+# 	CFLAGS += -D PRINT_STR="%-8zu %8zu %s\n"
+# endif
+# #	ADDRESS SANITIZER 
+# ifeq ($(ADDRESS_SANIT), 1)
+# 	CFLAGS += -fsanitize=address
+# endif
 
 #	THREAD SANITIZER 
 ifeq ($(THREAD_SANIT), 1)
@@ -52,6 +53,10 @@ SRC 		=	main.c					\
 				ft_atoi.c				\
 				error_handler.c			\
 				time.c					\
+				thread.c				\
+				mutex.c					\
+				init.c					\
+				philo.c					\
 
 P_SRC		=	$(addprefix $(SRC_DIR), $(SRC))
 
