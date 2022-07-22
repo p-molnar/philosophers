@@ -6,7 +6,7 @@
 #    By: pmolnar <pmolnar@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/07/14 22:59:51 by pmolnar       #+#    #+#                  #
-#    Updated: 2022/07/22 00:53:55 by pmolnar       ########   odam.nl          #
+#    Updated: 2022/07/22 17:34:48 by pmolnar       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ CC 			=	gcc
 CFLAGS 		=	-Wall -Wextra -Werror
 CFLAGS		+=	-I $(INCLD)
 CFLAGS		+=	-g
-CFLAGS 		+=	-fsanitize=address
 INCLD		=	include
 
 # PRINT FORMATTING
@@ -28,10 +27,21 @@ SPACE_W 		= 	%-40s
 STATUS_W		=	%-12s
 STATUS_FMT		=	$(BOLD)$(STATUS_W)$(DEF)$(SPACE_W)
 
+#	PRETTIER FORMATTING
 ifeq ($(PRETTY_PRINT), 1)
 	CFLAGS += -D PRINT_STR="%-8zu %8zu %s\n"
 endif
+#	ADDRESS SANITIZER 
+ifeq ($(ADDRESS_SANIT), 1)
+	CFLAGS += -fsanitize=address
+endif
 
+#	THREAD SANITIZER 
+ifeq ($(THREAD_SANIT), 1)
+	CFLAGS += -fsanitize=thread
+endif
+
+#	executable config
 NAME 		=	philo
 OUT_DIR		=	$(shell pwd)
 P_OUT		=	$(addprefix $(OUT_DIR)/, $(NAME))
@@ -53,7 +63,7 @@ all:	$(NAME) $(NAME_B)
 	@printf "$(GREEN)$(NAME) binary is compiled at $(OUT_DIR)$(DEF)\n"
 
 $(NAME):	$(P_OBJ) $(INCLD) 
-	@printf "$(BOLD)%-52s$(DEF)" "compiling object files"
+	@printf "$(BOLD)%-52s$(DEF)" "compiling object file(s)"
 	@$(CC) $(CFLAGS) $(P_OBJ) -o $(P_OUT)
 	@printf "[$(GREEN)DONE$(DEF)]\n"
 
