@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/06 22:40:26 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/22 01:22:04 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/22 22:39:28 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 int	main(int argc, char *argv[])
 {
-	t_data	data;
+	t_sim	data;
 
 	if (parse_args(argc, argv, &data))
 		return (EXIT_FAILURE);
-	if ()
-	printf("n_philo: %i\n", data.arg[N_PHILO]);
-	printf("t_die: %i\n", data.arg[T_DIE]);
-	printf("t_eat: %i\n", data.arg[T_EAT]);
-	printf("t_sleep: %i\n", data.arg[T_SLEEP]);
-	printf("n_eat: %i\n", data.arg[N_EAT]);
+	if (init_simulation(&data))
+		return (EXIT_FAILURE);
+	if (init_threads(&data))
+		return (EXIT_FAILURE);
+	printf("n_philo: %i\n", data.attr[N_PHILO]);
+	printf("t_die: %i\n", data.attr[T_DIE]);
+	printf("t_eat: %i\n", data.attr[T_EAT]);
+	printf("t_sleep: %i\n", data.attr[T_SLEEP]);
+	printf("n_eat: %i\n", data.attr[N_EAT]);
 	return (EXIT_SUCCESS);
 }
