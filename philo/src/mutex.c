@@ -6,13 +6,13 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/22 18:20:14 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/26 12:16:19 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/26 22:52:29 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
 
-int	init_mutexes(t_sim *data)
+uint16_t	init_mutexes(t_sim *data)
 {
 	uint16_t	i;
 
@@ -33,7 +33,7 @@ int	init_mutexes(t_sim *data)
 	return (EXIT_SUCCESS);
 }
 
-int	destroy_mutexes(t_sim *data)
+uint16_t	destroy_mutexes(t_sim *data)
 {
 	uint16_t	i;
 
