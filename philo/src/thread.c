@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/22 17:38:50 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/26 16:30:24 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/26 17:34:13 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 static int	create_util_threads(t_sim *data)
 {
 	if (pthread_create(&data->thread[CHECKER], NULL, \
-		(void *)checker, &data))
+		(void *)checker, (void *)data))
 	{
 		return (thrw_err(THREAD_ERR_MSG, __FILE__, __LINE__));
 	}
 	if (pthread_create(&data->thread[PRINTER], NULL, \
-		(void *)printer, &data))
+		(void *)printer, (void *)data))
 	{
 		return (thrw_err(THREAD_ERR_MSG, __FILE__, __LINE__));
 	}
