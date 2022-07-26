@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:30:53 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/22 23:03:30 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/25 19:27:22 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ enum e_mutex
 	START,
 };
 
+enum e_util_thread
+{
+	CHECKER,
+	PRINTER,
+};
 # define INPUT_ERR_MSG "invalid input"
 # define MUTEX_ERR_MSG "mutex error"
 # define MALLOC_ERR_MSG "malloc error"
@@ -57,7 +62,7 @@ int		parse_args(int argc, char *argv[], t_sim *data);
 int		ft_atoi(char *str);
 
 // error_handling.c
-int		error_handler(char *err_msg, char *err_file, int err_line);
+int		thrw_err(char *err_msg, char *err_file, int err_line);
 
 // time.c
 t_time	get_time(void);
@@ -74,5 +79,9 @@ int		init_mutexes(t_sim *data);
 int		init_simulation(t_sim *data);
 
 // philo.c
-void	simulation(t_thread_data *philo);
+void	simulation(t_philo *philo);
+
+// util_threads.c
+int		checker(t_sim *data);
+int		printer(t_sim *data);
 #endif
