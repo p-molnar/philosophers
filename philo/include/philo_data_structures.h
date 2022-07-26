@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/25 15:52:58 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/26 13:53:38 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,13 @@
 
 typedef struct timeval	t_time;
 typedef pthread_mutex_t	t_mutex;
-typedef struct s_philo	t_philo;
+
+typedef struct s_philo
+{
+	pthread_t	thread;
+	uint16_t	id;
+	t_mutex		*m;
+}	t_philo;
 
 typedef struct s_sim
 {
@@ -27,12 +33,5 @@ typedef struct s_sim
 	t_philo		*philo;
 	pthread_t	thread[2];
 }	t_sim;
-
-typedef struct s_philo
-{
-	pthread_t	thread;
-	uint16_t	id;
-	t_sim		*sim_data;
-}	t_philo;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:30:53 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/25 19:27:22 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/26 13:12:07 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,18 @@ long	time_delta_msec(t_time t1, t_time t2);
 void	precise_sleep(long duration);
 
 // thread.c
-int		init_threads(t_sim *data);
+int		create_threads(t_sim *data);
+int		join_threads(t_sim *data);
 
 // mutex.c
 int		init_mutexes(t_sim *data);
+int		destroy_mutexes(t_sim *data);
 
 // simulation.c
-int		init_simulation(t_sim *data);
+int		alloc_sim_resources(t_sim *data);
 
 // philo.c
-void	simulation(t_philo *philo);
+int		simulation(t_philo *philo);
 
 // util_threads.c
 int		checker(t_sim *data);

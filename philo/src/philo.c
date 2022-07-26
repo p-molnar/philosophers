@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/22 21:20:35 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/25 20:18:00 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/26 17:19:38 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,16 @@ void	p_sleep(t_philo *data)
 	(void) data;
 }
 
-void	simulation(t_philo *philo)
+int	simulation(t_philo *philo)
 {
-	// usleep(philo->sim_data->attr[N_PHILO] + (philo->id - 1) * 50);
-	pthread_mutex_lock(&philo->sim_data->mutex[START]);
-	// usleep((philo->id - 1) * 1000);
-	printf("philo id: %u\n", philo->id);
-	pthread_mutex_unlock(&philo->sim_data->mutex[START]);
+	pthread_mutex_lock(philo->m);
+	printf("philo id: %d\n", philo->id);
+	pthread_mutex_unlock(philo->m);
 	// while (true)
 	// {
-	// 	think(data);
-	// 	eat(data);
-	// 	sleep(data);
+	// 	p_think(data);
+	// 	p_eat(data);
+	// 	p_sleep(data);
 	// }
+	return (EXIT_SUCCESS);
 }
