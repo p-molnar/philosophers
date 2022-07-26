@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/23 22:56:41 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/26 19:42:09 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/26 22:42:38 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	precise_sleep(long duration)
 	}
 }
 
-long	time_delta_msec(t_time t_old, t_time t_new)
+uint32_t	time_delta_msec(t_time t_old, t_time t_new)
 {
 	long	t_new_msec;
 	long	t_old_msec;
