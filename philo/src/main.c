@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/06 22:40:26 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/22 22:39:28 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/25 14:27:47 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ int	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	if (init_threads(&data))
 		return (EXIT_FAILURE);
-	printf("n_philo: %i\n", data.attr[N_PHILO]);
-	printf("t_die: %i\n", data.attr[T_DIE]);
-	printf("t_eat: %i\n", data.attr[T_EAT]);
-	printf("t_sleep: %i\n", data.attr[T_SLEEP]);
-	printf("n_eat: %i\n", data.attr[N_EAT]);
+	usleep(1000);
+	// printf("n_philo: %i\n", data.attr[N_PHILO]);
+	// printf("t_die: %i\n", data.attr[T_DIE]);
+	// printf("t_eat: %i\n", data.attr[T_EAT]);
+	// printf("t_sleep: %i\n", data.attr[T_SLEEP]);
+	// printf("n_eat: %i\n", data.attr[N_EAT]);
 	return (EXIT_SUCCESS);
 }

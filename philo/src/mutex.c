@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/22 18:20:14 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/22 22:39:28 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/25 14:13:56 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ int	init_mutexes(t_sim *data)
 	while (i < MUTEX_SIZE)
 	{
 		if (pthread_mutex_init(&data->mutex[i], NULL))
-			return (error_handler(MUTEX_ERR_MSG, __FILE__, __LINE__));
+			return (thrw_err(MUTEX_ERR_MSG, __FILE__, __LINE__));
 		i++;
 	}
 	i = 0;
 	while (i < data->attr[N_PHILO])
 	{
 		if (pthread_mutex_init(&data->fork[i], NULL))
-			return (error_handler(MUTEX_ERR_MSG, __FILE__, __LINE__));
+			return (thrw_err(MUTEX_ERR_MSG, __FILE__, __LINE__));
 		i++;
 	}
 	return (EXIT_SUCCESS);

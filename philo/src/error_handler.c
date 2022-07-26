@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   error_handler.c                                    :+:    :+:            */
+/*   thrw_err.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
@@ -12,7 +12,7 @@
 
 #include <philo.h>
 
-int	error_handler(char *err_msg, char *err_file, int err_line)
+int	thrw_err(char *err_msg, char *err_file, int err_line)
 {
 	printf("%s:	%s:%d\n", err_msg, err_file, err_line);
 	printf(USAGE_MSG);
