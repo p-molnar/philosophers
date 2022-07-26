@@ -6,7 +6,7 @@
 #    By: pmolnar <pmolnar@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/07/14 22:59:51 by pmolnar       #+#    #+#                  #
-#    Updated: 2022/07/25 15:54:41 by pmolnar       ########   odam.nl          #
+#    Updated: 2022/07/26 17:18:17 by pmolnar       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ STATUS_FMT		=	$(BOLD)$(STATUS_W)$(DEF)$(SPACE_W)
 # 	CFLAGS += -fsanitize=thread
 # endif
 
-#	executable config
+#	EXECUTABLE CONFIG
 NAME 		=	philo
 OUT_DIR		=	$(shell pwd)
 P_OUT		=	$(addprefix $(OUT_DIR)/, $(NAME))
@@ -65,6 +65,7 @@ OBJ_DIR		=	obj/
 OBJ			=	$(SRC:.c=.o)
 P_OBJ		=	$(addprefix $(OBJ_DIR), $(OBJ))
 
+# RECEPIES
 all:	$(NAME) $(NAME_B)
 	@printf "$(GREEN)$(NAME) binary is compiled at $(OUT_DIR)$(DEF)\n"
 
