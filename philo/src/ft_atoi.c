@@ -6,13 +6,13 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/16 19:00:19 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/06/16 19:01:39 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/26 23:07:21 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
 
-static int	ft_isspace(int c)
+static uint16_t	ft_isspace(int c)
 {
 	return (c == ' '
 		|| c == '\t'
@@ -22,12 +22,12 @@ static int	ft_isspace(int c)
 		|| c == '\r');
 }
 
-static int	ft_isdigit(int c)
+static uint16_t	ft_isdigit(int c)
 {
 	return (c >= '0' && c <= '9');
 }
 
-int	ft_atoi(char *str)
+int32_t	ft_atoi(char *str)
 {
 	int			num;
 	int			sign;
