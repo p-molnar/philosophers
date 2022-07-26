@@ -6,16 +6,16 @@
 #    By: pmolnar <pmolnar@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/07/14 22:59:51 by pmolnar       #+#    #+#                  #
-#    Updated: 2022/07/22 23:22:33 by pmolnar       ########   odam.nl          #
+#    Updated: 2022/07/25 15:54:41 by pmolnar       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 # COMPILER CONFIG
 CC 			=	gcc
 CFLAGS 		=	-Wall -Wextra -Werror
-CFLAGS		+=	-I $(INCLD)
-CFLAGS		+=	-fsanitize=address
+# CFLAGS		+=	-fsanitize=thread
 CFLAGS		+=	-g
+CFLAGS		+=	-I $(INCLD)
 INCLD		=	include
 
 # PRINT FORMATTING
@@ -38,9 +38,9 @@ STATUS_FMT		=	$(BOLD)$(STATUS_W)$(DEF)$(SPACE_W)
 # endif
 
 #	THREAD SANITIZER 
-ifeq ($(THREAD_SANIT), 1)
-	CFLAGS += -fsanitize=thread
-endif
+# ifeq ($(THREAD_SANIT), 1)
+# 	CFLAGS += -fsanitize=thread
+# endif
 
 #	executable config
 NAME 		=	philo
@@ -54,6 +54,7 @@ SRC 		=	main.c					\
 				error_handler.c			\
 				time.c					\
 				thread.c				\
+				util_threads.c			\
 				mutex.c					\
 				init.c					\
 				philo.c					\
