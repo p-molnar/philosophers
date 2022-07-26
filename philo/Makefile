@@ -6,14 +6,14 @@
 #    By: pmolnar <pmolnar@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/07/14 22:59:51 by pmolnar       #+#    #+#                  #
-#    Updated: 2022/07/26 17:18:17 by pmolnar       ########   odam.nl          #
+#    Updated: 2022/07/26 23:02:23 by pmolnar       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 # COMPILER CONFIG
 CC 			=	gcc
 CFLAGS 		=	-Wall -Wextra -Werror
-# CFLAGS		+=	-fsanitize=thread
+CFLAGS		+=	-fsanitize=thread
 CFLAGS		+=	-g
 CFLAGS		+=	-I $(INCLD)
 INCLD		=	include
@@ -56,8 +56,10 @@ SRC 		=	main.c					\
 				thread.c				\
 				util_threads.c			\
 				mutex.c					\
+				alloc.c					\
 				init.c					\
 				philo.c					\
+				printer.c					\
 
 P_SRC		=	$(addprefix $(SRC_DIR), $(SRC))
 
