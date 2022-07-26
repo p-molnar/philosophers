@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/23 22:56:41 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/21 19:21:24 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/26 19:42:09 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	precise_sleep(long duration)
 	{
 		if (time_delta_msec(start_time, get_time()) >= duration)
 			break ;
-		usleep(20);
+		usleep(1);
 	}
 }
 
