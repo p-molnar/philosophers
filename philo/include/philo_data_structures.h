@@ -6,14 +6,14 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/26 22:45:10 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/27 16:21:01 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_DATA_STRUCTURES_H
 # define PHILO_DATA_STRUCTURES_H
 
-# define MUTEX_SIZE 3
+# define MUTEX_SIZE 4
 # define QUEUE_SIZE 1024
 
 # include <stdint.h>
@@ -32,9 +32,9 @@ typedef struct s_philo
 
 typedef struct s_log
 {
-	int16_t		status;
-	uint16_t	timestamp;
 	uint16_t	philo_id;
+	int16_t		status;
+	uint32_t	timestamp;
 }	t_log;
 
 typedef struct s_sim
