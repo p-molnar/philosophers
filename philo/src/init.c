@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/26 20:58:51 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/26 22:50:23 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/27 13:36:29 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_resources(t_sim *data)
 	{
 		data->philo[i].id = i + 1;
 		data->philo[i].sim_data = data;
+		data->philo[i].last_ate = data->start_time;
 		i++;
 	}
 	i = 0;
