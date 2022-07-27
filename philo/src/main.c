@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/06 22:40:26 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/26 22:51:15 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/27 15:24:42 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@ int	main(int argc, char *argv[])
 	t_sim	data;
 
 	if (parse_args(argc, argv, &data))
-		return (EXIT_FAILURE);
+		return (2);
 	if (alloc_sim_resources(&data))
-		return (EXIT_FAILURE);
+		return (3);
 	init_resources(&data);
 	if (init_mutexes(&data))
-		return (EXIT_FAILURE);
+		return (5);
 	if (create_threads(&data))
-		return (EXIT_FAILURE);
+		return (6);
 	if (join_threads(&data))
-		return (EXIT_FAILURE);
+		return (7);
 	if (destroy_mutexes(&data))
-		return (EXIT_FAILURE);
+		return (8);
 	free_all(&data);
 	// printf("n_philo: %i\n", data.attr[N_PHILO]);
 	// printf("t_die: %i\n", data.attr[T_DIE]);
