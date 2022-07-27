@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/22 18:20:14 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/26 22:52:29 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/28 00:18:55 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,16 @@ uint16_t	destroy_mutexes(t_sim *data)
 		i++;
 	}
 	return (EXIT_SUCCESS);
+}
+
+void	unlock_all(t_sim *data)
+{
+	uint16_t	i;
+
+	i = 0;
+	while (i < MUTEX_SIZE)
+		pthread_mutex_unlock(&data->mutex[i++]);
+	i = 0;
+	while (i < data->attr[N_PHILO])
+		pthread_mutex_unlock(&data->fork[i++]);
 }
