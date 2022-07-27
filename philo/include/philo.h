@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:30:53 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/26 23:20:02 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/28 00:19:17 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,12 @@
 # include <philo_data_structures.h>
 
 # ifndef LOG_FMT
-// #  define LOG_FMT "%-16lu %d %s\n"
-#  define LOG_FMT "%-16d %d %d\n"
+// #  define LOG_FMT "%-16d %d %s\n"
+#  define LOG_FMT "%d %d %s\n"
 # endif
+
+# define LEFT (data->id - 1) % n_philo
+# define RGHT (data->id) % n_philo
 
 enum e_arg
 {
@@ -43,6 +46,7 @@ enum e_mutex
 	INIT,
 	LOG,
 	QUEUE,
+	PHILO,
 };
 
 enum e_status
@@ -52,6 +56,7 @@ enum e_status
 	TAKING_FORK,
 	EATING,
 	SLEEPING,
+	DIED,
 };
 
 enum e_util_thread
@@ -79,7 +84,7 @@ uint16_t	thrw_err(char *err_msg, char *err_file, int err_line);
 
 // time.c
 t_time		get_time(void);
-uint32_t	time_delta_msec(t_time t1, t_time t2);
+uint32_t	time_delta_msec(t_time t_old, t_time t_new);
 void		precise_sleep(long duration);
 
 // init.c
@@ -92,6 +97,7 @@ uint16_t	join_threads(t_sim *data);
 // mutex.c
 uint16_t	init_mutexes(t_sim *data);
 uint16_t	destroy_mutexes(t_sim *data);
+void		unlock_all(t_sim *data);
 
 // simulation.c
 uint16_t	alloc_sim_resources(t_sim *data);
@@ -100,8 +106,8 @@ uint16_t	alloc_sim_resources(t_sim *data);
 uint16_t	simulation(t_philo *philo);
 
 // util_threads.c
-uint16_t	checker(t_sim *data);
-uint16_t	printer(t_sim *data);
+void		checker(t_sim *data);
+void		printer(t_sim *data);
 
 // printer.c
 void		log_status(t_philo *data, uint16_t status, t_time time);
