@@ -6,14 +6,15 @@
 #    By: pmolnar <pmolnar@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/07/14 22:59:51 by pmolnar       #+#    #+#                  #
-#    Updated: 2022/07/27 10:53:03 by pmolnar       ########   odam.nl          #
+#    Updated: 2022/07/27 16:24:10 by pmolnar       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 # COMPILER CONFIG
 CC 			=	gcc
 CFLAGS 		=	-Wall -Wextra -Werror
-CFLAGS		+=	-fsanitize=thread
+# CFLAGS		+=	-fsanitize=thread
+# CFLAGS		+=	-fsanitize=address
 CFLAGS		+=	-g
 CFLAGS		+=	-I $(INCLD)
 INCLD		=	include
