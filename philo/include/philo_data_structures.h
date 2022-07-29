@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/29 11:12:00 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/29 14:01:24 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef struct s_philo
 	uint16_t	id;
 	t_sim		*sim_data;
 	uint16_t	eat_count;
-	t_mutex		fork[2];
+	t_mutex		*fork[2];
+	t_mutex		self;
 
 }	t_philo;
 
