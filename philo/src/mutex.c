@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/22 18:20:14 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/28 00:18:55 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/29 13:22:30 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ uint16_t	init_mutexes(t_sim *data)
 	while (i < data->attr[N_PHILO])
 	{
 		if (pthread_mutex_init(&data->fork[i], NULL))
+			return (thrw_err(MUTEX_ERR_MSG, __FILE__, __LINE__));
+		if (pthread_mutex_init(&data->philo[i].self, NULL))
 			return (thrw_err(MUTEX_ERR_MSG, __FILE__, __LINE__));
 		i++;
 	}
@@ -49,6 +51,8 @@ uint16_t	destroy_mutexes(t_sim *data)
 	{
 		if (pthread_mutex_destroy(&data->fork[i]))
 			return (thrw_err(MUTEX_ERR_MSG, __FILE__, __LINE__));
+		if (pthread_mutex_destroy(&data->philo[i].self))
+			return (thrw_err(MUTEX_ERR_MSG, __FILE__, __LINE__));
 		i++;
 	}
 	return (EXIT_SUCCESS);
@@ -63,5 +67,10 @@ void	unlock_all(t_sim *data)
 		pthread_mutex_unlock(&data->mutex[i++]);
 	i = 0;
 	while (i < data->attr[N_PHILO])
-		pthread_mutex_unlock(&data->fork[i++]);
+	{
+		pthread_mutex_unlock(&data->philo[i].self);
+		pthread_mutex_unlock(&data->fork[i]);
+		i++;
+	}
+
 }
