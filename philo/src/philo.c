@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/22 21:20:35 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/29 11:24:17 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/29 14:23:14 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,26 @@ static void	grab_forks(t_philo *data)
 		if (data->id % 2 || data->id == n_philo)
 		{
 			usleep(10);
-			grab_fork(data, &data->fork[LEFT]);
-			grab_fork(data, &data->fork[RGHT]);
+			grab_fork(data, data->fork[LEFT]);
+			grab_fork(data, data->fork[RGHT]);
 		}
 		else
 		{
-			grab_fork(data, &data->fork[RGHT]);
-			grab_fork(data, &data->fork[LEFT]);
+			grab_fork(data, data->fork[RGHT]);
+			grab_fork(data, data->fork[LEFT]);
 		}
 	}
 	else
 	{
 		if (data->id % 2)
 		{
-			grab_fork(data, &data->fork[LEFT]);
-			grab_fork(data, &data->fork[RGHT]);
+			grab_fork(data, data->fork[LEFT]);
+			grab_fork(data, data->fork[RGHT]);
 		}
 		else
 		{
-			grab_fork(data, &data->fork[RGHT]);
-			grab_fork(data, &data->fork[LEFT]);
+			grab_fork(data, data->fork[RGHT]);
+			grab_fork(data, data->fork[LEFT]);
 		}
 	}
 }
@@ -74,13 +74,13 @@ void	philo_eat(t_philo *data)
 	data->last_ate = time;
 	if (data->id % 2)
 	{
-		put_fork(&data->fork[RGHT]);
-		put_fork(&data->fork[LEFT]);
+		put_fork(data->fork[RGHT]);
+		put_fork(data->fork[LEFT]);
 	}
 	else
 	{
-		put_fork(&data->fork[RGHT]);
-		put_fork(&data->fork[LEFT]);
+		put_fork(data->fork[RGHT]);
+		put_fork(data->fork[LEFT]);
 	}
 }
 
@@ -90,16 +90,24 @@ void	philo_sleep(t_philo *data)
 	precise_sleep(data->sim_data->attr[T_SLEEP]);
 }
 
-uint16_t	simulation(t_philo *philo)
+void	*simulation(void *arg)
 {
+	t_philo	*philo;
+	bool	sim_running;
+
+	philo = arg;
 	pthread_mutex_lock(&philo->sim_data->mutex[INIT]);
 	pthread_mutex_unlock(&philo->sim_data->mutex[INIT]);
 	philo->last_ate = philo->sim_data->start_time;
-	while (philo->sim_data->is_running)
+	sim_running = philo->sim_data->is_running;
+	if (philo->id == philo->sim_data->attr[N_PHILO])
+		pthread_mutex_unlock(&philo->sim_data->mutex[UTIL_START]);
+	while (sim_running)
 	{
 		philo_think(philo);
 		philo_eat(philo);
 		philo_sleep(philo);
+		sim_running = philo->sim_data->is_running;
 	}
 	return (EXIT_SUCCESS);
 }
