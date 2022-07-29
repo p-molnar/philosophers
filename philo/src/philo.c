@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/22 21:20:35 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/27 15:20:57 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/29 11:24:17 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,35 +34,36 @@ static void	grab_forks(t_philo *data)
 	n_philo = data->sim_data->attr[N_PHILO];
 	if (n_philo % 2)
 	{
-		if (data->id % 2)
+		if (data->id % 2 || data->id == n_philo)
 		{
-			grab_fork(data, &data->sim_data->fork[LEFT]);
-			grab_fork(data, &data->sim_data->fork[RGHT]);
+			usleep(10);
+			grab_fork(data, &data->fork[LEFT]);
+			grab_fork(data, &data->fork[RGHT]);
 		}
 		else
 		{
-			grab_fork(data, &data->sim_data->fork[RGHT]);
-			grab_fork(data, &data->sim_data->fork[LEFT]);
+			grab_fork(data, &data->fork[RGHT]);
+			grab_fork(data, &data->fork[LEFT]);
 		}
 	}
 	else
 	{
 		if (data->id % 2)
 		{
-			grab_fork(data, &data->sim_data->fork[LEFT]);
-			grab_fork(data, &data->sim_data->fork[RGHT]);
+			grab_fork(data, &data->fork[LEFT]);
+			grab_fork(data, &data->fork[RGHT]);
 		}
 		else
 		{
-			grab_fork(data, &data->sim_data->fork[RGHT]);
-			grab_fork(data, &data->sim_data->fork[LEFT]);
+			grab_fork(data, &data->fork[RGHT]);
+			grab_fork(data, &data->fork[LEFT]);
 		}
 	}
 }
 
 void	philo_eat(t_philo *data)
 {
-	t_time	time;
+	t_time		time;
 	uint16_t	n_philo;
 
 	n_philo = data->sim_data->attr[N_PHILO];
@@ -73,13 +74,13 @@ void	philo_eat(t_philo *data)
 	data->last_ate = time;
 	if (data->id % 2)
 	{
-		put_fork(&data->sim_data->fork[LEFT]);
-		put_fork(&data->sim_data->fork[RGHT]);
+		put_fork(&data->fork[RGHT]);
+		put_fork(&data->fork[LEFT]);
 	}
 	else
 	{
-		put_fork(&data->sim_data->fork[RGHT]);
-		put_fork(&data->sim_data->fork[LEFT]);
+		put_fork(&data->fork[RGHT]);
+		put_fork(&data->fork[LEFT]);
 	}
 }
 

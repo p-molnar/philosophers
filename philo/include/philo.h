@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:30:53 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/28 00:19:17 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/29 11:14:53 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 #  define LOG_FMT "%d %d %s\n"
 # endif
 
-# define LEFT (data->id - 1) % n_philo
-# define RGHT (data->id) % n_philo
+# define RGHT 1
+# define LEFT 0
 
 enum e_arg
 {
