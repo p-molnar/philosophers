@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:30:53 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/29 11:14:53 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/29 12:35:53 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ enum e_mutex
 	INIT,
 	LOG,
 	QUEUE,
-	PHILO,
+	UTIL_START,
 };
 
 enum e_status
@@ -103,7 +103,7 @@ void		unlock_all(t_sim *data);
 uint16_t	alloc_sim_resources(t_sim *data);
 
 // philo.c
-uint16_t	simulation(t_philo *philo);
+void		*simulation(void *arg);
 
 // util_threads.c
 void		checker(t_sim *data);
