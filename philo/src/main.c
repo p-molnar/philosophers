@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/06 22:40:26 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/27 15:24:42 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/29 12:03:19 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,16 @@
 
 void	free_all(t_sim *data)
 {
-	free(data->fork);
-	free(data->philo);
+	if (data->fork)
+		free(data->fork);
+	if (data->philo)
+		free(data->philo);
+}
+
+void	clean_up(t_sim *data)
+{
+	unlock_all(data);
+	free_all(data);
 }
 
 int	main(int argc, char *argv[])
