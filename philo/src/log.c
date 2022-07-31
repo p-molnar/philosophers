@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/26 20:36:23 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/27 11:30:55 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/31 23:31:21 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	print_status(t_log log)
 {
-	const char			*msg[5] = {"is thinking", "has taken a fork", \
-									"is eating", "is sleeping", "died"};
+	const char			*msg[5] = {"is thinking", "is eating", "is sleeping", \
+									"has taken a fork", "died"};
 
-	printf(LOG_FMT, log.timestamp, log.philo_id, msg[log.status - 1]);
+	printf(LOG_FMT, log.timestamp, log.philo_id, msg[log.status]);
 }
 
 void	log_status(t_philo *data, uint16_t status, t_time time)
