@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/22 21:20:35 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/29 14:23:14 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/31 21:27:18 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,37 +27,21 @@ static void	put_fork(t_mutex *mutex)
 {
 	pthread_mutex_unlock(mutex);
 }
+
 static void	grab_forks(t_philo *data)
 {
 	uint16_t	n_philo;
 
 	n_philo = data->sim_data->attr[N_PHILO];
-	if (n_philo % 2)
+	if (data->id % 2)
 	{
-		if (data->id % 2 || data->id == n_philo)
-		{
-			usleep(10);
-			grab_fork(data, data->fork[LEFT]);
-			grab_fork(data, data->fork[RGHT]);
-		}
-		else
-		{
-			grab_fork(data, data->fork[RGHT]);
-			grab_fork(data, data->fork[LEFT]);
-		}
+		grab_fork(data, data->fork[LEFT]);
+		grab_fork(data, data->fork[RGHT]);
 	}
 	else
 	{
-		if (data->id % 2)
-		{
-			grab_fork(data, data->fork[LEFT]);
-			grab_fork(data, data->fork[RGHT]);
-		}
-		else
-		{
-			grab_fork(data, data->fork[RGHT]);
-			grab_fork(data, data->fork[LEFT]);
-		}
+		grab_fork(data, data->fork[RGHT]);
+		grab_fork(data, data->fork[LEFT]);
 	}
 }
 
@@ -74,8 +58,8 @@ void	philo_eat(t_philo *data)
 	data->last_ate = time;
 	if (data->id % 2)
 	{
-		put_fork(data->fork[RGHT]);
 		put_fork(data->fork[LEFT]);
+		put_fork(data->fork[RGHT]);
 	}
 	else
 	{
@@ -107,7 +91,9 @@ void	*simulation(void *arg)
 		philo_think(philo);
 		philo_eat(philo);
 		philo_sleep(philo);
+		pthread_mutex_lock(&philo->sim_data->mutex[SIM_RUN]);
 		sim_running = philo->sim_data->is_running;
+		pthread_mutex_unlock(&philo->sim_data->mutex[SIM_RUN]);
 	}
 	return (EXIT_SUCCESS);
 }
