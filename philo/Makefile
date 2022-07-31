@@ -6,7 +6,7 @@
 #    By: pmolnar <pmolnar@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/07/14 22:59:51 by pmolnar       #+#    #+#                  #
-#    Updated: 2022/07/27 16:24:10 by pmolnar       ########   odam.nl          #
+#    Updated: 2022/08/01 00:27:53 by pmolnar       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,6 @@ P_OUT		=	$(addprefix $(OUT_DIR)/, $(NAME))
 SRC_DIR		=	src/
 SRC 		=	main.c					\
 				parse.c					\
-				ft_atoi.c				\
 				error_handler.c			\
 				time.c					\
 				thread.c				\
