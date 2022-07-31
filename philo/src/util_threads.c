@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/25 14:06:36 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/31 20:57:06 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/31 22:30:47 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	checker(t_sim *data)
 		pthread_mutex_lock(&data->philo[i].self);
 		if (time_delta_msec(data->philo[i].last_ate, curr_time) > (uint32_t) data->attr[T_DIE])
 		{
-			// printf("diff: %d\n", time_delta_msec(data->philo[i].last_ate, curr_time));
 			log_status(&data->philo[i], DIED, curr_time);
 
 			pthread_mutex_lock(&data->mutex[SIM_RUN]);
@@ -35,8 +34,7 @@ void	checker(t_sim *data)
 			return ;
 		}
 		pthread_mutex_unlock(&data->philo[i].self);
-		if (++i == data->attr[N_PHILO])
-			i = 0;
+		i = (i + 1) % data->attr[N_PHILO];
 		usleep(500);
 	}
 }
@@ -58,8 +56,7 @@ void	printer(t_sim *data)
 				return ;
 			}
 			data->queue[i].status = UNDEFINED;
-			if (++i == QUEUE_SIZE)
-				i = 0;
+			i = (i + 1) % QUEUE_SIZE;
 		}
 		pthread_mutex_unlock(&data->mutex[QUEUE]);
 		usleep(500);
