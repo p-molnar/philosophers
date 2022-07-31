@@ -6,14 +6,14 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/29 14:01:24 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/31 20:55:27 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_DATA_STRUCTURES_H
 # define PHILO_DATA_STRUCTURES_H
 
-# define MUTEX_SIZE 4
+# define MUTEX_SIZE 5
 # define QUEUE_SIZE 1024
 
 # include <stdint.h>

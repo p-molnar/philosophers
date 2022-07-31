@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:30:53 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/29 12:35:53 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/31 20:55:49 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ enum e_mutex
 	LOG,
 	QUEUE,
 	UTIL_START,
+	SIM_RUN,
 };
 
 enum e_status
