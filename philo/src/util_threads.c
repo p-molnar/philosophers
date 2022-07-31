@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/25 14:06:36 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/29 14:18:19 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/31 20:57:06 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ void	checker(t_sim *data)
 		pthread_mutex_lock(&data->philo[i].self);
 		if (time_delta_msec(data->philo[i].last_ate, curr_time) > (uint32_t) data->attr[T_DIE])
 		{
-			printf("diff: %d\n", time_delta_msec(data->philo[i].last_ate, curr_time));
+			// printf("diff: %d\n", time_delta_msec(data->philo[i].last_ate, curr_time));
 			log_status(&data->philo[i], DIED, curr_time);
+
+			pthread_mutex_lock(&data->mutex[SIM_RUN]);
 			data->is_running = false;
+			pthread_mutex_unlock(&data->mutex[SIM_RUN]);
 			return ;
 		}
 		pthread_mutex_unlock(&data->philo[i].self);
