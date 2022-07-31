@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:30:53 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/31 20:55:49 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/31 23:30:40 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 
 # define RGHT 1
 # define LEFT 0
+# define N_MAIN_STATUS 3
 
 enum e_arg
 {
@@ -50,14 +51,14 @@ enum e_mutex
 	SIM_RUN,
 };
 
-enum e_status
+enum e_philo_status
 {
-	UNDEFINED,
 	THINKING,
-	TAKING_FORK,
 	EATING,
 	SLEEPING,
+	TAKING_FORK,
 	DIED,
+	UNDEFINED,
 };
 
 enum e_util_thread
