@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/22 18:20:14 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/29 13:22:30 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/01 00:23:39 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,4 @@ void	unlock_all(t_sim *data)
 		pthread_mutex_unlock(&data->fork[i]);
 		i++;
 	}
-
 }

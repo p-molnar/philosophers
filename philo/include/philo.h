@@ -6,13 +6,12 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:30:53 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/31 23:30:40 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/01 00:36:16 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
-
 
 # include <sys/time.h>
 # include <stdio.h>
@@ -25,8 +24,7 @@
 # include <philo_data_structures.h>
 
 # ifndef LOG_FMT
-// #  define LOG_FMT "%-16d %d %s\n"
-#  define LOG_FMT "%d %d %s\n"
+#  define LOG_FMT "%-d %d %s\n"
 # endif
 
 # define RGHT 1
@@ -78,11 +76,10 @@ enum e_util_thread
 // input.c
 uint16_t	parse_args(int argc, char *argv[], t_sim *data);
 
-// input_util.c
-int32_t		ft_atoi(char *str);
-
 // error_handling.c
 uint16_t	thrw_err(char *err_msg, char *err_file, int err_line);
+void		free_all(t_sim *data);
+void		clean_up(t_sim *data);
 
 // time.c
 t_time		get_time(void);
@@ -108,8 +105,8 @@ uint16_t	alloc_sim_resources(t_sim *data);
 void		*simulation(void *arg);
 
 // util_threads.c
-void		checker(t_sim *data);
-void		printer(t_sim *data);
+void		*checker(void *arg);
+void		*printer(void *arg);
 
 // printer.c
 void		log_status(t_philo *data, uint16_t status, t_time time);

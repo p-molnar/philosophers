@@ -18,3 +18,17 @@ uint16_t	thrw_err(char *err_msg, char *err_file, int err_line)
 	printf(USAGE_MSG);
 	return (EXIT_FAILURE);
 }
+
+void	free_all(t_sim *data)
+{
+	if (data->fork)
+		free(data->fork);
+	if (data->philo)
+		free(data->philo);
+}
+
+void	clean_up(t_sim *data)
+{
+	unlock_all(data);
+	free_all(data);
+}
