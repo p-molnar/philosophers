@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/22 21:20:35 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/31 21:27:18 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/07/31 23:32:46 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,44 +28,18 @@ static void	put_fork(t_mutex *mutex)
 	pthread_mutex_unlock(mutex);
 }
 
-static void	grab_forks(t_philo *data)
-{
-	uint16_t	n_philo;
-
-	n_philo = data->sim_data->attr[N_PHILO];
-	if (data->id % 2)
-	{
-		grab_fork(data, data->fork[LEFT]);
-		grab_fork(data, data->fork[RGHT]);
-	}
-	else
-	{
-		grab_fork(data, data->fork[RGHT]);
-		grab_fork(data, data->fork[LEFT]);
-	}
-}
-
 void	philo_eat(t_philo *data)
 {
 	t_time		time;
-	uint16_t	n_philo;
 
-	n_philo = data->sim_data->attr[N_PHILO];
-	grab_forks(data);
+	grab_fork(data, data->fork[LEFT]);
+	grab_fork(data, data->fork[RGHT]);
 	time = get_time();
-	precise_sleep(data->sim_data->attr[T_EAT]);
-	log_status(data, EATING, time);
 	data->last_ate = time;
-	if (data->id % 2)
-	{
-		put_fork(data->fork[LEFT]);
-		put_fork(data->fork[RGHT]);
-	}
-	else
-	{
-		put_fork(data->fork[RGHT]);
-		put_fork(data->fork[LEFT]);
-	}
+	log_status(data, EATING, time);
+	precise_sleep(data->sim_data->attr[T_EAT]);
+	put_fork(data->fork[LEFT]);
+	put_fork(data->fork[RGHT]);
 }
 
 void	philo_sleep(t_philo *data)
@@ -76,8 +50,9 @@ void	philo_sleep(t_philo *data)
 
 void	*simulation(void *arg)
 {
-	t_philo	*philo;
-	bool	sim_running;
+	t_philo		*philo;
+	bool		sim_running;
+	uint16_t	status;
 
 	philo = arg;
 	pthread_mutex_lock(&philo->sim_data->mutex[INIT]);
@@ -86,11 +61,19 @@ void	*simulation(void *arg)
 	sim_running = philo->sim_data->is_running;
 	if (philo->id == philo->sim_data->attr[N_PHILO])
 		pthread_mutex_unlock(&philo->sim_data->mutex[UTIL_START]);
+	philo_think(philo);
+	if (philo->id % 2)
+		precise_sleep(1);
+	status = EATING;
 	while (sim_running)
 	{
-		philo_think(philo);
-		philo_eat(philo);
-		philo_sleep(philo);
+		if (status == THINKING)
+			philo_think(philo);
+		else if (status == EATING)
+			philo_eat(philo);
+		else if (status == SLEEPING)
+			philo_sleep(philo);
+		status = (status + 1) % N_MAIN_STATUS;
 		pthread_mutex_lock(&philo->sim_data->mutex[SIM_RUN]);
 		sim_running = philo->sim_data->is_running;
 		pthread_mutex_unlock(&philo->sim_data->mutex[SIM_RUN]);
