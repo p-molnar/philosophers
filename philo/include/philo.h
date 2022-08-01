@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:30:53 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/01 00:36:16 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/01 11:13:46 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ enum e_arg
 
 enum e_mutex
 {
-	INIT,
-	LOG,
-	QUEUE,
-	UTIL_START,
+	SIM_INIT,
+	LOG_RW,
+	QUEUE_RW,
+	UTIL_THREAD_START,
 	SIM_RUN,
 };
 

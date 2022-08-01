@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/25 14:06:36 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/01 00:23:16 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/01 11:15:27 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	*checker(void *arg)
 
 	data = arg;
 	i = 0;
-	pthread_mutex_lock(&data->mutex[UTIL_START]);
-	pthread_mutex_unlock(&data->mutex[UTIL_START]);
+	pthread_mutex_lock(&data->mutex[UTIL_THREAD_START]);
+	pthread_mutex_unlock(&data->mutex[UTIL_THREAD_START]);
 	while (data->is_running)
 	{
 		pthread_mutex_lock(&data->philo[i].self);
@@ -49,7 +49,7 @@ void	*printer(void *arg)
 	i = 0;
 	while (true)
 	{
-		pthread_mutex_lock(&data->mutex[QUEUE]);
+		pthread_mutex_lock(&data->mutex[QUEUE_RW]);
 		if (data->queue[i].status != UNDEFINED)
 		{
 			print_status(data->queue[i]);
@@ -61,7 +61,7 @@ void	*printer(void *arg)
 			data->queue[i].status = UNDEFINED;
 			i = (i + 1) % QUEUE_SIZE;
 		}
-		pthread_mutex_unlock(&data->mutex[QUEUE]);
+		pthread_mutex_unlock(&data->mutex[QUEUE_RW]);
 		usleep(500);
 	}
 	return (NULL);

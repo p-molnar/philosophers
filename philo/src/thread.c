@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/22 17:38:50 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/01 00:18:41 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/01 11:14:47 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ uint16_t	create_threads(t_sim *data)
 {
 	uint16_t	i;
 
-	pthread_mutex_lock(&data->mutex[UTIL_START]);
+	pthread_mutex_lock(&data->mutex[UTIL_THREAD_START]);
 	if (pthread_create(&data->thread[CHECKER], NULL, checker, data))
 		return (thrw_err(THREAD_ERR_MSG, __FILE__, __LINE__));
 	if (pthread_create(&data->thread[PRINTER], NULL, printer, data))
 		return (thrw_err(THREAD_ERR_MSG, __FILE__, __LINE__));
-	pthread_mutex_lock(&data->mutex[INIT]);
+	pthread_mutex_lock(&data->mutex[SIM_INIT]);
 	i = 0;
 	while (i < data->attr[N_PHILO])
 	{
@@ -33,7 +33,7 @@ uint16_t	create_threads(t_sim *data)
 		i++;
 	}
 	data->start_time = get_time();
-	pthread_mutex_unlock(&data->mutex[INIT]);
+	pthread_mutex_unlock(&data->mutex[SIM_INIT]);
 	return (EXIT_SUCCESS);
 }
 

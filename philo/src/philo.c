@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/22 21:20:35 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/31 23:57:01 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/01 11:13:46 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void	*simulation(void *arg)
 	uint16_t	status;
 
 	philo = arg;
-	pthread_mutex_lock(&philo->sim_data->mutex[INIT]);
-	pthread_mutex_unlock(&philo->sim_data->mutex[INIT]);
+	pthread_mutex_lock(&philo->sim_data->mutex[SIM_INIT]);
+	pthread_mutex_unlock(&philo->sim_data->mutex[SIM_INIT]);
 	if (philo->id == philo->sim_data->attr[N_PHILO])
-		pthread_mutex_unlock(&philo->sim_data->mutex[UTIL_START]);
+		pthread_mutex_unlock(&philo->sim_data->mutex[UTIL_THREAD_START]);
 	philo->last_ate = philo->sim_data->start_time;
 	sim_running = philo->sim_data->is_running;
 	philo_think(philo);
