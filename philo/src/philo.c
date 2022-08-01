@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/22 21:20:35 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/01 11:13:46 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/01 11:29:43 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	philo_sleep(t_philo *data)
 	precise_sleep(data->sim_data->attr[T_SLEEP]);
 }
 
-void	*simulation(void *arg)
+void	*philo_thread(void *arg)
 {
 	t_philo		*philo;
 	bool		sim_running;

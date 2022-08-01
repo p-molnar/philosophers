@@ -6,13 +6,13 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/25 14:06:36 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/01 11:15:27 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/01 11:29:28 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
 
-void	*checker(void *arg)
+void	*checker_thread(void *arg)
 {	
 	uint16_t	i;
 	t_sim		*data;
@@ -40,7 +40,7 @@ void	*checker(void *arg)
 	return (NULL);
 }
 
-void	*printer(void *arg)
+void	*printer_thread(void *arg)
 {
 	uint16_t	i;
 	t_sim		*data;
