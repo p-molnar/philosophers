@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/26 20:36:23 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/01 11:16:02 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/01 11:24:30 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ void	log_status(t_philo *data, uint16_t status, t_time time)
 	log.philo_id = data->id;
 	pthread_mutex_lock(&data->sim_data->mutex[QUEUE_RW]);
 	data->sim_data->queue[i] = log;
-	if (++i == QUEUE_SIZE)
-		i = 0;
+	i = (i + 1) % QUEUE_SIZE;
 	pthread_mutex_unlock(&data->sim_data->mutex[QUEUE_RW]);
 	pthread_mutex_unlock(&data->sim_data->mutex[LOG_RW]);
 }
