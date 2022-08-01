@@ -6,14 +6,14 @@
 #    By: pmolnar <pmolnar@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/07/14 22:59:51 by pmolnar       #+#    #+#                  #
-#    Updated: 2022/08/01 00:27:53 by pmolnar       ########   odam.nl          #
+#    Updated: 2022/08/01 23:29:15 by pmolnar       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 # COMPILER CONFIG
 CC 			=	gcc
 CFLAGS 		=	-Wall -Wextra -Werror
-# CFLAGS		+=	-fsanitize=thread
+CFLAGS		+=	-fsanitize=thread
 # CFLAGS		+=	-fsanitize=address
 CFLAGS		+=	-g
 CFLAGS		+=	-I $(INCLD)
@@ -59,7 +59,6 @@ SRC 		=	main.c					\
 				alloc.c					\
 				init.c					\
 				philo.c					\
-				log.c					\
 
 P_SRC		=	$(addprefix $(SRC_DIR), $(SRC))
 
@@ -97,9 +96,5 @@ re: fclean
 
 norm:
 	norminette $(P_SRC)
-
-run:
-	@make all
-	./$(NAME)
 
 .PHONY:	all clean fclean re norm run
