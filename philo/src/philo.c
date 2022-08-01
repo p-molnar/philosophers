@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/22 21:20:35 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/01 19:16:31 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/02 00:41:15 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ void	philo_eat(t_philo *data)
 	grab_fork(data, data->fork[LEFT]);
 	grab_fork(data, data->fork[RGHT]);
 	time = get_time();
-	data->last_ate = time;
 	log_status(data, EATING, time);
-	precise_sleep(data->sim_data->attr[T_EAT]);
 	pthread_mutex_lock(&data->self);
+	data->last_ate = time;
 	data->eat_count++;
 	pthread_mutex_unlock(&data->self);
+	precise_sleep(data->sim_data->attr[T_EAT]);
 	pthread_mutex_unlock(data->fork[LEFT]);
 	pthread_mutex_unlock(data->fork[RGHT]);
 }
@@ -50,7 +50,9 @@ void	run_philo_routine(t_philo *philo, uint16_t status)
 {
 	bool		sim_running;
 
+	pthread_mutex_lock(&philo->sim_data->mutex[SIM_RUN]);
 	sim_running = philo->sim_data->is_running;
+	pthread_mutex_unlock(&philo->sim_data->mutex[SIM_RUN]);
 	while (sim_running)
 	{
 		if (status == THINKING)
