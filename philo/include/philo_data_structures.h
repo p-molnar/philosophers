@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/07/31 20:55:27 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/01 14:33:55 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef struct s_log
 typedef struct s_sim
 {
 	int16_t		attr[5];
-
 	t_mutex		mutex[MUTEX_SIZE];
 	t_mutex		*fork;
 	t_philo		*philo;
