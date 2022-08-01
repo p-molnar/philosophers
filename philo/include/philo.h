@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:30:53 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/01 11:29:43 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/01 15:22:08 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ enum e_philo_status
 	SLEEPING,
 	TAKING_FORK,
 	DIED,
-	UNDEFINED,
+	ALL_FED,
+	UNDEFINED = -1,
 };
 
 enum e_util_thread
@@ -110,6 +111,5 @@ void		*printer_thread(void *arg);
 
 // printer.c
 void		log_status(t_philo *data, uint16_t status, t_time time);
-void		print_status(t_log log);
 
 #endif
