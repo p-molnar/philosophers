@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/25 14:06:36 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/01 19:18:08 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/02 00:22:23 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,16 @@
 static bool	all_philo_fed(t_sim *data)
 {
 	uint16_t	i;
+	bool		is_philo_fed;
 
 	i = 0;
 	while (i < data->attr[N_PHILO])
 	{
-		// pthread_mutex_lock(&data->philo[i].self);
-		if (data->attr[N_EAT] == UNDEFINED
-			|| data->philo[i].eat_count < data->attr[N_EAT])
-		{
-			// pthread_mutex_unlock(&data->philo[i].self);
+		pthread_mutex_lock(&data->philo[i].self);
+		is_philo_fed = data->philo[i].eat_count >= (uint16_t) data->attr[N_EAT];
+		pthread_mutex_unlock(&data->philo[i].self);
+		if (data->attr[N_EAT] == UNDEFINED || !is_philo_fed)
 			return (false);
-		}
-		// pthread_mutex_unlock(&data->philo[i].self);
 		i++;
 	}
 	return (true);
@@ -45,8 +43,10 @@ static void	print_status(t_log log, t_sim *data)
 		i = 0;
 		while (i < data->attr[N_PHILO])
 		{
+			pthread_mutex_lock(&data->philo[i].self);
 			printf("philo %d %s: %d time(s)\n", data->philo[i].id, "ate",
 				data->philo[i].eat_count);
+			pthread_mutex_unlock(&data->philo[i].self);
 			i++;
 		}
 		printf("-----------------------\n");
