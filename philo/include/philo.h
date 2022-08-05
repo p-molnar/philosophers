@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:30:53 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/01 15:22:08 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/05 13:47:52 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,17 @@ uint16_t	alloc_sim_resources(t_sim *data);
 // philo.c
 void		*philo_thread(void *arg);
 
-// util_threads.c
-void		*checker_thread(void *arg);
-void		*printer_thread(void *arg);
+// philo_actions.c
+void		philo_think(t_philo *data);
+void		grab_fork(t_philo *data, t_mutex *mutex);
+void		philo_eat(t_philo *data);
+void		philo_sleep(t_philo *data);
 
-// printer.c
+// checker_thread.c
+void		*checker_thread(void *arg);
+
+// printer_thread.c
+void		*printer_thread(void *arg);
 void		log_status(t_philo *data, uint16_t status, t_time time);
 
 #endif

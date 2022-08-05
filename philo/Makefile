@@ -6,7 +6,7 @@
 #    By: pmolnar <pmolnar@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/07/14 22:59:51 by pmolnar       #+#    #+#                  #
-#    Updated: 2022/08/01 23:29:15 by pmolnar       ########   odam.nl          #
+#    Updated: 2022/08/05 13:47:38 by pmolnar       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,11 +54,13 @@ SRC 		=	main.c					\
 				error_handler.c			\
 				time.c					\
 				thread.c				\
-				util_threads.c			\
+				printer_thread.c		\
+				checker_thread.c		\
 				mutex.c					\
 				alloc.c					\
 				init.c					\
-				philo.c					\
+				philo_thread.c			\
+				philo_actions.c			\
 
 P_SRC		=	$(addprefix $(SRC_DIR), $(SRC))
 
