@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:30:53 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/05 13:47:52 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/06 13:28:47 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,19 @@
 
 # include <philo_data_structures.h>
 
-# ifndef LOG_FMT
+# ifdef PRETTY_PRINT
+#  define LOG_FMT "%-8d %-4d %s\n"
+# else
 #  define LOG_FMT "%-d %d %s\n"
 # endif
+
+# define INPUT_ERR_MSG "invalid input"
+# define MUTEX_ERR_MSG "mutex error"
+# define MALLOC_ERR_MSG "malloc error"
+# define THREAD_ERR_MSG "thread error"
+
+# define USAGE_MSG "usage: ./philo <philo count> <die duration> \
+<eat duration> <sleep duration> [<min eat count by each philo>]\n"
 
 # define RGHT 1
 # define LEFT 0
@@ -65,14 +75,6 @@ enum e_util_thread
 	CHECKER,
 	PRINTER,
 };
-
-# define INPUT_ERR_MSG "invalid input"
-# define MUTEX_ERR_MSG "mutex error"
-# define MALLOC_ERR_MSG "malloc error"
-# define THREAD_ERR_MSG "thread error"
-
-# define USAGE_MSG "usage: ./philo <philo count> <die duration> \
-<eat duration> <sleep duration> [<min eat count by each philo>]\n"
 
 // input.c
 uint16_t	parse_args(int argc, char *argv[], t_sim *data);
