@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   util_threads.c                                     :+:    :+:            */
+/*   printer_thread.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/25 14:06:36 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/05 13:39:46 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/06 12:25:38 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	print_status(t_log log, t_sim *data)
 
 	if (log.status == ALL_FED)
 	{
-		printf("\nAll philosophers have eaten\n");
+		printf("\n%-d all philosophers have eaten\n", log.timestamp);
 		printf("\n-----   SUMMARY   -----\n");
 		i = 0;
 		while (i < data->attr[N_PHILO])
