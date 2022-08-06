@@ -6,15 +6,13 @@
 #    By: pmolnar <pmolnar@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/07/14 22:59:51 by pmolnar       #+#    #+#                  #
-#    Updated: 2022/08/05 13:47:38 by pmolnar       ########   odam.nl          #
+#    Updated: 2022/08/06 13:27:34 by pmolnar       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 # COMPILER CONFIG
 CC 			=	gcc
 CFLAGS 		=	-Wall -Wextra -Werror
-CFLAGS		+=	-fsanitize=thread
-# CFLAGS		+=	-fsanitize=address
 CFLAGS		+=	-g
 CFLAGS		+=	-I $(INCLD)
 INCLD		=	include
@@ -29,19 +27,25 @@ SPACE_W 		= 	%-40s
 STATUS_W		=	%-12s
 STATUS_FMT		=	$(BOLD)$(STATUS_W)$(DEF)$(SPACE_W)
 
-#	PRETTIER FORMATTING
-# ifeq ($(PRETTY_PRINT), 1)
-# 	CFLAGS += -D PRINT_STR="%-8zu %8zu %s\n"
-# endif
-# #	ADDRESS SANITIZER 
-# ifeq ($(ADDRESS_SANIT), 1)
-# 	CFLAGS += -fsanitize=address
-# endif
+# PRETTIER FORMATTING
+ifeq ($(PRETTY_PRINT), 1)
+	CFLAGS			+=	-D PRETTY_PRINT=1
+	INFO_PP			=	"Pretty print on\n"
+	PRETTY_PRINT	=	0
+endif
+#	ADDRESS SANITIZER 
+ifeq ($(ADDRESS_SANIT), 1)
+	CFLAGS			+=	-fsanitize=address
+	INFO_AS			=	"Address sanitizer on\n"
+	ADDRESS_SANIT	=	0
+endif
 
-#	THREAD SANITIZER 
-# ifeq ($(THREAD_SANIT), 1)
-# 	CFLAGS += -fsanitize=thread
-# endif
+# THREAD SANITIZER 
+ifeq ($(THREAD_SANIT), 1)
+	CFLAGS			+=	-fsanitize=thread
+	INFO_TS			=	"Thread sanitizer on\n"
+	THREAD_SANIT	=	0
+endif
 
 #	EXECUTABLE CONFIG
 NAME 		=	philo
@@ -69,10 +73,10 @@ OBJ			=	$(SRC:.c=.o)
 P_OBJ		=	$(addprefix $(OBJ_DIR), $(OBJ))
 
 # RECEPIES
-all:	$(NAME) $(NAME_B)
+all:	print_info $(NAME) $(NAME_B) 
 	@printf "$(GREEN)$(NAME) binary is compiled at $(OUT_DIR)$(DEF)\n"
 
-$(NAME):	$(P_OBJ) $(INCLD) 
+$(NAME):	$(P_OBJ) $(INCLD)
 	@printf "$(BOLD)%-52s$(DEF)" "compiling object file(s)"
 	@$(CC) $(CFLAGS) $(P_OBJ) -o $(P_OUT)
 	@printf "[$(GREEN)DONE$(DEF)]\n"
@@ -99,4 +103,7 @@ re: fclean
 norm:
 	norminette $(P_SRC)
 
-.PHONY:	all clean fclean re norm run
+print_info:
+	@printf "$(YELLOW)"$(INFO_PP)$(INFO_AS)$(INFO_TS)"$(DEF)"
+	
+.PHONY:	all clean fclean re norm print_info
