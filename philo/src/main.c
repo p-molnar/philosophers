@@ -6,13 +6,13 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/06 22:40:26 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/01 00:31:58 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/07 13:40:56 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
 
-int	main(int argc, char *argv[])
+int32_t	main(int argc, char *argv[])
 {
 	t_sim	data;
 
