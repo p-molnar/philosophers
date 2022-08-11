@@ -6,12 +6,12 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:28:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/07 13:28:33 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/11 13:57:44 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_BSN_H
-# define PHILO_BSN_H
+#ifndef PHILO_BNS_H
+# define PHILO_BNS_H
 
 # include <sys/time.h>
 # include <stdio.h>
@@ -19,7 +19,6 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <stdlib.h>
-# include <pthread.h>
 
 # include <philo_bns_data_structures.h>
 
@@ -50,15 +49,6 @@ enum e_arg
 	N_EAT,
 };
 
-enum e_mutex
-{
-	SIM_INIT,
-	LOG_RW,
-	QUEUE_RW,
-	UTIL_THREAD_START,
-	SIM_RUN,
-};
-
 enum e_philo_status
 {
 	THINKING,
@@ -82,7 +72,6 @@ uint16_t	parse_args(int argc, char *argv[], t_sim *data);
 // error_handling.c
 uint16_t	thrw_err(char *err_msg, char *err_file, int err_line);
 void		free_all(t_sim *data);
-void		clean_up(t_sim *data);
 
 // time.c
 t_time		get_time(void);
@@ -92,15 +81,6 @@ void		precise_sleep(long duration);
 // init.c
 void		init_resources(t_sim *data);
 
-// thread.c
-uint16_t	create_threads(t_sim *data);
-uint16_t	join_threads(t_sim *data);
-
-// mutex.c
-uint16_t	init_mutexes(t_sim *data);
-uint16_t	destroy_mutexes(t_sim *data);
-void		unlock_all(t_sim *data);
-
 // simulation.c
 uint16_t	alloc_sim_resources(t_sim *data);
 
@@ -109,7 +89,6 @@ void		*philo_thread(void *arg);
 
 // philo_actions.c
 void		philo_think(t_philo *data);
-void		grab_fork(t_philo *data, t_mutex *mutex);
 void		philo_eat(t_philo *data);
 void		philo_sleep(t_philo *data);
 
