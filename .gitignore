@@ -61,5 +61,4 @@ log
 .vscode
 
 # to no longer track the mandatory part
-philo
-philo/*
+philo/**
