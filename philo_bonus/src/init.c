@@ -6,11 +6,11 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/26 20:58:51 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/07 13:26:08 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/11 12:43:49 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <philo.h>
+#include <philo_bns.h>
 
 void	init_resources(t_sim *data)
 {	
@@ -24,8 +24,6 @@ void	init_resources(t_sim *data)
 	{
 		data->philo[i].id = i + 1;
 		data->philo[i].eat_count = 0;
-		data->philo[i].fork[LEFT] = &data->fork[i % n_philo];
-		data->philo[i].fork[RGHT] = &data->fork[(i + 1) % n_philo];
 		data->philo[i].sim_data = data;
 		i++;
 	}
