@@ -59,3 +59,7 @@ log
 
 # Vscode env config file
 .vscode
+
+# to no longer track the mandatory part
+philo
+philo/*
