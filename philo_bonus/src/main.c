@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:25:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/11 22:25:38 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/12 11:42:03 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ int32_t	main(int argc, char *argv[])
 
 	if (parse_args(argc, argv, &data))
 		return (EXIT_FAILURE);
+	if (alloc_resources(&data))
+		return (EXIT_FAILURE);
 	init_resources(&data);
-	// if (init_processes(&data))
-	// 	return (EXIT_FAILURE);
-	// if (init_aux_threads(&data))
+	if (start_processes(&data))
+		return (EXIT_FAILURE);
+	// if (start_aux_threads(&data))
 	// 	return (EXIT_FAILURE);
 	// if (start_simulate(&data))
 	// 	return (EXIT_FAILURE);
