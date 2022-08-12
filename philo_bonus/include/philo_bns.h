@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:28:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/11 13:57:44 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/12 14:10:12 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # endif
 
 # define INPUT_ERR_MSG "invalid input"
-# define MUTEX_ERR_MSG "mutex error"
+# define PROCESS_ERR_MSG "process error"
 # define MALLOC_ERR_MSG "malloc error"
 # define THREAD_ERR_MSG "thread error"
 
@@ -81,17 +81,6 @@ void		precise_sleep(long duration);
 // init.c
 void		init_resources(t_sim *data);
 
-// simulation.c
-uint16_t	alloc_sim_resources(t_sim *data);
-
-// philo.c
-void		*philo_thread(void *arg);
-
-// philo_actions.c
-void		philo_think(t_philo *data);
-void		philo_eat(t_philo *data);
-void		philo_sleep(t_philo *data);
-
 // checker_thread.c
 void		*checker_thread(void *arg);
 
@@ -99,4 +88,9 @@ void		*checker_thread(void *arg);
 void		*printer_thread(void *arg);
 void		log_status(t_philo *data, uint16_t status, t_time time);
 
+// process.c
+bool		start_processes(t_sim *data);
+
+// alloc.c
+bool		alloc_resources(t_sim *data);
 #endif
