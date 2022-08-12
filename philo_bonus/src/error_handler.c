@@ -16,7 +16,7 @@ uint16_t	thrw_err(char *err_msg, char *err_file, int err_line)
 {
 	printf("%s:	%s:%d\n", err_msg, err_file, err_line);
 	printf(USAGE_MSG);
-	return (EXIT_FAILURE);
+	exit (EXIT_FAILURE);
 }
 
 void	free_all(t_sim *data)
