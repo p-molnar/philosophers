@@ -5,8 +5,8 @@
 #                                                      +:+                     #
 #    By: pmolnar <pmolnar@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
-#    Created: 2022/07/14 22:59:51 by pmolnar       #+#    #+#                  #
-#    Updated: 2022/08/11 12:42:50 by pmolnar       ########   odam.nl          #
+#    Created: 2022/08/12 11:28:33 by pmolnar       #+#    #+#                  #
+#    Updated: 2022/08/12 11:40:26 by pmolnar       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,8 @@ SRC 		=	main.c					\
 				error_handler.c			\
 				time.c					\
 				init.c					\
+				process.c				\
+				alloc.c					\
 
 P_SRC		=	$(addprefix $(SRC_DIR), $(SRC))
 
