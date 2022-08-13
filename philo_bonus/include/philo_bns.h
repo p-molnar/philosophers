@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:28:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/12 14:10:12 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/13 23:55:52 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,16 @@
 # define PHILO_BNS_H
 
 # include <sys/time.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+
 # include <stdio.h>
 # include <stddef.h>
 # include <unistd.h>
 # include <stdbool.h>
 # include <stdlib.h>
+# include <fcntl.h>
+# include <semaphore.h>
 
 # include <philo_bns_data_structures.h>
 
@@ -47,6 +52,11 @@ enum e_arg
 	T_EAT,
 	T_SLEEP,
 	N_EAT,
+};
+
+enum e_sem_name
+{
+	SEM_START,
 };
 
 enum e_philo_status
