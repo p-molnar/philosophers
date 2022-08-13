@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/26 20:58:51 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/11 12:43:49 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/14 00:02:12 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,10 @@ void	init_resources(t_sim *data)
 	i = 0;
 	while (i < QUEUE_SIZE)
 		data->queue[i++].status = UNDEFINED;
+	i = 0;
+	while (i < SEM_SIZE)
+	{
+		data->sem[i] = sem_open("SEM_START", O_CREAT, S_IRWXU, 1);
+		i++;
+	}
 }
