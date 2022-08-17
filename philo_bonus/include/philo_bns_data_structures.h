@@ -6,14 +6,14 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/13 23:55:30 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/17 23:10:46 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_BNS_DATA_STRUCTURES_H
 # define PHILO_BNS_DATA_STRUCTURES_H
 
-# define SEM_SIZE 1
+# define N_SEM 1
 # define N_ATTR 5
 # define QUEUE_SIZE 1024
 
@@ -41,7 +41,7 @@ typedef struct s_log
 typedef struct s_sim
 {
 	int16_t		attr[N_ATTR];
-	sem_t		*sem[SEM_SIZE];
+	sem_t		*sem[N_SEM];
 	t_philo		*philo;
 	t_log		queue[QUEUE_SIZE];
 	bool		is_running;
