@@ -6,16 +6,20 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/26 20:58:51 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/14 00:02:12 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/17 22:52:29 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_bns.h>
+#include <errno.h>
+#include <string.h>
+#include <sys/shm.h>
 
 void	init_resources(t_sim *data)
 {	
 	uint16_t	i;
 	uint16_t	n_philo;
+	int			*sval;
 
 	n_philo = data->attr[N_PHILO];
 	i = 0;
@@ -33,7 +37,15 @@ void	init_resources(t_sim *data)
 	i = 0;
 	while (i < SEM_SIZE)
 	{
-		data->sem[i] = sem_open("SEM_START", O_CREAT, S_IRWXU, 1);
+		sem_unlink("/1");
+		data->sem[i] = sem_open("/1", IPC_CREAT, 0660, 0);
+		if (data->sem[i] == SEM_FAILED)
+		{
+			printf("error: %s\n", strerror(errno));
+			exit(EXIT_FAILURE);
+		}
+		sem_getvalue(data->sem[i], sval);
+		printf("sem_val: %d\n", *sval);
 		i++;
 	}
 }
