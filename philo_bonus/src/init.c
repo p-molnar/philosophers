@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/26 20:58:51 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/17 22:52:29 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/17 23:22:36 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	init_resources(t_sim *data)
 {	
 	uint16_t	i;
 	uint16_t	n_philo;
-	int			*sval;
 
 	n_philo = data->attr[N_PHILO];
 	i = 0;
@@ -35,17 +34,15 @@ void	init_resources(t_sim *data)
 	while (i < QUEUE_SIZE)
 		data->queue[i++].status = UNDEFINED;
 	i = 0;
-	while (i < SEM_SIZE)
+	while (i < N_SEM)
 	{
 		sem_unlink("/1");
-		data->sem[i] = sem_open("/1", IPC_CREAT, 0660, 0);
+		data->sem[i] = sem_open("/1", IPC_CREAT, 0660, 1);
 		if (data->sem[i] == SEM_FAILED)
 		{
 			printf("error: %s\n", strerror(errno));
 			exit(EXIT_FAILURE);
 		}
-		sem_getvalue(data->sem[i], sval);
-		printf("sem_val: %d\n", *sval);
 		i++;
 	}
 }
