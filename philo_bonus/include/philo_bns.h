@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:28:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/13 23:55:52 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/19 22:45:04 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <semaphore.h>
+# include <sys/shm.h>
 
 # include <philo_bns_data_structures.h>
 
@@ -36,45 +37,10 @@
 # define INPUT_ERR_MSG "invalid input"
 # define PROCESS_ERR_MSG "process error"
 # define MALLOC_ERR_MSG "malloc error"
-# define THREAD_ERR_MSG "thread error"
+# define SEM_ERR_MSG "semaphore error"
 
 # define USAGE_MSG "usage: ./philo <philo count> <die duration> \
 <eat duration> <sleep duration> [<min eat count by each philo>]\n"
-
-# define RGHT 1
-# define LEFT 0
-# define N_MAIN_STATUS 3
-
-enum e_arg
-{
-	N_PHILO,
-	T_DIE,
-	T_EAT,
-	T_SLEEP,
-	N_EAT,
-};
-
-enum e_sem_name
-{
-	SEM_START,
-};
-
-enum e_philo_status
-{
-	THINKING,
-	EATING,
-	SLEEPING,
-	TAKING_FORK,
-	DIED,
-	ALL_FED,
-	UNDEFINED = -1,
-};
-
-enum e_util_thread
-{
-	CHECKER,
-	PRINTER,
-};
 
 // input.c
 uint16_t	parse_args(int argc, char *argv[], t_sim *data);
@@ -99,8 +65,16 @@ void		*printer_thread(void *arg);
 void		log_status(t_philo *data, uint16_t status, t_time time);
 
 // process.c
-bool		start_processes(t_sim *data);
+bool		start_philo_processes(t_sim *data);
+bool		wait_philo_processes(t_sim *data);
 
 // alloc.c
 bool		alloc_resources(t_sim *data);
+
+// semaphore.c
+bool		open_semaphores(t_sim *data);
+bool		close_semaphores(t_sim *data);
+
+// philo.c
+bool		simulate(t_philo *philo);
 #endif
