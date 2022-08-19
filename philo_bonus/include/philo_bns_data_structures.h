@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/17 23:10:46 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/19 23:08:22 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,42 @@
 # define PHILO_BNS_DATA_STRUCTURES_H
 
 # define N_SEM 1
-# define N_ATTR 5
 # define QUEUE_SIZE 1024
 
 # include <stdint.h>
+
+enum e_arg
+{
+	N_PHILO,
+	T_DIE,
+	T_EAT,
+	T_SLEEP,
+	N_EAT,
+	ARG__COUNT
+};
+
+enum e_name_sem
+{
+	START_LOCK,
+	SEM__COUNT	
+};
+
+enum e_philo_status
+{
+	THINKING,
+	EATING,
+	SLEEPING,
+	TAKING_FORK,
+	DIED,
+	ALL_FED,
+	UNDEFINED = -1,
+};
+
+enum e_util_thread
+{
+	CHECKER,
+	PRINTER,
+};
 
 typedef struct timeval	t_time;
 typedef struct s_sim	t_sim;
@@ -40,9 +72,10 @@ typedef struct s_log
 
 typedef struct s_sim
 {
-	int16_t		attr[N_ATTR];
-	sem_t		*sem[N_SEM];
+	int16_t		attr[ARG__COUNT];
+	sem_t		*sem[SEM__COUNT];
 	t_philo		*philo;
+	uint32_t	*philo_pid;
 	t_log		queue[QUEUE_SIZE];
 	bool		is_running;
 	t_time		start_time;
