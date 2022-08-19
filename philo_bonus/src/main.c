@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:25:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/17 22:46:26 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/19 22:31:08 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,13 @@ int32_t	main(int argc, char *argv[])
 	if (alloc_resources(&data))
 		return (EXIT_FAILURE);
 	init_resources(&data);
-	if (start_processes(&data))
+	if (open_semaphores(&data))
 		return (EXIT_FAILURE);
-	sem_unlink("/1");
-	sem_close(data.sem[SEM_START]);
-	// if (start_aux_threads(&data))
-	// 	return (EXIT_FAILURE);
-	// if (start_simulate(&data))
-	// 	return (EXIT_FAILURE);
-	// if (clean_up(&data))
-	// 	return (EXIT_FAILURE);
+	if (start_philo_processes(&data))
+		return (EXIT_FAILURE);
+	if (wait_philo_processes(&data))
+		return (EXIT_FAILURE);
+	if (close_semaphores(&data))
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
