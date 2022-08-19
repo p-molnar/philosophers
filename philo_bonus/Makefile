@@ -6,7 +6,7 @@
 #    By: pmolnar <pmolnar@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/08/12 11:28:33 by pmolnar       #+#    #+#                  #
-#    Updated: 2022/08/12 11:40:26 by pmolnar       ########   odam.nl          #
+#    Updated: 2022/08/19 22:43:00 by pmolnar       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,8 @@ SRC 		=	main.c					\
 				init.c					\
 				process.c				\
 				alloc.c					\
+				philo.c					\
+				semaphore.c				\
 
 P_SRC		=	$(addprefix $(SRC_DIR), $(SRC))
 
