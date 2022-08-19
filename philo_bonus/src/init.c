@@ -6,43 +6,39 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/26 20:58:51 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/17 23:22:36 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/19 22:47:40 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_bns.h>
-#include <errno.h>
-#include <string.h>
-#include <sys/shm.h>
 
-void	init_resources(t_sim *data)
-{	
+static void	init_philos(t_sim *data)
+{
 	uint16_t	i;
-	uint16_t	n_philo;
 
-	n_philo = data->attr[N_PHILO];
 	i = 0;
-	data->is_running = true;
-	while (i < n_philo)
+	while (i < data->attr[N_PHILO])
 	{
 		data->philo[i].id = i + 1;
 		data->philo[i].eat_count = 0;
 		data->philo[i].sim_data = data;
 		i++;
 	}
+}
+
+static void	init_queue(t_sim *data)
+{
+	uint16_t	i;
+
 	i = 0;
 	while (i < QUEUE_SIZE)
 		data->queue[i++].status = UNDEFINED;
-	i = 0;
-	while (i < N_SEM)
-	{
-		sem_unlink("/1");
-		data->sem[i] = sem_open("/1", IPC_CREAT, 0660, 1);
-		if (data->sem[i] == SEM_FAILED)
-		{
-			printf("error: %s\n", strerror(errno));
-			exit(EXIT_FAILURE);
-		}
-		i++;
-	}
+}
+
+void	init_resources(t_sim *data)
+{
+	init_philos(data);
+	open_semaphores(data);
+	init_queue(data);
+	data->is_running = true;
 }
