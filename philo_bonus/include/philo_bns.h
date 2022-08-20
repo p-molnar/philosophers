@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:28:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/19 22:45:04 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/20 17:44:55 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <fcntl.h>
 # include <semaphore.h>
 # include <sys/shm.h>
+# include <pthread.h>
 
 # include <philo_bns_data_structures.h>
 
@@ -52,7 +53,7 @@ void		free_all(t_sim *data);
 // time.c
 t_time		get_time(void);
 uint32_t	time_delta_msec(t_time t_old, t_time t_new);
-void		precise_sleep(long duration);
+void		precise_sleep(uint32_t duration);
 
 // init.c
 void		init_resources(t_sim *data);
@@ -77,4 +78,7 @@ bool		close_semaphores(t_sim *data);
 
 // philo.c
 bool		simulate(t_philo *philo);
+
+// printer.c
+bool		start_aux_threads(t_sim *data);
 #endif
