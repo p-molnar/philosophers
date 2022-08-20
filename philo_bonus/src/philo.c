@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/19 16:51:36 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/20 13:19:41 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/20 19:09:12 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,23 @@
 
 static void	philo_think(t_philo *philo)
 {
-	// log_status(philo, THINKING, get_time());
-	(void) philo;
+	// (void) philo;
+	// printf("thinking\n");
+	log_status(philo, THINKING, get_time());
+	// usleep(500);
 }
 
 static void	philo_eat(t_philo *philo)
 {
+	log_status(philo, EATING, get_time());
+	// printf("eating\n");
 	(void) philo;
 }
 
 static void	philo_sleep(t_philo *philo)
 {
+	// printf("sleeping\n");
+	log_status(philo, SLEEPING, get_time());
 	(void) philo;
 }
 
