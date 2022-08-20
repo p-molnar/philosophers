@@ -6,13 +6,13 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:16:45 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/07 13:19:47 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/20 17:44:46 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_bns.h>
 
-void	precise_sleep(long duration)
+void	precise_sleep(uint32_t duration)
 {
 	t_time	start_time;
 
