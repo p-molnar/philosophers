@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/20 13:42:37 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/20 17:14:40 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ enum e_arg
 enum e_name_sem
 {
 	START_LOCK,
+	PRINTER_LOCK,
 	FORK,
+	LOG_RW,
+	QUEUE_RW,
 	SEM__COUNT,	
 };
 
@@ -55,13 +58,6 @@ enum e_util_thread
 typedef struct timeval	t_time;
 typedef struct s_sim	t_sim;
 
-typedef struct s_sem_ht
-{
-	char		*name;
-	uint16_t	init_val;
-
-}	t_sem_ht;
-
 typedef struct s_philo
 {
 	t_time		last_ate;
@@ -82,10 +78,10 @@ typedef struct s_sim
 {
 	int16_t		attr[ARG__COUNT];
 	sem_t		*sem[SEM__COUNT];
-	t_sem_ht	sem_attr[SEM__COUNT];
 	t_philo		*philo;
 	uint32_t	*philo_pid;
 	t_log		queue[QUEUE_SIZE];
+	pthread_t	printer;
 	bool		is_running;
 	t_time		start_time;
 }	t_sim;
