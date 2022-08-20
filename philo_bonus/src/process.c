@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/11 14:01:58 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/19 23:01:14 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/20 13:06:16 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ bool	start_philo_processes(t_sim *data)
 	return (EXIT_SUCCESS);
 }
 
-#include <errno.h>
-#include <string.h>
-
 bool	wait_philo_processes(t_sim *data)
 {	
 	uint16_t	i;
@@ -47,10 +44,7 @@ bool	wait_philo_processes(t_sim *data)
 	while (i < data->attr[N_PHILO])
 	{
 		if (waitpid(data->philo_pid[i], NULL, 0) == -1)
-		{
-			printf("%s\n", strerror(errno));
 			thrw_err(PROCESS_ERR_MSG, __FILE__, __LINE__);
-		}
 		i++;
 	}
 	return (EXIT_SUCCESS);
