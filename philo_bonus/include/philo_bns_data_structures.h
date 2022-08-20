@@ -6,14 +6,13 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/19 23:08:22 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/20 13:42:37 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_BNS_DATA_STRUCTURES_H
 # define PHILO_BNS_DATA_STRUCTURES_H
 
-# define N_SEM 1
 # define QUEUE_SIZE 1024
 
 # include <stdint.h>
@@ -31,7 +30,8 @@ enum e_arg
 enum e_name_sem
 {
 	START_LOCK,
-	SEM__COUNT	
+	FORK,
+	SEM__COUNT,	
 };
 
 enum e_philo_status
@@ -39,6 +39,7 @@ enum e_philo_status
 	THINKING,
 	EATING,
 	SLEEPING,
+	STATUS__COUNT,
 	TAKING_FORK,
 	DIED,
 	ALL_FED,
@@ -53,6 +54,13 @@ enum e_util_thread
 
 typedef struct timeval	t_time;
 typedef struct s_sim	t_sim;
+
+typedef struct s_sem_ht
+{
+	char		*name;
+	uint16_t	init_val;
+
+}	t_sem_ht;
 
 typedef struct s_philo
 {
@@ -74,6 +82,7 @@ typedef struct s_sim
 {
 	int16_t		attr[ARG__COUNT];
 	sem_t		*sem[SEM__COUNT];
+	t_sem_ht	sem_attr[SEM__COUNT];
 	t_philo		*philo;
 	uint32_t	*philo_pid;
 	t_log		queue[QUEUE_SIZE];
