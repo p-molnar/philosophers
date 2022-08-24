@@ -6,14 +6,15 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/20 17:14:40 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/24 18:33:46 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_BNS_DATA_STRUCTURES_H
 # define PHILO_BNS_DATA_STRUCTURES_H
 
-# define QUEUE_SIZE 1024
+# define QUEUE__SIZE 1024
+# define STATUS__COUNT 3
 
 # include <stdint.h>
 
@@ -42,7 +43,6 @@ enum e_philo_status
 	THINKING,
 	EATING,
 	SLEEPING,
-	STATUS__COUNT,
 	TAKING_FORK,
 	DIED,
 	ALL_FED,
@@ -53,6 +53,7 @@ enum e_util_thread
 {
 	CHECKER,
 	PRINTER,
+	THREAD__COUNT,
 };
 
 typedef struct timeval	t_time;
@@ -79,9 +80,9 @@ typedef struct s_sim
 	int16_t		attr[ARG__COUNT];
 	sem_t		*sem[SEM__COUNT];
 	t_philo		*philo;
-	uint32_t	*philo_pid;
-	t_log		queue[QUEUE_SIZE];
-	pthread_t	printer;
+	int32_t		*philo_pid;
+	t_log		queue[QUEUE__SIZE];
+	pthread_t	thread[THREAD__COUNT];
 	bool		is_running;
 	t_time		start_time;
 }	t_sim;
