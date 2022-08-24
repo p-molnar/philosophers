@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:28:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/20 17:44:55 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/24 18:52:47 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ bool		alloc_resources(t_sim *data);
 
 // semaphore.c
 bool		open_semaphores(t_sim *data);
+bool		unlink_semaphores(t_sim *data);
 bool		close_semaphores(t_sim *data);
 
 // philo.c
@@ -81,4 +82,5 @@ bool		simulate(t_philo *philo);
 
 // printer.c
 bool		start_aux_threads(t_sim *data);
+bool		join_aux_threads(t_sim *data);
 #endif
