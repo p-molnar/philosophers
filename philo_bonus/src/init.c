@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/26 20:58:51 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/20 17:15:39 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/24 12:50:20 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	init_queue(t_sim *data)
 	uint16_t	i;
 
 	i = 0;
-	while (i < QUEUE_SIZE)
+	while (i < QUEUE__SIZE)
 		data->queue[i++].status = UNDEFINED;
 }
 
