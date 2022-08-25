@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/11 14:01:58 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/25 16:52:46 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/25 20:26:21 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <string.h>
 #include <signal.h>
 
-bool	start_philo_processes(t_sim *data)
+bool	create_child_processes(t_sim *data)
 {
 	uint16_t	i;
 	int32_t		pid;
