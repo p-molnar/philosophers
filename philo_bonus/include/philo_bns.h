@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:28:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/25 15:08:36 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/25 20:26:21 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		*printer_thread(void *arg);
 void		log_status(t_philo *data, uint16_t status, t_time time);
 
 // process.c
-bool		start_philo_processes(t_sim *data);
+bool		create_child_processes(t_sim *data);
 bool		wait_philo_processes(t_sim *data);
 
 // alloc.c
