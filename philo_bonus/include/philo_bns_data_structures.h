@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/24 18:33:46 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/25 15:36:03 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ enum e_name_sem
 {
 	START_LOCK,
 	PRINTER_LOCK,
+	CHECKER_LOCK,
 	FORK,
 	LOG_RW,
 	QUEUE_RW,
@@ -61,10 +62,12 @@ typedef struct s_sim	t_sim;
 
 typedef struct s_philo
 {
-	t_time		last_ate;
 	uint16_t	id;
+	uint8_t		status;
+	t_time		last_ate;
 	t_sim		*sim_data;
 	uint16_t	eat_count;
+	uint16_t	forks_in_hand;
 
 }	t_philo;
 
@@ -79,12 +82,13 @@ typedef struct s_sim
 {
 	int16_t		attr[ARG__COUNT];
 	sem_t		*sem[SEM__COUNT];
-	t_philo		*philo;
+	t_philo		philo;
 	int32_t		*philo_pid;
+	int32_t		self_pid;
 	t_log		queue[QUEUE__SIZE];
 	pthread_t	thread[THREAD__COUNT];
-	bool		is_running;
 	t_time		start_time;
+	bool		sim_running;
 }	t_sim;
 
 #endif
