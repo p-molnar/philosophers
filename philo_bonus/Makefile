@@ -6,7 +6,7 @@
 #    By: pmolnar <pmolnar@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/08/12 11:28:33 by pmolnar       #+#    #+#                  #
-#    Updated: 2022/08/24 22:23:10 by pmolnar       ########   odam.nl          #
+#    Updated: 2022/08/25 11:21:11 by pmolnar       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,11 +59,10 @@ SRC 		=	main.c					\
 				time.c					\
 				init.c					\
 				process.c				\
-				alloc.c					\
 				philo.c					\
 				semaphore.c				\
 				printer.c				\
-				checker_thread.c		\	
+				checker.c				\
 
 P_SRC		=	$(addprefix $(SRC_DIR), $(SRC))
 
@@ -72,7 +71,7 @@ OBJ			=	$(SRC:.c=.o)
 P_OBJ		=	$(addprefix $(OBJ_DIR), $(OBJ))
 
 # RECEPIES
-all:	print_info $(NAME) $(NAME_B) 
+all:	print_info $(NAME)
 	@printf "$(GREEN)$(NAME) binary is compiled at $(OUT_DIR)$(DEF)\n"
 
 $(NAME):	$(P_OBJ) $(INCLD)
