@@ -6,13 +6,13 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:16:45 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/20 17:44:46 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/25 15:08:44 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_bns.h>
 
-void	precise_sleep(uint32_t duration)
+void	precise_usleep(uint32_t duration)
 {
 	t_time	start_time;
 
@@ -21,7 +21,7 @@ void	precise_sleep(uint32_t duration)
 	{
 		if (time_delta_msec(start_time, get_time()) >= duration)
 			break ;
-		usleep(50);
+		usleep(5);
 	}
 }
 
