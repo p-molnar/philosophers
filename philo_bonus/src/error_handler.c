@@ -18,14 +18,3 @@ uint16_t	thrw_err(char *err_msg, char *err_file, int err_line)
 	printf(USAGE_MSG);
 	exit (EXIT_FAILURE);
 }
-
-void	free_all(t_sim *data)
-{
-	if (data->philo)
-		free(data->philo);
-}
-
-void	clean_up(t_sim *data)
-{
-	free_all(data);
-}
