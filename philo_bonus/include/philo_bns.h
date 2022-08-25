@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:28:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/24 18:52:47 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/25 15:08:36 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define PROCESS_ERR_MSG "process error"
 # define MALLOC_ERR_MSG "malloc error"
 # define SEM_ERR_MSG "semaphore error"
+# define SIG_ERR_MSG "semaphore error"
 
 # define USAGE_MSG "usage: ./philo <philo count> <die duration> \
 <eat duration> <sleep duration> [<min eat count by each philo>]\n"
@@ -53,10 +54,11 @@ void		free_all(t_sim *data);
 // time.c
 t_time		get_time(void);
 uint32_t	time_delta_msec(t_time t_old, t_time t_new);
-void		precise_sleep(uint32_t duration);
+void		precise_usleep(uint32_t duration);
 
 // init.c
 void		init_resources(t_sim *data);
+void		init_philo(t_sim *data, uint16_t id);
 
 // checker_thread.c
 void		*checker_thread(void *arg);
