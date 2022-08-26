@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:28:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/25 20:26:21 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/25 21:23:15 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ void		free_all(t_sim *data);
 // time.c
 t_time		get_time(void);
 uint32_t	time_delta_msec(t_time t_old, t_time t_new);
-void		precise_usleep(uint32_t duration);
+void		precise_msleep(uint32_t duration);
 
 // init.c
-void		init_resources(t_sim *data);
+void		init_queue(t_sim *data);
 void		init_philo(t_sim *data, uint16_t id);
 
 // checker_thread.c
@@ -69,15 +69,10 @@ void		log_status(t_philo *data, uint16_t status, t_time time);
 
 // process.c
 bool		create_child_processes(t_sim *data);
-bool		wait_philo_processes(t_sim *data);
-
-// alloc.c
-bool		alloc_resources(t_sim *data);
+bool		wait_child_processes(t_sim *data);
 
 // semaphore.c
-bool		open_semaphores(t_sim *data);
-bool		unlink_semaphores(t_sim *data);
-bool		close_semaphores(t_sim *data);
+bool		semaphore_op(t_sim *data, uint8_t mode);
 
 // philo.c
 bool		simulate(t_philo *philo);
