@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/25 15:36:03 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/26 16:33:18 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 # define STATUS__COUNT 3
 
 # include <stdint.h>
+
+enum e_sem_option
+{
+	OPEN,
+	CLOSE,
+	UNLINK
+};
 
 enum e_arg
 {
@@ -36,7 +43,8 @@ enum e_name_sem
 	FORK,
 	LOG_RW,
 	QUEUE_RW,
-	SEM__COUNT,	
+	DIE,
+	SEM__COUNT,
 };
 
 enum e_philo_status
@@ -46,7 +54,7 @@ enum e_philo_status
 	SLEEPING,
 	TAKING_FORK,
 	DIED,
-	ALL_FED,
+	FED,
 	UNDEFINED = -1,
 };
 
@@ -59,6 +67,12 @@ enum e_util_thread
 
 typedef struct timeval	t_time;
 typedef struct s_sim	t_sim;
+
+typedef struct s_sem_attr
+{
+	const char	*name;
+	int16_t		init_val;
+}	t_sem_attr;
 
 typedef struct s_philo
 {
