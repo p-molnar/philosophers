@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:25:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/25 20:26:35 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/26 13:37:37 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@ int32_t	main(int argc, char *argv[])
 
 	if (parse_args(argc, argv, &data))
 		return (EXIT_FAILURE);
-	init_resources(&data);
-	if (open_semaphores(&data))
+	init_queue(&data);
+	if (semaphore_op(&data, UNLINK))
+		return (EXIT_FAILURE);
+	if (semaphore_op(&data, OPEN))
 		return (EXIT_FAILURE);
 	if (create_child_processes(&data))
 		return (EXIT_FAILURE);
-	if (wait_philo_processes(&data))
+	if (wait_child_processes(&data))
 		return (EXIT_FAILURE);
-	if (close_semaphores(&data))
+	if (semaphore_op(&data, CLOSE))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
