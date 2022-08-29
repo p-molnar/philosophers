@@ -6,7 +6,7 @@
 #    By: pmolnar <pmolnar@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/08/12 11:28:33 by pmolnar       #+#    #+#                  #
-#    Updated: 2022/08/25 11:21:11 by pmolnar       ########   odam.nl          #
+#    Updated: 2022/08/29 23:41:37 by pmolnar       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ SRC 		=	main.c					\
 				semaphore.c				\
 				printer.c				\
 				checker.c				\
+				alloc.c
 
 P_SRC		=	$(addprefix $(SRC_DIR), $(SRC))
 
