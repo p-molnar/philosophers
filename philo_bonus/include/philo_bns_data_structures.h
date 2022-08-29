@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/26 16:33:18 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/29 23:59:09 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct s_sim
 	pthread_t	thread[THREAD__COUNT];
 	t_time		start_time;
 	bool		sim_running;
+	bool		*philo_exited;
 }	t_sim;
 
 #endif
