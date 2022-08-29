@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:28:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/25 21:23:15 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/29 23:55:20 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ uint32_t	time_delta_msec(t_time t_old, t_time t_new);
 void		precise_msleep(uint32_t duration);
 
 // init.c
-void		init_queue(t_sim *data);
+void		init_resources(t_sim *data);
 void		init_philo(t_sim *data, uint16_t id);
 
 // checker_thread.c
@@ -80,4 +80,7 @@ bool		simulate(t_philo *philo);
 // printer.c
 bool		start_aux_threads(t_sim *data);
 bool		join_aux_threads(t_sim *data);
+
+// alloc.c
+bool		alloc_resources(t_sim *data);
 #endif
