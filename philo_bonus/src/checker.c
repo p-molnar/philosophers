@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/05 13:39:17 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/26 17:14:14 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/30 00:43:55 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,6 @@ static void	die_action(t_sim *data)
 	data->sim_running = false;
 }
 
-static void	all_fed_action(t_sim *data)
-{
-	log_status(&data->philo, FED, get_time());
-}
-
 void	*checker_thread(void *arg)
 {	
 	t_sim		*data;
@@ -64,16 +59,17 @@ void	*checker_thread(void *arg)
 			> (uint32_t) data->attr[T_DIE])
 		{
 			die_action(data);
-			usleep(100);
-			sem_wait(data->sem[DIE]);
+			printf("RETURNED FROM CHECKER\n");
 			return (NULL);
 		}
-		if (is_philo_fed(data))
+		else if (is_philo_fed(data))
 		{
-			all_fed_action(data);
+			data->philo.status = FED;
+			printf("RETURNED FROM CHECKER\n");
+			printf("FED\n");
 			return (NULL);
 		}
-		usleep(300);
+		usleep(500);
 	}
 	return (NULL);
 }
