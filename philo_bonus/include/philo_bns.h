@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:28:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/29 23:55:20 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/30 00:16:22 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void		precise_msleep(uint32_t duration);
 
 // init.c
 void		init_resources(t_sim *data);
-void		init_philo(t_sim *data, uint16_t id);
+void		init_philo(t_sim *data, uint16_t i);
 
 // checker_thread.c
 void		*checker_thread(void *arg);
