@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/11 14:01:58 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/26 16:03:03 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/08/30 16:20:28 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,27 @@
 bool	create_child_processes(t_sim *data)
 {
 	uint16_t	i;
-	int32_t		pid;
 
-	data->philo_pid = malloc(data->attr[N_PHILO] * sizeof(uint32_t));
-	if (data->philo_pid == NULL)
-		thrw_err(MALLOC_ERR_MSG, __FILE__, __LINE__);
 	sem_wait(data->sem[START_LOCK]);
 	sem_wait(data->sem[CHECKER_LOCK]);
 	sem_wait(data->sem[PRINTER_LOCK]);
 	i = 0;
 	while (i < data->attr[N_PHILO])
 	{
-		pid = fork();
-		if (pid == -1)
+		data->pid_arr[i] = fork();
+		if (data->pid_arr[i] == -1)
 			return (thrw_err(PROCESS_ERR_MSG, __FILE__, __LINE__));
-		else if (pid == 0)
+		else if (data->pid_arr[i] == 0)
 		{
-			init_philo(data, i + 1);
+			// printf("id: %d, pid: %d\n", i + 1, getpid());
+			init_philo(data, i);
 			start_aux_threads(data);
 			simulate(&data->philo);
 			join_aux_threads(data);
-			exit(EXIT_SUCCESS);
+			// return(data->philo.status);
+			printf("philo status: %d\n", data->philo.status);
+			exit(data->philo.status);
 		}
-		data->philo_pid[i] = pid;
 		i++;
 	}
 	sem_post(data->sem[START_LOCK]);
@@ -51,16 +49,16 @@ bool	create_child_processes(t_sim *data)
 }
 
 
-void	kill_all_child_process(t_sim *data, uint16_t except)
+void	kill_all_child_process(t_sim *data, bool *philo_exited)
 {
 	uint16_t	i;
 
 	i = 0;
 	while (i < data->attr[N_PHILO])
 	{
-		if (i != except)
+		if (philo_exited[i] == false)
 		{
-			if (kill(data->philo_pid[i], SIGKILL) == -1)
+			if (kill(data->pid_arr[i], SIGKILL) == -1)
 				printf("kill error: %s\n", strerror(errno));
 			// printf("kill: %d\n", data->philo_pid[i]);
 		}
@@ -73,22 +71,35 @@ bool	wait_child_processes(t_sim *data)
 	uint16_t	i;
 	int16_t		pid;
 	int			status;
-	int			fed_count;
+	int			fed_philo_count;
 
-	fed_count = 0;
+	fed_philo_count = 0;
 	i = 0;
 	while (1)
 	{
-		// printf("checking: %d\n", data->philo_pid[i]);
-		pid = waitpid(data->philo_pid[i], &status, WNOHANG);
-		if (pid == -1)
-			return (thrw_err(PROCESS_ERR_MSG, __FILE__, __LINE__));
-		else if (WEXITSTATUS(status) == FED)
-			fed_count++;
-		if (WEXITSTATUS(status) == DIED || fed_count == data->attr[N_PHILO])
+		if (data->philo_exited[i] == false)
 		{
-			kill_all_child_process(data, i);
-			return (EXIT_SUCCESS);
+			pid = waitpid(data->pid_arr[i], &status, WNOHANG);
+			// printf("checking: %d, status: %d\n", data->philo_pid[i], status);
+			if (pid == -1)
+			{
+				printf("error: %s\n", strerror(errno));
+				return (thrw_err(PROCESS_ERR_MSG, __FILE__, __LINE__));
+			}
+			else if (WIFEXITED(status) && WEXITSTATUS(status) == FED)
+			{
+				printf("philo %d exited\n", i + 1);
+				data->philo_exited[i] = true;
+				fed_philo_count++;
+				if (fed_philo_count == data->attr[N_PHILO])
+					kill_all_child_process(data, data->philo_exited);
+			}
+			if (WIFEXITED(status) && WEXITSTATUS(status) == DIED)
+			{
+				printf("killing all\n");
+				kill_all_child_process(data, data->philo_exited);
+				return (EXIT_SUCCESS);
+			}
 		}
 		usleep(500);
 		i = (i + 1) % data->attr[N_PHILO];
