@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/05 10:35:15 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/05 19:27:46 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ enum e_philo_status
 	TAKING_FORK,
 	DIED,
 	FED,
+	ALL_FED,
 	UNDEFINED = -1,
 };
 
