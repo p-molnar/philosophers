@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/05 13:39:17 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/05 11:45:54 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/05 20:12:29 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	drop_forks(t_sim *data)
 		sem_post(data->sem[FORK]);
 		i++;
 	}
-	sem_wait(data->philo.self);
+	sem_post(data->philo.self);
 }
 
 void	*checker_thread(void *arg)
@@ -54,11 +54,9 @@ void	*checker_thread(void *arg)
 			log_status(&data->philo, DIED, get_time());
 		else if (is_philo_fed(data))
 		{
-			sem_wait(data->philo.self);
-			data->philo.status = FED;
-			sem_post(data->philo.self);
-			// printf("RETURNED FROM CHECKER\n");
-			// printf("FED\n");
+			drop_forks(data);
+			printf("drop forks\n");
+			exit(FED);
 		}
 		usleep(500);
 	}

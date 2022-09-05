@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/11 14:01:58 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/05 11:42:17 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/05 20:19:11 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ bool	create_child_processes(t_sim *data)
 			start_aux_threads(data);
 			simulate(&data->philo);
 			join_aux_threads(data);
-			exit(data->philo.status);
+			exit(EXIT_SUCCESS);
 		}
 		i++;
 	}
@@ -79,14 +79,18 @@ bool	wait_child_processes(t_sim *data)
 			printf("error: %s\n", strerror(errno));
 			return (thrw_err(PROCESS_ERR_MSG, __FILE__, __LINE__));
 		}
-		if (WIFEXITED(status))
-			data->philo_exited[i] = true;
-			// printf("checking: %d, status: %d\n", data->philo_pid[i], status);
-		if (WEXITSTATUS(status) == FED)
+		// printf("checking: %d, status: %d\n", data->philo_pid[i], status);
+		if (WEXITSTATUS(status) == FED && data->philo_exited[i] == false)
 		{
+			printf("philo fed\n");
 			fed_philo_count++;
 			if (fed_philo_count == data->attr[N_PHILO])
+			{
+				printf("All philos have eaten\n");
 				kill_all_child_process(data, data->philo_exited);
+				return (EXIT_SUCCESS);
+			}
+
 		}
 		if (WEXITSTATUS(status) == DIED)
 		{
@@ -94,6 +98,8 @@ bool	wait_child_processes(t_sim *data)
 			kill_all_child_process(data, data->philo_exited);
 			return (EXIT_SUCCESS);
 		}
+		if (WIFEXITED(status))
+			data->philo_exited[i] = true;
 		usleep(100);
 		i = (i + 1) % data->attr[N_PHILO];
 	}

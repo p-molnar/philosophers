@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/25 14:06:36 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/05 11:25:29 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/05 19:59:39 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	print_status(t_log log, sem_t *printer_lock)
 
 	sem_wait(printer_lock);
 	printf(LOG_FMT, log.timestamp, log.philo_id, msg[log.status]);
-	if (log.status == FED || log.status == DIED)
+	if (log.status == DIED)
 		exit(log.status);
 	sem_post(printer_lock);
 }
