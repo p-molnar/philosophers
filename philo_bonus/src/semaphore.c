@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/19 21:37:46 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/26 16:33:05 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/05 10:37:11 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@ bool	semaphore_op(t_sim *data, uint8_t mode)
 {
 	uint16_t			i;
 	const int16_t		oflag = IPC_CREAT | IPC_EXCL;
-	const t_sem_attr	ht[SEM__COUNT] = {{"/sem_start", 1}, \
-						{"/sem_print", 1}, {"/sem_checker", 1}, \
-						{"/sem_fork", data->attr[N_PHILO]}, \
-						{"/sem_log_rw", 1}, {"sem_queue_rw", 1},
-						{"/sem_die", 1}};
+	const t_sem_attr	ht[SEM__COUNT] = {[START_LOCK] = {"/sem_start", 1}, \
+						[PRINTER_LOCK] = {"/sem_print", 1}, \
+						[CHECKER_LOCK] = {"/sem_checker", 1}, \
+						[FORK] = {"/sem_fork", data->attr[N_PHILO]}};
 
 	i = 0;
 	while (i < SEM__COUNT)
