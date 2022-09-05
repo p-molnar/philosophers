@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/04 22:39:40 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/05 10:35:15 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,6 @@ enum e_name_sem
 	PRINTER_LOCK,
 	CHECKER_LOCK,
 	FORK,
-	LOG_RW,
-	QUEUE_RW,
-	DIE,
 	SEM__COUNT,
 };
 
