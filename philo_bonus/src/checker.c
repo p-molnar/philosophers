@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/05 13:39:17 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/30 00:43:55 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/05 11:45:54 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ static bool	is_philo_fed(t_sim *data)
 {
 	bool	is_fed;
 
-		// pthread_mutex_lock(&data->philo[i].self);
 		is_fed = data->philo.eat_count >= (uint16_t) data->attr[N_EAT];
-		// pthread_mutex_unlock(&data->philo[i].self);
 		if (data->attr[N_EAT] == UNDEFINED || !is_fed)
 			return (false);
 	return (true);
@@ -30,44 +28,37 @@ void	drop_forks(t_sim *data)
 	uint16_t	i;
 
 	i = 0;
+	sem_wait(data->philo.self);
 	while (i < data->philo.forks_in_hand)
 	{
 		sem_post(data->sem[FORK]);
 		i++;
 	}
-}
-
-static void	die_action(t_sim *data)
-{
-	log_status(&data->philo, DIED, get_time());
-	drop_forks(data);
-	data->philo.status = DIED;
-	data->sim_running = false;
+	sem_wait(data->philo.self);
 }
 
 void	*checker_thread(void *arg)
 {	
 	t_sim		*data;
+	uint32_t	t_delta;
 
 	data = arg;
 	sem_wait(data->sem[CHECKER_LOCK]);
 	sem_post(data->sem[CHECKER_LOCK]);
 	while (1)
 	{
-		// printf("checker_spinning\n");
-		if (time_delta_msec(data->philo.last_ate, get_time())
-			> (uint32_t) data->attr[T_DIE])
-		{
-			die_action(data);
-			printf("RETURNED FROM CHECKER\n");
-			return (NULL);
-		}
+		sem_wait(data->philo.self);
+		t_delta = time_delta_msec(data->philo.last_ate, get_time());
+		sem_post(data->philo.self);
+		if (t_delta > (uint32_t) data->attr[T_DIE])
+			log_status(&data->philo, DIED, get_time());
 		else if (is_philo_fed(data))
 		{
+			sem_wait(data->philo.self);
 			data->philo.status = FED;
-			printf("RETURNED FROM CHECKER\n");
-			printf("FED\n");
-			return (NULL);
+			sem_post(data->philo.self);
+			// printf("RETURNED FROM CHECKER\n");
+			// printf("FED\n");
 		}
 		usleep(500);
 	}
