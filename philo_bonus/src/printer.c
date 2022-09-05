@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/25 14:06:36 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/04 22:45:29 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/05 11:25:29 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ static void	print_status(t_log log, sem_t *printer_lock)
 
 	sem_wait(printer_lock);
 	printf(LOG_FMT, log.timestamp, log.philo_id, msg[log.status]);
-	if (log.status != FED && log.status != DIED)
-		sem_post(printer_lock);
+	if (log.status == FED || log.status == DIED)
+		exit(log.status);
+	sem_post(printer_lock);
 }
 
 void	log_status(t_philo *data, uint16_t status, t_time time)
@@ -30,17 +31,20 @@ void	log_status(t_philo *data, uint16_t status, t_time time)
 	static u_int16_t	i;
 	t_log				log;
 
+	sem_wait(data->self);
 	log.timestamp = time_delta_msec(data->sim_data->start_time, time);
 	log.status = status;
 	log.philo_id = data->id;
 	data->sim_data->queue[i] = log;
 	i = (i + 1) % QUEUE__SIZE;
+	sem_post(data->self);
 }
 
 void	*printer_thread(void *arg)
 {
 	uint16_t	i;
 	t_sim		*data;
+	int16_t		status;
 
 	data = arg;
 	i = 0;
@@ -48,17 +52,16 @@ void	*printer_thread(void *arg)
 	sem_post(data->sem[PRINTER_LOCK]);
 	while (1)
 	{
-		if (data->queue[i].status != UNDEFINED)
+		sem_wait(data->philo.self);
+		status = data->queue[i].status;
+		sem_post(data->philo.self);
+		if (status != UNDEFINED)
 		{
 			print_status(data->queue[i], data->sem[PRINTER]);
-			if (data->queue[i].status == DIED
-				|| data->queue[i].status == FED)
-			{
-				printf("RETURNED FROM PRINTER\n");
-				return (NULL);
-			}
+			sem_wait(data->philo.self);
 			data->queue[i].status = UNDEFINED;
 			i = (i + 1) % QUEUE__SIZE;
+			sem_post(data->philo.self);
 		}
 		usleep(500);
 	}
