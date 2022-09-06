@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/19 16:51:36 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/05 11:58:04 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/06 10:08:48 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void	philo_eat(t_philo *data)
 	precise_msleep(data->sim_data->attr[T_EAT]);
 
 	sem_wait(data->self);
+	data->eat_count++;
 	sem_post(data->sim_data->sem[FORK]);
 	data->forks_in_hand--;
 	sem_post(data->self);
@@ -52,7 +53,6 @@ static void	philo_eat(t_philo *data)
 	sem_wait(data->self);
 	sem_post(data->sim_data->sem[FORK]);
 	data->forks_in_hand--;
-	data->eat_count++;
 	sem_post(data->self);
 }
 

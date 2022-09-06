@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/25 14:06:36 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/05 19:59:39 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/06 10:21:11by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	log_status(t_philo *data, uint16_t status, t_time time)
 	sem_post(data->self);
 }
 
-void	*printer_thread(void *arg)
+void	*child_status_printer(void *arg)
 {
 	uint16_t	i;
 	t_sim		*data;
@@ -70,8 +70,10 @@ void	*printer_thread(void *arg)
 
 bool	start_aux_threads(t_sim *data)
 {
-	pthread_create(&data->thread[PRINTER], NULL, &printer_thread, (void *)data);
-	pthread_create(&data->thread[CHECKER], NULL, &checker_thread, (void *)data);
+	pthread_create(&data->thread[PRINTER], NULL,
+		&child_status_printer, (void *)data);
+	pthread_create(&data->thread[CHECKER], NULL,
+		&child_status_checker, (void *)data);
 	return (EXIT_SUCCESS);
 }
 

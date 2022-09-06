@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/05 13:39:17 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/05 20:12:29 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/06 10:20:40 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	drop_forks(t_sim *data)
 	sem_post(data->philo.self);
 }
 
-void	*checker_thread(void *arg)
+void	*child_status_checker(void *arg)
 {	
 	t_sim		*data;
 	uint32_t	t_delta;
