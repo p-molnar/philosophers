@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/05 19:27:46 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/06 11:29:41 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,17 @@ typedef struct s_sim
 	int32_t		*pid_arr;
 	t_log		queue[QUEUE__SIZE];
 	pthread_t	thread[THREAD__COUNT];
+	pthread_t	*checker_thread;
 	t_time		start_time;
 	bool		sim_running;
 	bool		*philo_exited;
 }	t_sim;
+
+typedef struct s_data_coll
+{
+	t_sim		*data;
+	int16_t		philo_pid;
+	uint16_t	philo_idx;
+}	t_data_coll;
 
 #endif
