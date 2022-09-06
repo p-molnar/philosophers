@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:28:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/05 10:26:13 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/06 13:46:56 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,19 @@ void		precise_msleep(uint32_t duration);
 void		init_resources(t_sim *data);
 void		init_philo(t_sim *data, uint16_t i);
 
-// init_util.c
+// string_util.c
 uint32_t	ft_strlen(char *s);
 char		*ft_itoa(int16_t num);
+uint16_t	ft_isspace(int c);
+uint16_t	ft_isdigit(int c);
+int32_t		ft_atoi(char *str);
 
 
 // checker_thread.c
-void		*checker_thread(void *arg);
+void		*child_status_checker(void *arg);
 
 // printer_thread.c
-void		*printer_thread(void *arg);
+void		*child_status_printer(void *arg);
 void		log_status(t_philo *data, uint16_t status, t_time time);
 
 // process.c
@@ -88,4 +91,10 @@ bool		join_aux_threads(t_sim *data);
 
 // alloc.c
 bool		alloc_resources(t_sim *data);
+
+// exit_checker.c
+bool		close_exit_checker(t_sim *data, uint16_t i);
+bool		start_exit_checker(t_sim *data, uint16_t i);
+
+void		kill_all_child_process(t_sim *data);
 #endif
