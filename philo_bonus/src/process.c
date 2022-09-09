@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/11 14:01:58 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/09 11:52:50 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/09 11:59:35by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,28 +62,30 @@ void	kill_all_child_process(t_sim *data)
 bool	wait_child_processes(t_sim *data)
 {	
 	uint16_t	i;
+	pid_t		pid;
 	int			status;
 	int			fed_philo_count;
 
 	fed_philo_count = 0;
 	i = 0;
-	printf("prewait\n");
 	sem_wait(data->sem[START_LOCK]);
 	sem_post(data->sem[START_LOCK]);
-	printf("postwait\n");
 	printf("preloop\n");
-	while (data->child_pid_arr[i] != waitpid(data->child_pid_arr[i], &status, 0))
+	pid = waitpid(data->child_pid_arr[i], &status, 0);
+	printf("pid: %d\n", pid);
+	while (pid != data->child_pid_arr[i])
 	{
-		printf("exited: %d\n", data->child_pid_arr[i]);
+		printf("enters loop?\n");
 		i = (i + 1) % data->attr[N_PHILO];
-		usleep(100);
+		pid = waitpid(data->child_pid_arr[i], &status, 0);
 	}
 	printf("postloop\n");
-	// if (pid == -1)
-	// {
-	// 	printf("error: %s\n", strerror(errno));
-	// 	return (thrw_err(PROCESS_ERR_MSG, __FILE__, __LINE__));
-	// }
+	printf("exited: %d\n", data->child_pid_arr[i]);
+	if (waitpid(data->child_pid_arr[i], &status, 0) == -1)
+	{
+		printf("error: %s\n", strerror(errno));
+		return (thrw_err(PROCESS_ERR_MSG, __FILE__, __LINE__));
+	}
 	if (WEXITSTATUS(status) == FED)
 	{
 		fed_philo_count++;
