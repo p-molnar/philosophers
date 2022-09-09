@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/09 11:59:49 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/09 14:12:57 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ enum e_sem_option
 	OPEN,
 	CLOSE,
 	UNLINK
+};
+
+enum e_lock_options
+{
+	LOCK,
+	UNLOCK
 };
 
 enum e_arg
