@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/29 23:56:12 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/09 12:00:12 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/09 14:02:35 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ bool	alloc_resources(t_sim *data)
 	data->philo_exited = malloc(data->attr[N_PHILO] * sizeof(bool));
 	if (data->philo_exited == NULL)
 		return (thrw_err(MALLOC_ERR_MSG, __FILE__, __LINE__));
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
