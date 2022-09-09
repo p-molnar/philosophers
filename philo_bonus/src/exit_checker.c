@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 10:27:58 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/06 14:19:52 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/09 11:52:50 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ bool	start_exit_checker(t_sim *data, uint16_t i)
 
 	d.data = data;
 	d.philo_idx = i;
-	d.philo_pid = data->pid_arr[i];
+	d.philo_pid = data->child_pid_arr[i];
 	ret_val = pthread_create(&data->checker_thread[i], NULL, \
 		&child_exit_status_checker, (void *)&d);
 	return (ret_val != 0);

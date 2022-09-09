@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:25:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/06 14:19:18 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/09 11:33:38 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,12 @@ int32_t	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	sem_wait(data.sem[START_LOCK]);
 	sem_post(data.sem[START_LOCK]);
-	for (int i = 0; i < data.attr[N_PHILO]; i++)
-	{
-		start_exit_checker(&data, i);
-		printf("started checker: %d\n", i);
-	}
-	for (int j = 0; j < data.attr[N_PHILO]; j++)
-		close_exit_checker(&data, j);
-	// if (wait_child_processes(&data))
-	// 	return (EXIT_FAILURE);
+	// for (int i = 0; i < data.attr[N_PHILO]; i++)
+	// 	start_exit_checker(&data, i);
+	// for (int j = 0; j < data.attr[N_PHILO]; j++)
+	// 	close_exit_checker(&data, j);
+	if (wait_child_processes(&data))
+		return (EXIT_FAILURE);
 	if (semaphore_op(&data, CLOSE))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);

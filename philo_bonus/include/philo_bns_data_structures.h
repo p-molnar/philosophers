@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/06 11:29:41 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/09 11:52:50 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct s_sim
 	int16_t		attr[ARG__COUNT];
 	sem_t		*sem[SEM__COUNT];
 	t_philo		philo;
-	int32_t		*pid_arr;
+	int32_t		*child_pid_arr;
 	t_log		queue[QUEUE__SIZE];
 	pthread_t	thread[THREAD__COUNT];
 	pthread_t	*checker_thread;
