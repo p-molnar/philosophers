@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/05 13:39:17 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/05 13:48:43 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/09 12:32:28 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	*checker_thread(void *arg)
 			return (NULL);
 		}
 		i = (i + 1) % data->attr[N_PHILO];
-		usleep(500);
+		usleep(200 - data->attr[N_PHILO]);
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/25 14:06:36 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/06 12:25:38 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/09 12:32:43 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	*printer_thread(void *arg)
 			i = (i + 1) % QUEUE_SIZE;
 		}
 		pthread_mutex_unlock(&data->mutex[QUEUE_RW]);
-		usleep(500);
+		usleep(200 - data->attr[N_PHILO]);
 	}
 	return (NULL);
 }
