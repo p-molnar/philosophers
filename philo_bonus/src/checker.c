@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/05 13:39:17 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/06 10:20:40 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/09 15:25:30 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static bool	is_philo_fed(t_sim *data)
 {
 	bool	is_fed;
 
-		is_fed = data->philo.eat_count >= (uint16_t) data->attr[N_EAT];
-		if (data->attr[N_EAT] == UNDEFINED || !is_fed)
-			return (false);
-	return (true);
+	sem_wait(data->philo.self);
+	is_fed = data->philo.eat_count >= (uint16_t) data->attr[N_EAT];
+	sem_post(data->philo.self);
+	return (!(data->attr[N_EAT] == UNDEFINED || !is_fed));
 }
 
 void	drop_forks(t_sim *data)
@@ -55,10 +55,9 @@ void	*child_status_checker(void *arg)
 		else if (is_philo_fed(data))
 		{
 			drop_forks(data);
-			printf("drop forks\n");
 			exit(FED);
 		}
-		usleep(500);
+		usleep(200 - data->attr[N_PHILO]);
 	}
 	return (NULL);
 }
