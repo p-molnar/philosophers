@@ -36,8 +36,8 @@ void	log_status(t_philo *data, uint16_t status, t_time time)
 	log.status = status;
 	log.philo_id = data->id;
 	data->sim_data->queue[i] = log;
-	i = (i + 1) % QUEUE__SIZE;
 	sem_post(data->self);
+	i = (i + 1) % QUEUE__SIZE;
 }
 
 void	*child_status_printer(void *arg)
@@ -54,16 +54,14 @@ void	*child_status_printer(void *arg)
 	{
 		sem_wait(data->philo.self);
 		status = data->queue[i].status;
-		sem_post(data->philo.self);
 		if (status != UNDEFINED)
 		{
 			print_status(data->queue[i], data->sem[PRINTER]);
-			sem_wait(data->philo.self);
 			data->queue[i].status = UNDEFINED;
 			i = (i + 1) % QUEUE__SIZE;
-			sem_post(data->philo.self);
 		}
-		usleep(500);
+		sem_post(data->philo.self);
+		usleep(200 - data->attr[N_PHILO]);
 	}
 	return (NULL);
 }
