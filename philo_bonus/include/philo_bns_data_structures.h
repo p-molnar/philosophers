@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/09 14:12:57 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/15 11:56:46 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ typedef struct s_philo
 	t_sim		*sim_data;
 	uint16_t	eat_count;
 	uint16_t	forks_in_hand;
-	sem_t		*self;
+	bool		is_fed;
+	sem_t		*self_lock;
 
 }	t_philo;
 
@@ -100,15 +101,14 @@ typedef struct s_log
 typedef struct s_sim
 {
 	int16_t		attr[ARG__COUNT];
-	sem_t		*sem[SEM__COUNT];
+	sem_t		*generic_sem[SEM__COUNT];
+	sem_t		**philo_sem;
 	t_philo		philo;
 	pid_t		*child_pid_arr;
 	t_log		queue[QUEUE__SIZE];
 	pthread_t	thread[THREAD__COUNT];
 	pthread_t	*checker_thread;
 	t_time		start_time;
-	bool		sim_running;
-	bool		*philo_exited;
 }	t_sim;
 
 typedef struct s_data_coll
