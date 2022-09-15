@@ -6,12 +6,11 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:54:06 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/06 10:24:32 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/15 13:27:33 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_bns.h>
-
 
 uint16_t	validate_arg(int argc, t_sim *data)
 {
