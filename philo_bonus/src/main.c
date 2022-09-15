@@ -6,11 +6,18 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:25:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/09 12:06:58 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/15 12:09:33 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_bns.h>
+
+static void	clean_up(t_sim *data)
+{
+	free(data->checker_thread);
+	free(data->child_pid_arr);
+	free(data->philo_sem);
+}
 
 int32_t	main(int argc, char *argv[])
 {
@@ -27,11 +34,10 @@ int32_t	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	if (create_child_processes(&data))
 		return (EXIT_FAILURE);
-	sem_wait(data.sem[START_LOCK]);
-	sem_post(data.sem[START_LOCK]);
 	if (wait_child_processes(&data))
 		return (EXIT_FAILURE);
 	if (semaphore_op(&data, CLOSE))
 		return (EXIT_FAILURE);
+	clean_up(&data);
 	return (EXIT_SUCCESS);
 }
