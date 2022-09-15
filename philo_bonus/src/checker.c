@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/05 13:39:17 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/15 13:19:19 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/15 13:52:41 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@ void	drop_forks(t_philo *philo)
 	uint16_t	i;
 
 	i = 0;
-	sem_wait(philo->self_lock);
 	while (i < philo->forks_in_hand)
 	{
 		sem_post(philo->sim_data->generic_sem[FORK]);
 		i++;
 	}
-	sem_post(philo->self_lock);
 }
 
 void	*child_status_checker(void *arg)
