@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/19 16:51:36 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/06 10:08:48 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/15 13:55:54 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,39 +21,27 @@ static void	philo_eat(t_philo *data)
 {
 	t_time	t_eat;
 
-	sem_wait(data->sim_data->sem[FORK]);
+	sem_wait(data->self_lock);
+	sem_wait(data->sim_data->generic_sem[FORK]);
 	log_status(data, TAKING_FORK, get_time());
-
-	sem_wait(data->self);
 	data->forks_in_hand++;
-	sem_post(data->self);
-
-	sem_wait(data->sim_data->sem[FORK]);
+	sem_wait(data->sim_data->generic_sem[FORK]);
 	log_status(data, TAKING_FORK, get_time());
-
-	sem_wait(data->self);
 	data->forks_in_hand++;
-	sem_post(data->self);
-
 	t_eat = get_time();
 	log_status(data, EATING, t_eat);
-
-	sem_wait(data->self);
 	data->last_ate = t_eat;
-	sem_post(data->self);
-
 	precise_msleep(data->sim_data->attr[T_EAT]);
-
-	sem_wait(data->self);
-	data->eat_count++;
-	sem_post(data->sim_data->sem[FORK]);
+	if (data->eat_count++ == data->sim_data->attr[N_EAT])
+	{
+		drop_forks(data);
+		exit(FED);
+	}
+	sem_post(data->sim_data->generic_sem[FORK]);
 	data->forks_in_hand--;
-	sem_post(data->self);
-
-	sem_wait(data->self);
-	sem_post(data->sim_data->sem[FORK]);
+	sem_post(data->sim_data->generic_sem[FORK]);
 	data->forks_in_hand--;
-	sem_post(data->self);
+	sem_post(data->self_lock);
 }
 
 static void	philo_sleep(t_philo *data)
@@ -66,17 +54,17 @@ bool	simulate(t_philo *data)
 {
 	uint16_t	status;
 
-	sem_wait(data->sim_data->sem[START_LOCK]);
-	sem_post(data->sim_data->sem[START_LOCK]);
-	sem_wait(data->self);
+	sem_wait(data->sim_data->generic_sem[START_LOCK]);
+	sem_post(data->sim_data->generic_sem[START_LOCK]);
+	sem_wait(data->self_lock);
 	data->sim_data->start_time = get_time();
 	data->last_ate = data->sim_data->start_time;
-	sem_post(data->self);
+	sem_post(data->self_lock);
 	philo_think(data);
 	if (data->id % 2)
 		precise_msleep(1);
 	status = EATING;
-	while (data->sim_data->sim_running)
+	while (1)
 	{
 		if (status == THINKING)
 			philo_think(data);
