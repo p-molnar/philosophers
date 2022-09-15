@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:28:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/06 13:46:56 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/15 11:39:52 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ uint16_t	ft_isspace(int c);
 uint16_t	ft_isdigit(int c);
 int32_t		ft_atoi(char *str);
 
-
 // checker_thread.c
 void		*child_status_checker(void *arg);
 
@@ -97,4 +96,7 @@ bool		close_exit_checker(t_sim *data, uint16_t i);
 bool		start_exit_checker(t_sim *data, uint16_t i);
 
 void		kill_all_child_process(t_sim *data);
+
+void		drop_forks(t_philo *philo);
+sem_t		*gen_philo_sem(uint16_t philo_idx);
 #endif
