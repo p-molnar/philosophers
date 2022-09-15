@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/11 14:01:58 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/09 14:13:30 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/15 12:03:52 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ void	lock_action(t_sim *data, uint16_t action)
 {
 	if (action == LOCK)
 	{
-		sem_wait(data->sem[START_LOCK]);
-		sem_wait(data->sem[PRINTER_LOCK]);
-		sem_wait(data->sem[CHECKER_LOCK]);
+		sem_wait(data->generic_sem[START_LOCK]);
+		sem_wait(data->generic_sem[PRINTER_LOCK]);
+		sem_wait(data->generic_sem[CHECKER_LOCK]);
 	}
 	else if (action == UNLOCK)
 	{
-		sem_post(data->sem[START_LOCK]);
-		sem_post(data->sem[PRINTER_LOCK]);
+		sem_post(data->generic_sem[START_LOCK]);
+		sem_post(data->generic_sem[PRINTER_LOCK]);
 		usleep(1000);
-		sem_post(data->sem[CHECKER_LOCK]);
+		sem_post(data->generic_sem[CHECKER_LOCK]);
 	}
 }
 
@@ -99,8 +99,8 @@ bool	wait_child_processes(t_sim *data)
 	int			status;
 
 	i = 0;
-	sem_wait(data->sem[START_LOCK]);
-	sem_post(data->sem[START_LOCK]);
+	sem_wait(data->generic_sem[START_LOCK]);
+	sem_post(data->generic_sem[START_LOCK]);
 	while (1)
 	{
 		while (data->child_pid_arr[i]
