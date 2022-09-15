@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 10:27:58 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/09 11:52:50 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/15 13:19:37 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	*child_exit_status_checker(void *d)
 	pid = waitpid(coll->philo_pid, &status, WNOHANG);
 	while (pid != coll->philo_pid)
 	{
-		// printf("checked pid: %d, ret: %d\n", coll->philo_pid, pid);
 		pid = waitpid(coll->philo_pid, &status, WNOHANG);
 	}
 	if (pid < 0)
