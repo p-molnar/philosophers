@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/15 11:56:46 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/21 17:34:06 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,6 @@ enum e_sem_option
 	OPEN,
 	CLOSE,
 	UNLINK
-};
-
-enum e_lock_options
-{
-	LOCK,
-	UNLOCK
 };
 
 enum e_arg
@@ -65,7 +59,6 @@ enum e_philo_status
 enum e_util_thread
 {
 	CHECKER,
-	PRINTER,
 	THREAD__COUNT,
 };
 
@@ -85,18 +78,10 @@ typedef struct s_philo
 	t_time		last_ate;
 	t_sim		*sim_data;
 	uint16_t	eat_count;
-	uint16_t	forks_in_hand;
-	bool		is_fed;
+	uint16_t	n_forks_in_hand;
 	sem_t		*self_lock;
 
 }	t_philo;
-
-typedef struct s_log
-{
-	uint16_t	philo_id;
-	int16_t		status;
-	uint32_t	timestamp;
-}	t_log;
 
 typedef struct s_sim
 {
@@ -105,7 +90,6 @@ typedef struct s_sim
 	sem_t		**philo_sem;
 	t_philo		philo;
 	pid_t		*child_pid_arr;
-	t_log		queue[QUEUE__SIZE];
 	pthread_t	thread[THREAD__COUNT];
 	pthread_t	*checker_thread;
 	t_time		start_time;

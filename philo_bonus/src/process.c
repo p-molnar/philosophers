@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/11 14:01:58 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/15 12:03:52 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/21 17:18:19 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,21 @@
 #include <string.h>
 #include <signal.h>
 
-void	lock_action(t_sim *data, uint16_t action)
+void	unlock_gen_semaphores(t_sim *data)
 {
-	if (action == LOCK)
-	{
-		sem_wait(data->generic_sem[START_LOCK]);
-		sem_wait(data->generic_sem[PRINTER_LOCK]);
-		sem_wait(data->generic_sem[CHECKER_LOCK]);
-	}
-	else if (action == UNLOCK)
-	{
-		sem_post(data->generic_sem[START_LOCK]);
-		sem_post(data->generic_sem[PRINTER_LOCK]);
-		usleep(1000);
-		sem_post(data->generic_sem[CHECKER_LOCK]);
-	}
+	sem_post(data->generic_sem[START_LOCK]);
+	sem_post(data->generic_sem[PRINTER_LOCK]);
+	precise_msleep(1);
+	sem_post(data->generic_sem[CHECKER_LOCK]);
 }
 
 bool	create_child_processes(t_sim *data)
 {
 	uint16_t	i;
 
-	lock_action(data, LOCK);
 	i = 0;
+	data->start_time = get_time();
+	data->start_time.tv_usec += data->attr[N_PHILO] * 1000;
 	while (i < data->attr[N_PHILO])
 	{
 		data->child_pid_arr[i] = fork();
@@ -53,7 +45,8 @@ bool	create_child_processes(t_sim *data)
 		}
 		i++;
 	}
-	lock_action(data, UNLOCK);
+	precise_msleep(time_delta_msec(get_time(), data->start_time));
+	unlock_gen_semaphores(data);
 	return (EXIT_SUCCESS);
 }
 

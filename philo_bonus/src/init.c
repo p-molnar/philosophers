@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/26 20:58:51 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/15 13:27:02 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/21 17:34:06 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,6 @@ void	init_resources(t_sim *data)
 {
 	uint16_t	i;
 
-	i = 0;
-	while (i < QUEUE__SIZE)
-	{
-		data->queue[i].status = UNDEFINED;
-		i++;
-	}
 	i = 0;
 	while (i < data->attr[N_PHILO])
 	{
@@ -77,9 +71,8 @@ sem_t	*gen_philo_sem(uint16_t philo_idx)
 void	init_philo(t_sim *data, uint16_t i)
 {
 	data->philo.id = i + 1;
-	data->philo.forks_in_hand = 0;
+	data->philo.n_forks_in_hand = 0;
 	data->philo.eat_count = 0;
 	data->philo.sim_data = data;
-	data->philo.is_fed = false;
 	data->philo.self_lock = data->philo_sem[i];
 }

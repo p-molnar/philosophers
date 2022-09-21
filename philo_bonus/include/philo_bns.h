@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:28:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/15 11:39:52 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/21 17:24:48 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,7 @@ int32_t		ft_atoi(char *str);
 void		*child_status_checker(void *arg);
 
 // printer_thread.c
-void		*child_status_printer(void *arg);
-void		log_status(t_philo *data, uint16_t status, t_time time);
+void		print_status(uint8_t status, t_time curr_time, t_philo *philo_data);
 
 // process.c
 bool		create_child_processes(t_sim *data);

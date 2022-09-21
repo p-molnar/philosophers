@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/19 16:51:36 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/15 13:55:54 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/21 17:34:06 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,39 @@
 
 static void	philo_think(t_philo *data)
 {
-	log_status(data, THINKING, get_time());
+	print_status(THINKING, get_time(), data);
 }
 
 static void	philo_eat(t_philo *data)
 {
-	t_time	t_eat;
+	t_time	eat_start;
 
 	sem_wait(data->self_lock);
 	sem_wait(data->sim_data->generic_sem[FORK]);
-	log_status(data, TAKING_FORK, get_time());
-	data->forks_in_hand++;
+	print_status(TAKING_FORK, get_time(), data);
+	data->n_forks_in_hand++;
 	sem_wait(data->sim_data->generic_sem[FORK]);
-	log_status(data, TAKING_FORK, get_time());
-	data->forks_in_hand++;
-	t_eat = get_time();
-	log_status(data, EATING, t_eat);
-	data->last_ate = t_eat;
+	print_status(TAKING_FORK, get_time(), data);
+	data->n_forks_in_hand++;
+	eat_start = get_time();
+	print_status(EATING, eat_start, data);
+	data->last_ate = eat_start;
 	precise_msleep(data->sim_data->attr[T_EAT]);
-	if (data->eat_count++ == data->sim_data->attr[N_EAT])
+	if (++data->eat_count == data->sim_data->attr[N_EAT])
 	{
 		drop_forks(data);
 		exit(FED);
 	}
 	sem_post(data->sim_data->generic_sem[FORK]);
-	data->forks_in_hand--;
+	data->n_forks_in_hand--;
 	sem_post(data->sim_data->generic_sem[FORK]);
-	data->forks_in_hand--;
+	data->n_forks_in_hand--;
 	sem_post(data->self_lock);
 }
 
 static void	philo_sleep(t_philo *data)
 {
-	log_status(data, SLEEPING, get_time());
+	print_status(SLEEPING, get_time(), data);
 	precise_msleep(data->sim_data->attr[T_SLEEP]);
 }
 
@@ -57,7 +57,6 @@ bool	simulate(t_philo *data)
 	sem_wait(data->sim_data->generic_sem[START_LOCK]);
 	sem_post(data->sim_data->generic_sem[START_LOCK]);
 	sem_wait(data->self_lock);
-	data->sim_data->start_time = get_time();
 	data->last_ate = data->sim_data->start_time;
 	sem_post(data->self_lock);
 	philo_think(data);
