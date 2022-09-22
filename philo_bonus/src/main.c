@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:25:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/15 12:09:33 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/22 09:08:41 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int32_t	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	if (create_child_processes(&data))
 		return (EXIT_FAILURE);
-	if (wait_child_processes(&data))
+	if (wait_and_check_child_processes(&data))
 		return (EXIT_FAILURE);
 	if (semaphore_op(&data, CLOSE))
 		return (EXIT_FAILURE);

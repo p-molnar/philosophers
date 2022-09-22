@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/11 14:01:58 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/21 17:18:19 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/22 09:08:41 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ uint16_t	check_exit_status(int status, t_sim *data)
 	return (EXIT_SUCCESS);
 }
 
-bool	wait_child_processes(t_sim *data)
+bool	wait_and_check_child_processes(t_sim *data)
 {	
 	uint16_t	i;
 	uint16_t	exit_status;
