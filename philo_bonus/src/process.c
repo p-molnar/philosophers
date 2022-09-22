@@ -6,22 +6,14 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/11 14:01:58 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/22 09:30:48 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/22 10:29:50 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_bns.h>
-#include <errno.h>
-#include <string.h>
+#include <unistd.h>
 #include <signal.h>
-
-void	unlock_gen_semaphores(t_sim *data)
-{
-	sem_post(data->generic_sem[START_LOCK]);
-	sem_post(data->generic_sem[PRINTER_LOCK]);
-	precise_msleep(1);
-	sem_post(data->generic_sem[CHECKER_LOCK]);
-}
+#include <stdio.h>
 
 void	create_child_processes(t_sim *data)
 {
@@ -47,18 +39,6 @@ void	create_child_processes(t_sim *data)
 	}
 	precise_msleep(time_delta_msec(get_time(), data->start_time));
 	unlock_gen_semaphores(data);
-}
-
-void	kill_all_child_process(t_sim *data)
-{
-	uint16_t	i;
-
-	i = 0;
-	while (i < data->attr[N_PHILO])
-	{
-		kill(data->child_pid_arr[i], SIGKILL);
-		i++;
-	}
 }
 
 static uint16_t	check_exit_status(int status, t_sim *data)
@@ -105,4 +85,13 @@ bool	wait_and_check_child_processes(t_sim *data)
 			return (EXIT_SUCCESS);
 	}
 	return (EXIT_SUCCESS);
+}
+
+void	kill_all_child_process(t_sim *data)
+{
+	uint16_t	i;
+
+	i = 0;
+	while (i < data->attr[N_PHILO])
+		kill(data->child_pid_arr[i++], SIGKILL);
 }
