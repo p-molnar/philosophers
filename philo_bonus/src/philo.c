@@ -6,11 +6,23 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/19 16:51:36 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/21 17:34:06 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/22 09:51:09 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_bns.h>
+
+void	drop_forks(t_philo *philo)
+{
+	uint16_t	i;
+
+	i = 0;
+	while (i < philo->n_forks_in_hand)
+	{
+		sem_post(philo->sim_data->generic_sem[FORK]);
+		i++;
+	}
+}
 
 static void	philo_think(t_philo *data)
 {
