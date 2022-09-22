@@ -6,11 +6,13 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:16:45 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/08/25 20:31:46 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/22 10:32:16 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_bns.h>
+#include <unistd.h>
+#include <sys/time.h>
 
 void	precise_msleep(uint32_t duration)
 {
