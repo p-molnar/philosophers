@@ -6,13 +6,12 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/25 14:06:36 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/21 17:32:36 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/22 10:30:10 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_bns.h>
-#include <errno.h>
-#include <string.h>
+#include <stdio.h>
 
 void	print_status(uint8_t status, t_time curr_time, t_philo *philo_data)
 {
@@ -26,18 +25,4 @@ void	print_status(uint8_t status, t_time curr_time, t_philo *philo_data)
 	if (status == DIED)
 		exit(status);
 	sem_post(philo_data->sim_data->generic_sem[PRINTER_LOCK]);
-}
-
-bool	start_aux_threads(t_sim *data)
-{
-	pthread_create(&data->thread[CHECKER], NULL,
-		&child_status_checker, (void *)data);
-	return (EXIT_SUCCESS);
-}
-
-bool	join_aux_threads(t_sim *data)
-{
-	pthread_join(data->thread[CHECKER], NULL);
-	pthread_detach(data->thread[CHECKER]);
-	return (EXIT_SUCCESS);
 }
