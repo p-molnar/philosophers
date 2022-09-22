@@ -6,7 +6,7 @@
 #    By: pmolnar <pmolnar@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/08/12 11:28:33 by pmolnar       #+#    #+#                  #
-#    Updated: 2022/09/06 11:18:55 by pmolnar       ########   odam.nl          #
+#    Updated: 2022/09/22 09:14:19 by pmolnar       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,8 +65,6 @@ SRC 		=	main.c					\
 				checker.c				\
 				alloc.c					\
 				string_util.c			\
-				exit_checker.c			\
-
 
 P_SRC		=	$(addprefix $(SRC_DIR), $(SRC))
 

@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/26 20:58:51 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/21 17:34:06 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/22 09:28:25 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*gen_sem_name(char *id)
 
 	name = malloc (32 * sizeof(char));
 	if (name == NULL)
-		thrw_err(MALLOC_ERR_MSG, __FILE__, __LINE__);
+		handle_err(MALLOC_ERR_MSG, __FILE__, __LINE__, NULL);
 	i = 0;
 	while (i < 7)
 	{
@@ -57,12 +57,12 @@ sem_t	*gen_philo_sem(uint16_t philo_idx)
 
 	id = ft_itoa(philo_idx);
 	if (id == NULL)
-		thrw_err(MALLOC_ERR_MSG, __FILE__, __LINE__);
+		handle_err(MALLOC_ERR_MSG, __FILE__, __LINE__, NULL);
 	i = 0;
 	name = gen_sem_name(id);
 	sem = sem_open(name, O_CREAT | O_EXCL, 000664, 1);
 	if (sem == SEM_FAILED)
-		thrw_err(SEM_ERR_MSG, __FILE__, __LINE__);
+		handle_err(SEM_ERR_MSG, __FILE__, __LINE__, NULL);
 	sem_unlink(name);
 	free (id);
 	return (sem);

@@ -6,12 +6,11 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/05 13:39:17 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/21 17:34:06 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/22 09:12:19 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_bns.h>
-#include <signal.h>
 
 void	drop_forks(t_philo *philo)
 {

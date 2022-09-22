@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:54:06 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/15 13:27:33 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/22 09:29:00 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ uint16_t	validate_arg(int argc, t_sim *data)
 	uint16_t	i;
 
 	if (data->attr[N_PHILO] < 1)
-		return (thrw_err(INPUT_ERR_MSG, __FILE__, __LINE__));
+		return (handle_err(INPUT_ERR_MSG, __FILE__, __LINE__, NULL));
 	i = 0;
 	while (i < argc - 2)
 	{
 		if (data->attr[i] < 0)
-			return (thrw_err(INPUT_ERR_MSG, __FILE__, __LINE__));
+			return (handle_err(INPUT_ERR_MSG, __FILE__, __LINE__, NULL));
 		i++;
 	}
 	return (EXIT_SUCCESS);
@@ -33,7 +33,7 @@ uint16_t	parse_args(int argc, char *argv[], t_sim *data)
 	uint16_t	i;
 
 	if (argc < 5 || argc > 6)
-		return (thrw_err(INPUT_ERR_MSG, __FILE__, __LINE__));
+		return (handle_err(INPUT_ERR_MSG, __FILE__, __LINE__, NULL));
 	i = 1;
 	while (i < argc)
 	{

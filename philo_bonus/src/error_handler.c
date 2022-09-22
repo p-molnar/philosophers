@@ -12,9 +12,11 @@
 
 #include <philo_bns.h>
 
-uint16_t	thrw_err(char *err_msg, char *err_file, int err_line)
+uint16_t	handle_err(char *msg, char *file_name, int line_no, t_sim *data)
 {
-	printf("%s:	%s:%d\n", err_msg, err_file, err_line);
+	printf("%s:	%s:%d\n", msg, file_name, line_no);
 	printf(USAGE_MSG);
+	if (data)
+		kill_all_child_process(data);
 	exit (EXIT_FAILURE);
 }

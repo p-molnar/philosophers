@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/11 14:01:58 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/22 09:08:41 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/22 09:30:48 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	unlock_gen_semaphores(t_sim *data)
 	sem_post(data->generic_sem[CHECKER_LOCK]);
 }
 
-bool	create_child_processes(t_sim *data)
+void	create_child_processes(t_sim *data)
 {
 	uint16_t	i;
 
@@ -34,7 +34,7 @@ bool	create_child_processes(t_sim *data)
 	{
 		data->child_pid_arr[i] = fork();
 		if (data->child_pid_arr[i] < 0)
-			return (thrw_err(PROCESS_ERR_MSG, __FILE__, __LINE__));
+			handle_err(PROCESS_ERR_MSG, __FILE__, __LINE__, data);
 		else if (data->child_pid_arr[i] == 0)
 		{
 			init_philo(data, i);
@@ -47,7 +47,6 @@ bool	create_child_processes(t_sim *data)
 	}
 	precise_msleep(time_delta_msec(get_time(), data->start_time));
 	unlock_gen_semaphores(data);
-	return (EXIT_SUCCESS);
 }
 
 void	kill_all_child_process(t_sim *data)
@@ -62,7 +61,7 @@ void	kill_all_child_process(t_sim *data)
 	}
 }
 
-uint16_t	check_exit_status(int status, t_sim *data)
+static uint16_t	check_exit_status(int status, t_sim *data)
 {
 	static uint16_t	fed_philo_count;
 

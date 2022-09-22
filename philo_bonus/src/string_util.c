@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   init_util.c                                        :+:    :+:            */
+/*   string_util.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/05 10:24:45 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/06 10:24:48 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/22 09:27:09 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*ft_itoa(int16_t num)
 
 	s = malloc(sizeof(char) * 4);
 	if (s == NULL)
-		thrw_err(MALLOC_ERR_MSG, __FILE__, __LINE__);
+		handle_err(MALLOC_ERR_MSG, __FILE__, __LINE__, NULL);
 	i = 0;
 	while (i < 4)
 	{
