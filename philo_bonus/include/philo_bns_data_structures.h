@@ -6,17 +6,17 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 12:19:42 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/21 17:34:06 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/22 10:35:52 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_BNS_DATA_STRUCTURES_H
 # define PHILO_BNS_DATA_STRUCTURES_H
 
-# define QUEUE__SIZE 1024
 # define STATUS__COUNT 3
 
 # include <stdint.h>
+# include <semaphore.h>
 
 enum e_sem_option
 {
@@ -65,11 +65,11 @@ enum e_util_thread
 typedef struct timeval	t_time;
 typedef struct s_sim	t_sim;
 
-typedef struct s_sem_attr
+typedef struct s_sem_ht
 {
 	const char	*name;
 	int16_t		init_val;
-}	t_sem_attr;
+}	t_sem_ht;
 
 typedef struct s_philo
 {
@@ -94,12 +94,5 @@ typedef struct s_sim
 	pthread_t	*checker_thread;
 	t_time		start_time;
 }	t_sim;
-
-typedef struct s_data_coll
-{
-	t_sim		*data;
-	int16_t		philo_pid;
-	uint16_t	philo_idx;
-}	t_data_coll;
 
 #endif
