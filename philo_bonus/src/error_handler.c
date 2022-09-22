@@ -11,12 +11,16 @@
 /* ************************************************************************** */
 
 #include <philo_bns.h>
+#include <stdio.h>
 
 uint16_t	handle_err(char *msg, char *file_name, int line_no, t_sim *data)
 {
 	printf("%s:	%s:%d\n", msg, file_name, line_no);
 	printf(USAGE_MSG);
 	if (data)
+	{
 		kill_all_child_process(data);
+		clean_up(data);
+	}
 	exit (EXIT_FAILURE);
 }
