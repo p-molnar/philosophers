@@ -6,23 +6,13 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/05 13:39:17 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/22 09:12:19 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/22 10:30:33 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_bns.h>
-
-void	drop_forks(t_philo *philo)
-{
-	uint16_t	i;
-
-	i = 0;
-	while (i < philo->n_forks_in_hand)
-	{
-		sem_post(philo->sim_data->generic_sem[FORK]);
-		i++;
-	}
-}
+#include <pthread.h>
+#include <unistd.h>
 
 void	*child_status_checker(void *arg)
 {	
@@ -40,4 +30,18 @@ void	*child_status_checker(void *arg)
 		usleep(200 - data->attr[N_PHILO]);
 	}
 	return (NULL);
+}
+
+bool	start_aux_threads(t_sim *data)
+{
+	pthread_create(&data->thread[CHECKER], NULL,
+		&child_status_checker, (void *)data);
+	return (EXIT_SUCCESS);
+}
+
+bool	join_aux_threads(t_sim *data)
+{
+	pthread_join(data->thread[CHECKER], NULL);
+	pthread_detach(data->thread[CHECKER]);
+	return (EXIT_SUCCESS);
 }
