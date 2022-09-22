@@ -6,18 +6,11 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/07 13:25:32 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/22 09:31:43 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/22 09:39:36 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_bns.h>
-
-static void	clean_up(t_sim *data)
-{
-	free(data->checker_thread);
-	free(data->child_pid_arr);
-	free(data->philo_sem);
-}
 
 int32_t	main(int argc, char *argv[])
 {
