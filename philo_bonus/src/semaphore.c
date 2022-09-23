@@ -6,7 +6,7 @@
 /*   By: pmolnar <pmolnar@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/19 21:37:46 by pmolnar       #+#    #+#                 */
-/*   Updated: 2022/09/22 10:51:27 by pmolnar       ########   odam.nl         */
+/*   Updated: 2022/09/23 09:03:31 by pmolnar       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ sem_t	*gen_philo_sem(uint16_t philo_idx)
 		handle_err(SEM_ERR_MSG, __FILE__, __LINE__, NULL);
 	sem_unlink(name);
 	free (id);
+	free (name);
 	return (sem);
 }
 
